@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Qu'est-ce qu'on mange?!</h1>
-        <form>
+        <form action="ctrl/nouvRecetteFormCtrl.php" method="post">
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="title" class="form-control col-lg-4" placeholder="Nom de ma recette">
@@ -21,7 +21,7 @@
             <div class="form-row">
                 <div class="col">
                     <label>Saison</label>
-                    <select multiple class="form-control">
+                    <select multiple class="form-control" name="saison">
                         <option name="printemps">Printemps</option>
                         <option name="ete">Eté</option>
                         <option name="automne">Automne</option>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col">
                     <label>Type de plat</label>
-                    <select multiple class="form-control">
+                    <select multiple class="form-control" name="type">
                         <option name="entree">Entrée</option>
                         <option name="plats">Plats</option>
                         <option name="dessert">Dessert</option>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col">
                     <label>Contenu du plat</label>
-                    <select multiple class="form-control">
+                    <select multiple class="form-control" name="contenue">
                         <option name="viandeRouge">Viande rouge</option>
                         <option name="viandeBlanche">Viande blanche</option>
                         <option name="poisson">Poisson</option>
@@ -50,7 +50,7 @@
             </div>
             <h4>Votre recette:</h4>
             <div class="form-row">
-                <textarea name="comptenuRecette" class="form-control form-control-lg col-lg-8" placeholder="Saisisez ici votre recette"></textarea>
+                <textarea name="contenuRecette" class="form-control form-control-lg col-lg-8" placeholder="Saisisez ici votre recette"></textarea>
             </div>
             <div class="btn btn-primary">
                 <button type="submit" class="btn btn-primary">Enregistrez</button>
