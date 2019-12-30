@@ -18,12 +18,18 @@ class nouvRecette {
     private $type;
     private $contenu;
     private $recette;
+    private $titre;
 
-    function __construct($saison, $type, $contenu, $recette) {
+    function __construct($titre, $saison, $type, $contenu, $recette) {
+        $this->titre = $titre;
         $this->saison = $saison;
         $this->type = $type;
         $this->contenu = $contenu;
         $this->recette = $recette;
+    }
+
+    function getTitre() {
+        return $this->titre;
     }
 
     function getSaison() {
@@ -44,6 +50,10 @@ class nouvRecette {
 
     function setSaison($saison) {
         $this->saison = $saison;
+    }
+
+    function setTitre($titre) {
+        $this->titre = $titre;
     }
 
     function setType($type) {
