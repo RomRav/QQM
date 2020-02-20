@@ -7,6 +7,9 @@ $type = filter_input(INPUT_POST, "type");
 $contenue = filter_input(INPUT_POST, "contenue");
 $contenuRecette = filter_input(INPUT_POST, "contenuRecette");
 
+for ($i=0;$i<count($saison);$i++){
+    echo $saison[$i];
+}
 
 
 $newRec = new nouvRecette($saison, $type, $contenue, $contenuRecette);
