@@ -15,7 +15,7 @@
         <form action="ctrl/nouvRecetteFormCtrl.php" method="post">
             <div class="form-group">
                 <label>Nom de la recette</label>
-                <input type="text" name="title" class="form-control col-lg-4" placeholder="Nom de ma recette">
+                <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
             </div>
             <h4>Caractéristique de la recette</h4>
             <div class="form-row">
