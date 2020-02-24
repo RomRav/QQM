@@ -1,14 +1,14 @@
 <?php
 
 /*
- * Test des méthodes de la class paysDAOTest
+ * Test des méthodes de la class typeDAOTest
  * @authore: Romain Ravault
- * 20/02/2020
+ * 24/02/2020
  * Last update 24/02/2020
  */
 
-require_once 'PaysDAO.php';
-require_once '../ett/Pays.php';
+require_once 'TypeDAO.php';
+require_once '../ett/Type.php';
 require_once 'Connexion.php';
 
 //Connexion à la BD
@@ -16,20 +16,19 @@ $pdo = Connexion::seConnecter("bd.ini");
 $pdo->beginTransaction();
 
 
-//Test de la selection de tous les pays
-$country = PaysDAO::selectAll($pdo);
+//Test de la selection de tous les types
+$types = TypeDAO::selectAll($pdo);
 echo '<hr><br>SELECT ALL<br><hr>';
-foreach ($country as $raw) {
-    //var_dump($raw);
-    //$enr = new Pays($raw[0], $raw[1]);
-    echo 'id pays: ' . $raw->getIdPays() . '  //***\\ nom du pays: ' . $raw->getPays() . '.<br>';
+foreach ($types as $raw) {
+
+    echo 'id type: ' . $raw->getIdType() . '  //***\\ nom du type de plat: ' . $raw->getTypeName() . '.<br>';
 }
 
-//Test de la selection d'un pays
-echo '<hr><br>SELECT UNE PAYS PAR SON ID<br><hr>';
-$idPays = 1;
-$country = PaysDAO::selectOne($pdo, $idPays);
-echo 'id pays: ' . $country->getIdPays() . '  //***\\ nom du pays: ' . $country->getPays() . '.<br>';
+//Test de la selection d'un type
+echo '<hr><br>SELECT UN TYPE PAR SON ID<br><hr>';
+$idType = 1;
+$type = TypeDAO::selectOne($pdo, $idType);
+echo 'id type: ' . $type->getIdType() . '  //***\\ nom du type: ' . $type->getTypeName() . '.<br>';
 
 
 

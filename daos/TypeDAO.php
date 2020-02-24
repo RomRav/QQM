@@ -1,59 +1,58 @@
 <?php
 
 /**
- * PaysDAO.php
- * Bibliothéque d'accées au données des pays
+ * TypeDAO.php
+ * Bibliothéque d'accées au données des type de plats
  * @author Romain
- * 20/02/2020
+ * 24/02/2020
  * Last update 24/02/2020
  * 
- * selectAll($pdo): récupération de la liste de tous les pays
+ * selectAll($pdo): récupération de la liste de tous les type de plats
  * selectOne($pdo, $id): récupération un pays
  * insert(): ajout d'un pays
  * update($id): modification d'un pays
  * delete($id): Supression d'un pays
  */
 require_once 'Connexion.php';
-require_once '../ett/Pays.php';
+require_once '../ett/Type.php';
 
-class PaysDAO {
-
+class TypeDAO {
     /**
      * selectAll()
      * @author Romain Ravault
-     * 20/02/202
+     * 24/02/202
      * @return Object Table
      */
     public static function selectAll($pdo) {
-        $listCountry = [];
+        $listType = [];
         try {
-            $requet = "SELECT * FROM country";
+            $requet = "SELECT * FROM type_of_dish;";
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
             while ($raw = $raws->fetch()) {
-                $country = new Pays($raw['id_country'], $raw['country_name']);
-                array_push($listCountry, $country);
+                $type = new Type($raw['id_type'], $raw['type_name']);
+                array_push($listType, $type);
             }
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
-        return $listCountry;
+        return $listType;
     }
 
     /**
      * selectOne()
      * @author Romain Ravault
-     * 21/02/202
+     * 24/02/202
      * @return type
      */
     public static function selectOne(pdo $pdo, int $idPays) {
         try {
-            $requet = "SELECT * FROM country WHERE id_country = ? ;";
+            $requet = "SELECT * FROM type_of_dish WHERE id_type = ? ;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $idPays);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $country = new Pays($raw['id_country'], $raw['country_name']);
+            $country = new Type($raw['id_type'], $raw['type_name']);
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
@@ -63,7 +62,7 @@ class PaysDAO {
     /**
      * insert()
      * @author Romain Ravault
-     * 21/02/2020
+     * 24/02/2020
      * @param pdo $pdo
      * @param string $newCountry
      * @return type
@@ -129,5 +128,4 @@ class PaysDAO {
         }
         return $liUpdated;
     }
-
 }
