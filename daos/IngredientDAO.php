@@ -1,78 +1,79 @@
 <?php
 
 /**
- * TypeDAO.php
- * Bibliothéque d'accées au données des type de plat
+ * IngredientDAO.php
+ * Bibliothéque d'accées au données des ingredients
  * @author Romain
- * 24/02/2020
- * Last update 25/02/2020
- * 
- * selectAll($pdo): récupération de la liste de tous les type de plat
- * selectOne($pdo, $id): récupération un type de plat
- * insert(): ajout d'un type de plat
- * update($id): modification d'un type de plat
- * delete($id): Supression d'un type de plat
+ * 25/02/2020
+ *  
+ * selectAll($pdo): récupération de la liste de tous les ingredients
+ * selectOne($pdo, $id): récupération un ingredient
+ * insert(): ajout d'un ingredient
+ * update($id): modification d'un ingredient
+ * delete($id): Supression d'un ingredient
  */
 require_once 'Connexion.php';
-require_once '../ett/Type.php';
+require_once '../ett/Ingredient.php';
 
-class TypeDAO {
+class IngredientDAO {
+
     /**
      * selectAll()
      * @author Romain Ravault
-     * 24/02/202
+     * 25/02/202
      * @return Object Table
      */
     public static function selectAll($pdo) {
-        $listType = [];
+        $listIngredient = [];
         try {
-            $requet = "SELECT * FROM type_of_dish;";
+            $requet = "SELECT * FROM ingredient;";
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
             while ($raw = $raws->fetch()) {
-                $type = new Type($raw['id_type'], $raw['type_name']);
-                array_push($listType, $type);
+                $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie']);
+                array_push($listIngredient, $ingredient);
             }
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
-        return $listType;
+        return $listIngredient;
     }
 
     /**
      * selectOne()
      * @author Romain Ravault
-     * 24/02/202
+     * 25/02/202
      * @return type
      */
-    public static function selectOne(pdo $pdo, int $idType) {
+    public static function selectOne(pdo $pdo, int $idIngredient) {
         try {
-            $requet = "SELECT * FROM type_of_dish WHERE id_type = ? ;";
+            $requet = "SELECT * FROM qqm.ingredient WHERE id_ingredient = ? ;";
             $stmt = $pdo->prepare($requet);
-            $stmt->bindParam(1, $idType);
+            $stmt->bindParam(1, $idIngredient);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $type = new Type($raw['id_type'], $raw['type_name']);
+            $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie']);
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
-        return $type;
+        return $ingredient;
     }
 
     /**
      * insert()
      * @author Romain Ravault
-     * 24/02/2020
-     * Last update: 25/02/2020
+     * 25/02/2020
      * @param pdo $pdo
      * @param string $newType
+     * @param string $ingredientCalorie
      * @return type
      */
-    public static function insert(pdo $pdo, string $newType) {
+    public static function insert(pdo $pdo, string $newIngredient, string $ingredientCalorie) {
         try {
-            $request = "INSERT INTO qqm.type_of_dish(type_name) VALUE(?);";
+            $request = "INSERT INTO qqm.ingredient(ingredient, ingredient_calorie) VALUE(?,?);";
             $stmt = $pdo->prepare($request);
-            $stmt->bindParam(1, $newType);
+            $stmt->bindParam(1, $newIngredient);
+            $stmt->bindParam(2, $ingredientCalorie);
             $stmt->execute();
             $insertVerif = $stmt->rowCount();
         } catch (PDOException $ex) {
@@ -85,18 +86,18 @@ class TypeDAO {
     /**
      * delete()
      * @author Romain Ravault
-     * 24/02/2020
-     * Last update: 25/02/2020
+     * 25/02/2020
+     * 
      * @param pdo $pdo
      * @param int $idType   
      * @return type
      */
-    public static function delete(pdo $pdo, int $idType) {
+    public static function delete(pdo $pdo, int $idIngredient) {
         $liDelete = 0;
-        $request = "DELETE FROM qqm.type_of_dish WHERE id_type = ?";
+        $request = "DELETE FROM qqm.ingredient WHERE id_ingredient = ?";
         try {
             $stmt = $pdo->prepare($request);
-            $stmt->bindParam(1, $idType);
+            $stmt->bindParam(1, $idIngredient);
             $stmt->execute();
             $liDelete = $stmt->rowCount();
         } catch (PDOException $ex) {
@@ -109,20 +110,21 @@ class TypeDAO {
     /**
      * update()
      * @author Romain Ravault
-     * 24/02/2020
-     * Last update: 25/02/2020
+     * 25/02/2020
+     * 
      * @param pdo $pdo
      * @param int $idType
      * @param string $newTypeName
      * @return type
      */
-    public static function update(pdo $pdo, int $idType, string $newTypeName) {
-        $request = 'UPDATE qqm.type_of_dish SET type_name = ? WHERE id_type = ?';
+    public static function update(pdo $pdo, int $idIngredient, string $newIngredient, string $newIngredientCalorie) {
+        $request = 'UPDATE qqm.ingredient SET ingredient = ?, ingredient_calorie = ? WHERE id_ingredient = ?';
         $liUpdated = 0;
         try {
             $stmt = $pdo->prepare($request);
-            $stmt->bindParam(1, $newTypeName);
-            $stmt->bindParam(2, $idType);
+            $stmt->bindParam(1, $newIngredient);
+            $stmt->bindParam(2, $newIngredientCalorie);
+            $stmt->bindParam(3, $idIngredient);
             $stmt->execute();
             $liUpdated = $stmt->rowCount();
         } catch (PDOException $ex) {
@@ -131,4 +133,5 @@ class TypeDAO {
         }
         return $liUpdated;
     }
+
 }
