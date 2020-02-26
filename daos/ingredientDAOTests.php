@@ -15,7 +15,7 @@ $pdo = Connexion::seConnecter("bd.ini");
 $pdo->beginTransaction();
 
 
-//Test de la selection de tous les types
+//Test de la selection de tous les ingredients
 $ingredients = IngredientDAO::selectAll($pdo);
 echo '<hr><br>SELECT ALL<br><hr>';
 foreach ($ingredients as $raw) {
@@ -23,7 +23,7 @@ foreach ($ingredients as $raw) {
     echo 'id ingredient: ' . $raw->getIdIngredient() . '  //***\\ nom de l\'ingredient: ' . $raw->getIngredientName() . ':' . $raw->getIngredientCalorie() . '  calorie.<br>';
 }
 
-//Test de la selection d'un type
+//Test de la selection d'un ingredient
 echo '<hr><br>SELECT UN INGREDIENT PAR SON ID<br><hr>';
 $idIngredient = 1;
 $ingredient = IngredientDAO::selectOne($pdo, $idIngredient);
@@ -31,7 +31,7 @@ echo 'id ingredient: ' . $ingredient->getIdIngredient() . '  //***\\ nom de l\'i
 
 
 
-////Test de l'ajout d'un nouveau type
+////Test de l'ajout d'un nouveau ingredient
 //echo '<hr><br>AJOUTER UN INGREDIENT<br><hr>';
 //$newIngredient = 'Panais';
 //$newIngredientCalorie = 50;
