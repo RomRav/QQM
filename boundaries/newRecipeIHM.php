@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+require_once '../ctrl/newRecipeCtrl.php';
+?>
 <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -12,7 +15,8 @@
     </head>
     <body>
         <h1>Qu'est-ce qu'on mange?!</h1>
-        <form action="ctrl/nouvRecetteFormCtrl.php" method="post">
+        <h2>Ajoutez une recette:</h2>
+        <form action="ctrl/newRecipeCtrl.php" method="post">
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
@@ -20,30 +24,36 @@
             <h4>Caractéristique de la recette</h4>
             <div class="form-row">
                 <div class="col">
-                    <label>Saison</label>
-                    <select multiple class="form-control" name="saison">
-                        <option name="printemps">Printemps</option>
-                        <option name="ete">Eté</option>
-                        <option name="automne">Automne</option>
-                        <option name="hiver">Hiver</option>
+                    <label>Ingredient</label>
+                    <select multiple class="form-control" name="ingredient">
+                        <?php echo $selectIngredient; ?>
                     </select>
                 </div>
                 <div class="col">
-                    <label>Type de plat</label>
-                    <select multiple class="form-control" name="type">
-                        <option name="entree">Entrée</option>
-                        <option name="plats">Plats</option>
-                        <option name="dessert">Dessert</option>
+                    <label>Pays</label>
+                    <select multiple class="form-control" name="country">
+                        <?php echo $selectCountry; ?>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Saison</label>
+                    <select multiple class="form-control" name="season">
+                        <?php echo $selectSeason; ?>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Position du plat</label>
+                    <select multiple class="form-control" name="position">
+                        <?php echo $selectPosition; ?>
+                        <!--                        <option name="entree">Entrée</option>
+                                                <option name="plats">Plats</option>
+                                                <option name="dessert">Dessert</option>-->
                     </select>
                 </div>
                 <div class="col">
                     <label>Contenu du plat</label>
                     <select multiple class="form-control" name="contenue">
-                        <option name="viandeRouge">Viande rouge</option>
-                        <option name="viandeBlanche">Viande blanche</option>
-                        <option name="poisson">Poisson</option>
-                        <option name="sansViande">sans viande</option>
-                        <option name="avecFruits">Avec Fruits</option>
+                        <?php echo $selectType ?>
                     </select>
                 </div>
 
