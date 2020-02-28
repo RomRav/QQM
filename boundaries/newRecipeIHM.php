@@ -1,5 +1,10 @@
 <!doctype html>
 <?php
+/**
+ * newRecipeIHM.php
+ * @authore: Romain Ravault
+ * 28/02/2020
+ */
 require_once '../ctrl/newRecipeCtrl.php';
 ?>
 <html lang="en">
@@ -16,7 +21,7 @@ require_once '../ctrl/newRecipeCtrl.php';
     <body>
         <h1>Qu'est-ce qu'on mange?!</h1>
         <h2>Ajoutez une recette:</h2>
-        <form action="ctrl/newRecipeCtrl.php" method="post">
+        <form action="../ctrl/newRecipeCtrl.php" method="post">
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
@@ -34,10 +39,11 @@ require_once '../ctrl/newRecipeCtrl.php';
                     <select multiple class="form-control" name="country">
                         <?php echo $selectCountry; ?>
                     </select>
+
                 </div>
                 <div class="col">
                     <label>Saison</label>
-                    <select multiple class="form-control" name="season">
+                    <select multiple class="form-control" name="season[]">
                         <?php echo $selectSeason; ?>
                     </select>
                 </div>
@@ -56,15 +62,15 @@ require_once '../ctrl/newRecipeCtrl.php';
                         <?php echo $selectType ?>
                     </select>
                 </div>
-
             </div>
             <h4>Votre recette:</h4>
             <div class="form-row">
-                <textarea name="contenuRecette" class="form-control form-control-lg col-lg-8" placeholder="Saisisez ici votre recette"></textarea>
+                <textarea name="contenuRecette" class="form-control form-control-lg col-lg-8" placeholder="Saisisez ici votre recette" cols="50" rows="10"></textarea>
             </div>
             <div class="btn btn-primary">
                 <button type="submit" class="btn btn-primary">Enregistrez</button>
             </div>
+            <?php echo $message; ?>
         </form>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

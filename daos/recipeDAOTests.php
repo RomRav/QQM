@@ -23,7 +23,7 @@ foreach ($recipes as $raw) {
     echo 'id recipe: '
     . $raw->getIdRecipe() . '  //***\ Titre de la recette: '
     . $raw->getRecipeTitle() . '<br><hr> recette:<br>'
-    . $raw->getRecipe() . '  .<br><hr><br> Recette visibilité:'
+    . nl2br($raw->getRecipe()) . '  .<br><hr><br> Recette visibilité:'
     . $raw->getRecipeVisibility() . ' utilisateur n°:' . $raw->getIdCooker() .
     '<br>************************************************************************************************************************************************************************<br>';
 }
