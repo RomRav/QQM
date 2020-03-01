@@ -4,6 +4,7 @@
  * newRecipeCtrl.php
  * @authore : Romain Ravault
  * 28/02/2020
+ * last update: 29/02/2020
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/TypeDAO.php';
@@ -40,10 +41,10 @@ if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, 
     if ($recRecipe == 1) {
          $newRecipeId = $pdo->lastInsertId();
         $pdo->commit();
-        echo $recRecipe. " recette bien enregistré";
-        echo $newRecipeId." est l'id de la nouvelle recette";
+        $message .= $recRecipe. " recette bien enregistré";
     } else {
         $pdo->rollBack();
+        $message = "L'enregistrement de la recette à échoué.";
     }
 }
 //Récupération de la liste des type de plats

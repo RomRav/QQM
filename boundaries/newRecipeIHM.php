@@ -4,6 +4,7 @@
  * newRecipeIHM.php
  * @authore: Romain Ravault
  * 28/02/2020
+ * last update 29/02/2020
  */
 require_once '../ctrl/newRecipeCtrl.php';
 ?>
