@@ -13,8 +13,9 @@ require_once '../daos/PositionDAO.php';
 require_once '../daos/PaysDAO.php';
 require_once '../daos/IngredientDAO.php';
 require_once '../daos/RecipeDAO.php';
+require_once '../daos/newRecipeDAO.php';
 require_once '../ett/Type.php';
-require_once '../ett/newRecipe.php';
+require_once '../ett/NewRecipe.php';
 
 //Connexion 
 $pdo = Connexion::seConnecter("../daos/bd.ini");
@@ -37,11 +38,14 @@ if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, 
     $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
 } else {
     $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredient, $country);
-    $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 2);
+    $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 1);
     if ($recRecipe == 1) {
-         $newRecipeId = $pdo->lastInsertId();
+        $newRecipeId = $pdo->lastInsertId();
         $pdo->commit();
-        $message .= $recRecipe. " recette bien enregistré";
+        $newRecipeLink = newRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
+        echo $newRecipeLink;
+        $pdo->commit();
+        $message .= $recRecipe . " recette bien enregistré";
     } else {
         $pdo->rollBack();
         $message = "L'enregistrement de la recette à échoué.";
