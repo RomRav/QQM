@@ -16,27 +16,38 @@ $pdo->beginTransaction();
 
 
 //Test de la selection de toutes les recettes
-$recipes = RecipeDAO::selectAll($pdo);
-echo '<hr><br>SELECT ALL<br><hr>';
-foreach ($recipes as $raw) {
+//$recipes = RecipeDAO::selectAll($pdo);
+//echo '<hr><br>SELECT ALL<br><hr>';
+//foreach ($recipes as $raw) {
+//
+//    echo 'id recipe: '
+//    . $raw->getIdRecipe() . '  //***\ Titre de la recette: '
+//    . $raw->getRecipeTitle() . '<br><hr> recette:<br>'
+//    . nl2br($raw->getRecipe()) . '  .<br><hr><br> Recette visibilité:'
+//    . $raw->getRecipeVisibility() . ' utilisateur n°:' . $raw->getIdCooker() .
+//    '<br>************************************************************************************************************************************************************************<br>';
+//}
+
+//Test de la selection de toutes les titres de recettes
+$recipesTitle = RecipeDAO::selectAllTitle($pdo);
+echo '<hr><br>SELECT ALL TITLES<br><hr>';
+foreach ($recipesTitle as $raw) {
 
     echo 'id recipe: '
     . $raw->getIdRecipe() . '  //***\ Titre de la recette: '
-    . $raw->getRecipeTitle() . '<br><hr> recette:<br>'
-    . nl2br($raw->getRecipe()) . '  .<br><hr><br> Recette visibilité:'
-    . $raw->getRecipeVisibility() . ' utilisateur n°:' . $raw->getIdCooker() .
-    '<br>************************************************************************************************************************************************************************<br>';
+    . $raw->getRecipeTitle() . '<br><br>'
+    . '<br>************************************************************************************************************************************************************************<br>';
 }
 
 //Test de la selection d'une recette
-echo '<hr><br>SELECT UNE RECETTE PAR SON ID<br><hr>';
-$idRecipe = 2;
-$recipe = RecipeDAO::selectOne($pdo, $idRecipe);
-echo 'id recipe: '
- . $recipe->getIdRecipe() . '  //***\ Titre de la recette: '
- . $recipe->getRecipeTitle() . '<br><hr> recette:<br>'
- . $recipe->getRecipe() . '  .<br><hr><br> Recette visibilité:'
- . $recipe->getRecipeVisibility() . ' utilisateur n°:' . $recipe->getidCooker();
+//echo '<hr><br>SELECT UNE RECETTE PAR SON ID<br><hr>';
+//$idRecipe = 2;
+//$recipe = RecipeDAO::selectOne($pdo, $idRecipe);
+//echo 'id recipe: '
+// . $recipe->getIdRecipe() . '  //***\ Titre de la recette: '
+// . $recipe->getRecipeTitle() . '<br><hr> recette:<br>'
+// . $recipe->getRecipe() . '  .<br><hr><br> Recette visibilité:'
+// . $recipe->getRecipeVisibility() . ' utilisateur n°:' . $recipe->getidCooker();
 
 
 

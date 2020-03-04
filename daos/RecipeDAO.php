@@ -5,6 +5,7 @@
  * Bibliothéque d'accées au recettes
  * @author Romain
  * 26/02/2020
+ * last update 04/03/2020
  *  
  * selectAll($pdo): récupération de toutes les recettes 
  * selectOne($pdo, $id): récupération d'une recette
@@ -37,6 +38,28 @@ class RecipeDAO {
             echo 'ERREUR:' . $ex->getMessage();
         }
         return $listRecipe;
+    }
+
+    /**
+     * selectAllTitle()
+     * @author Romain Ravault
+     * 04/03/2020
+     * @return Object Table
+     */
+    public static function selectAllTitle($pdo) {
+        $listRecipeTitle = [];
+        try {
+            $requet = "SELECT id_recipe, recipe_title FROM recipe;";
+            $raws = $pdo->query($requet);
+            $raws->setFetchMode(PDO::FETCH_ASSOC);
+            while ($raw = $raws->fetch()) {
+                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '');
+                array_push($listRecipeTitle, $recipe);
+            }
+        } catch (PDOException $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $listRecipeTitle;
     }
 
     /**

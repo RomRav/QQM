@@ -22,7 +22,7 @@ require_once '../ctrl/newRecipeCtrl.php';
     <body>
         <h1>Qu'est-ce qu'on mange?!</h1>
         <h2>Ajoutez une recette:</h2>
-        <form action="../ctrl/newRecipeCtrl.php" method="post">
+        <form action="../ctrl/newRecipeCtrl.php" method="post" >
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
@@ -44,7 +44,7 @@ require_once '../ctrl/newRecipeCtrl.php';
                 </div>
                 <div class="col">
                     <label>Saison</label>
-                    <select multiple class="form-control" name="season[]">
+                    <select multiple class="form-control" name="season">
                         <?php echo $selectSeason; ?>
                     </select>
                 </div>

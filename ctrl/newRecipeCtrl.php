@@ -4,6 +4,7 @@
  * newRecipeCtrl.php
  * @authore : Romain Ravault
  * 28/02/2020
+ *
  * last update: 29/02/2020
  */
 require_once '../daos/Connexion.php';
@@ -23,13 +24,14 @@ $pdo->beginTransaction();
 
 //Récupération de la saisie du formulaire de création des recettes
 $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_SPECIAL_CHARS);
-$season = filter_input_array(INPUT_POST, "season");
+$season = filter_input(INPUT_POST, "season");
 $position = filter_input(INPUT_POST, "position");
 $contenue = filter_input(INPUT_POST, "contenue", FILTER_SANITIZE_SPECIAL_CHARS);
 $contenuRecette = filter_input(INPUT_POST, "contenuRecette");
 $ingredient = filter_input(INPUT_POST, "ingredient");
 $country = filter_input(INPUT_POST, "country");
 $message = "";
+
 
 
 
@@ -41,7 +43,6 @@ if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, 
     $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 1);
     if ($recRecipe == 1) {
         $newRecipeId = $pdo->lastInsertId();
-        $pdo->commit();
         $newRecipeLink = newRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
         echo $newRecipeLink;
         $pdo->commit();
@@ -81,6 +82,9 @@ $ingredientTable = IngredientDAO::selectAll($pdo);
 foreach ($ingredientTable as $ingredient) {
     $selectIngredient .= "<option value='" . $ingredient->getIdIngredient() . "'>" . $ingredient->getIngredientName() . "</option>";
 }
-include '../boundaries/newRecipeIHM.php';
+if ($message!=""){
+    include '../boundaries/newRecipeIHM.php';
+}
+
 ?>
 

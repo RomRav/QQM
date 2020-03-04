@@ -5,6 +5,7 @@
  *
  * @author Romain Ravault
  * 29/02/2020
+ *  Last update 03/03/2020
  */
 class newRecipeDAO {
 
@@ -22,18 +23,25 @@ class newRecipeDAO {
         $request .= "INSERT INTO qqm.the_recipe_season(id_recipe, season_name) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_type(id_recipe, id_type) VALUES (?, ?);";
         $numRec;
+        $newRecipeIngredient = $newRecipe->getIngredient();
+        $newRecipeCountry = $newRecipe->getCountry();
+        $newRecipePosition = $newRecipe->getPosition();
+        $newRecipeContent = $newRecipe->getContent();
+        $newRecipeSeason = $newRecipe->getSeason();
         try {
+            echo $newRecipeSeason;
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newRecipeId);
-            $stmt->bindParam(2, $newRecipe->GetIngredient());
+            $stmt->bindParam(2, $newRecipeIngredient);
             $stmt->bindParam(3, $newRecipeId);
-            $stmt->bindParam(4, $newRecipe->GetCountry());
+            $stmt->bindParam(4, $newRecipeCountry);
             $stmt->bindParam(5, $newRecipeId);
-            $stmt->bindParam(6, $newRecipe->GetPosition());
+            $stmt->bindParam(6, $newRecipePosition);
             $stmt->bindParam(7, $newRecipeId);
-            $stmt->bindParam(8, $newRecipe->GetContent());
+            $stmt->bindParam(8, $newRecipeSeason);
             $stmt->bindParam(9, $newRecipeId);
-            $stmt->bindParam(10, $newRecipeId);
+            $stmt->bindParam(10, $newRecipeContent);
+            $stmt->execute();
             $numRec = $stmt->rowCount();
         } catch (PDOException $ex) {
             echo $ex->getMessage();

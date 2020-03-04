@@ -7,7 +7,7 @@
     </head>
     <body>
         <?php
-        header("location: ctrl/routeur.php?route=newRecipe");
+        header("location: ctrl/routeur.php?route=recipeList");
         ?>
     </body>
 </html>
