@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<p>hello</p>
+
 
 <?php
+require_once '../ctrl/recipeCtrl.php';
 
-$id = filter_input(INPUT_GET, 'id');
-echo $id;
+
+
