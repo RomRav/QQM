@@ -8,5 +8,9 @@ $pdo = Connexion::seConnecter('../daos/bd.ini');
 $idSelectedRecipe = filter_input(INPUT_GET, 'id');
 
 $selectedRecipe = RecipeDAO::selectOne($pdo, $idSelectedRecipe);
-var_dump($selectedRecipe);
+if ($selectedRecipe != NULL) {
+
+    $title = "<h1>" . $selectedRecipe->getRecipeTitle() . "</h1>";
+    $recipe = "<p>" . $selectedRecipe->getRecipe() . "</p>";
+}
 

@@ -16,11 +16,15 @@ require_once '../ctrl/newRecipeCtrl.php';
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="../css/style.css">
         <title>Qu'est-ce qu'on mange?</title>
     </head>
     <body>
-        <h1>Qu'est-ce qu'on mange?!</h1>
+
+        <?php
+        include 'partials/header.php';
+        include 'partials/nav.php';
+        ?>
         <h2>Ajoutez une recette:</h2>
         <form action="../ctrl/newRecipeCtrl.php" method="post" >
             <div class="form-group">

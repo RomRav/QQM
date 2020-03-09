@@ -40,7 +40,7 @@ if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, 
     $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
 } else {
     $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredient, $country);
-    $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 1);
+    $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 2);
     if ($recRecipe == 1) {
         $newRecipeId = $pdo->lastInsertId();
         $newRecipeLink = newRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
