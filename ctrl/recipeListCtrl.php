@@ -13,10 +13,10 @@ $pdo = Connexion::seConnecter('../daos/bd.ini');
 $recipeTitleList = RecipeDAO::selectAllTitle($pdo);
 if (count($recipeTitleList) > 0) {
     $list = '';
-    $list.="<ol>";
     foreach ($recipeTitleList as $recipe) {
-        $list.="<li><a href='routeur.php?route=recipe&id=" . $recipe->getIdRecipe() . "'>" . $recipe->getrecipeTitle() . "</a></li>";
+        $list.="<div class='list_item'>";
+        $list.="<a href='routeur.php?route=recipe&id=" . $recipe->getIdRecipe() . "'>" . $recipe->getrecipeTitle() . "</a>";
+        $list.="</div>";
     }
-    $list.="</ol>";
 }
 

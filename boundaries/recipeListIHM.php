@@ -25,8 +25,11 @@
          * 04/03/2020
          */
         require_once '../ctrl/recipeListCtrl.php';
-
-        echo $list;
         ?>
+        <div class="recipe_list">
+            <?php
+            echo $list;
+            ?>
+        </div>
     </body>
 </html>

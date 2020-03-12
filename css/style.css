@@ -3,5 +3,39 @@ ul{
 }
 
 header{
-    background-color:#ffdf7e
+    background-color:coral;
+    box-shadow: 3px 3px 10px -5px;
+    margin-bottom: opx;
+    font-size: 2em;
+}
+
+nav{
+    background-color: red;
+    box-shadow: 2px 2px 10px -2px gray;
+}
+
+body{
+    background-color: whitesmoke;
+}
+
+a:hover{
+    box-shadow: 2px 2px 10px -2px;
+}
+
+.recipe_list{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.list_item{
+    border: 1px black solid;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.3em
+}
+
+.list_item:hover{
+    box-shadow: 5px 5px 5px 1px gray;
 }
