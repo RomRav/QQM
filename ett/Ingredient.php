@@ -11,11 +11,15 @@ class Ingredient {
     private $idIngredient;
     private $ingredientName;
     private $ingredientCalorie;
+    private $qty;
+    private $idUOM;
 
-    function __construct($idIngredient, $ingredientName, $ingredientCalorie) {
+    function __construct($idIngredient, $ingredientName, $ingredientCalorie, $qty, $idUOM) {
         $this->idIngredient = $idIngredient;
         $this->ingredientName = $ingredientName;
-        $this->ingredientCalori = $ingredientCalorie;
+        $this->ingredientCalorie = $ingredientCalorie;
+        $this->qty = $qty;
+        $this->id_UOM = $idUOM;
     }
 
     public function getIdIngredient() {
@@ -30,6 +34,14 @@ class Ingredient {
         return $this->ingredientCalori;
     }
 
+    public function getqty() {
+        return $this->qty;
+    }
+
+    public function getIdUOM() {
+        return $this->idUOM;
+    }
+
     public function setIdIngredient($idIngredient) {
         $this->idIngredient = $idIngredient;
     }
@@ -40,6 +52,14 @@ class Ingredient {
 
     public function setIngredientCalori($ingredientCalorie) {
         $this->ingredientCalori = $ingredientCalorie;
+    }
+
+    public function setQty($qty) {
+        $this->qty = $qty;
+    }
+
+    public function setIdUOM($idUOM) {
+        $this->idUOM = $idUOM;
     }
 
 }

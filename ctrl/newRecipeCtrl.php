@@ -22,6 +22,7 @@ require_once '../ett/NewRecipe.php';
 $pdo = Connexion::seConnecter("../daos/bd.ini");
 $pdo->beginTransaction();
 
+
 //Récupération de la saisie du formulaire de création des recettes
 $titre = filter_input(INPUT_POST, "titre", FILTER_SANITIZE_SPECIAL_CHARS);
 $season = filter_input(INPUT_POST, "season");
@@ -34,17 +35,42 @@ $message = "";
 
 
 
+//Liste des ingredients en tableau de la classe Ingredient
+$ingredientTable = explode(',', $ingredient);
+$itemId = 0;
+$ingredientObj = new Ingredient(null, null, null, null, null);
+$ingredientObjTable = [];
+foreach ($ingredientTable as $raw) {
+    if ($itemId == 0) {
+        $a = IngredientDAO::selectOneByName($pdo, $raw);
+        if ($a->getIngredientName() != NULL) {
+            $ingredientObj->setIngredientName($raw);
+        } else {
+            $ingredientObjTable = null;
+            $message = "L'ingredient.$raw.n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
+        }
+
+        $itemId = 1;
+    } elseif ($itemId == 1) {
+        $ingredientObj->setQty($raw);
+        $itemId = 2;
+    } else {
+        $ingredientObj->setIdUOM($raw);
+        $itemId = 0;
+        array_push($ingredientObjTable, $ingredientObj);
+    }
+}
 
 //Contrôle et enregistrement du contenu saisie dans le formulaire d'ajout d'une recette
 if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
     $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
 } else {
-    $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredient, $country);
+    $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country);
+    var_dump($newRecipe);
     $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 2);
     if ($recRecipe == 1) {
         $newRecipeId = $pdo->lastInsertId();
         $newRecipeLink = newRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
-        echo $newRecipeLink;
         $pdo->commit();
         $message .= $recRecipe . " recette bien enregistré";
     } else {
@@ -82,9 +108,8 @@ $ingredientTable = IngredientDAO::selectAll($pdo);
 foreach ($ingredientTable as $ingredient) {
     $selectIngredient .= "<option value='" . $ingredient->getIdIngredient() . "'>" . $ingredient->getIngredientName() . "</option>";
 }
-if ($message!=""){
+if ($message != "") {
     include '../boundaries/newRecipeIHM.php';
 }
-
 ?>
 

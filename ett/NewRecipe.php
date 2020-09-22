@@ -13,7 +13,7 @@ class NewRecipe {
     private $position;
     private $content;
     private $recipe;
-    private $ingredient;
+    private $ingredient =[];
     private $country;
 
     function __construct($title, $season, $position, $content, $recipe, $ingredient, $country) {
