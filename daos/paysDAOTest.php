@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Test des méthodes de la class paysDAOTest
+ * Test des méthodes de la class PaysDAO
  * @authore: Romain Ravault
  * 20/02/2020
  * Last update 24/02/2020
@@ -22,14 +22,14 @@ echo '<hr><br>SELECT ALL<br><hr>';
 foreach ($country as $raw) {
     //var_dump($raw);
     //$enr = new Pays($raw[0], $raw[1]);
-    echo 'id pays: ' . $raw->getIdPays() . '  //***\\ nom du pays: ' . $raw->getPays() . '.<br>';
+    echo 'id pays: ' . $raw->getIdUom() . '  //***\\ nom du pays: ' . $raw->getUom() . '.<br>';
 }
 
 //Test de la selection d'un pays
 echo '<hr><br>SELECT UNE PAYS PAR SON ID<br><hr>';
-$idPays = 1;
-$country = PaysDAO::selectOne($pdo, $idPays);
-echo 'id pays: ' . $country->getIdPays() . '  //***\\ nom du pays: ' . $country->getPays() . '.<br>';
+$idUom = 1;
+$country = PaysDAO::selectOne($pdo, $idUom);
+echo 'id pays: ' . $country->getIdUom() . '  //***\\ nom du pays: ' . $country->getUom() . '.<br>';
 
 
 
@@ -58,12 +58,12 @@ echo 'id pays: ' . $country->getIdPays() . '  //***\\ nom du pays: ' . $country-
 //}
 //Test de la modification d'un pays
 echo '<hr><br>Modifier un pays<br><hr>';
-$idPays = 43;
-$newCountryName = 'chine';
-$updatedCountryName = PaysDAO::update($pdo, $idPays, $newCountryName);
-if ($updatedCountryName == 1) {
+$idUom = 43;
+$newUomName = 'chine';
+$updatedUomName = PaysDAO::update($pdo, $idUom, $newUomName);
+if ($updatedUomName == 1) {
     $pdo->commit();
-    echo $updatedCountryName . ' pays modifié.';
+    echo $updatedUomName . ' pays modifié.';
 } else {
     $pdo->rollBack();
     echo 'Pays non modifié.';
