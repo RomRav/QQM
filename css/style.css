@@ -1,3 +1,9 @@
+body{
+    width: 900px;
+    background-color: red;
+    margin: auto;
+}
+
 ul{
     list-style: none;
 }
@@ -6,7 +12,6 @@ header{
     background-color:coral;
     box-shadow: 3px 3px 10px -5px;
     margin-bottom: opx;
-    font-size: 2em;
 }
 
 nav{
@@ -36,3 +41,4 @@ body{
 .list_item:hover{
     box-shadow: 5px 5px 5px 1px gray;
 }
+

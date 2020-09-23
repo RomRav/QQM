@@ -8,7 +8,7 @@
  */
 require_once '../ctrl/newRecipeCtrl.php';
 ?>
-<html lang="en">
+<html lang="fr">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -23,7 +23,6 @@ require_once '../ctrl/newRecipeCtrl.php';
 
         <?php
         include 'partials/header.php';
-        include 'partials/nav.php';
         ?>
         <h2>Ajoutez une recette:</h2>
         <form action="../ctrl/newRecipeCtrl.php" method="post" >
@@ -32,13 +31,19 @@ require_once '../ctrl/newRecipeCtrl.php';
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
             </div>
             <h4>Caractéristique de la recette</h4>
+            <!--Les ingredients de la recette -->
             <div class="form-row">
                 <div class="col">
-                    <label>Ingredient</label>
-                    <select multiple class="form-control" name="ingredient">
-                        <?php echo $selectIngredient; ?>
-                    </select>
+                    <label>Ingredient:</label>
+                    <p>Saisir un ingredient par ligne suivit de la quantité et de l'unité de mesure le tout séparé par une virgule:</p>
+                    <textarea cols="10" rows="5" name="ingredient" class="form-control" minlength="8" placeholder="ex: 
+                              Carottes, 100, g,
+                              Pomme de terre, 3, pcs,"></textarea>
                 </div>
+
+            </div>
+            <div class="form-row">
+
                 <div class="col">
                     <label>Pays</label>
                     <select multiple class="form-control" name="country">
@@ -56,9 +61,6 @@ require_once '../ctrl/newRecipeCtrl.php';
                     <label>Position du plat</label>
                     <select multiple class="form-control" name="position">
                         <?php echo $selectPosition; ?>
-                        <!--                        <option name="entree">Entrée</option>
-                                                <option name="plats">Plats</option>
-                                                <option name="dessert">Dessert</option>-->
                     </select>
                 </div>
                 <div class="col">
@@ -70,7 +72,7 @@ require_once '../ctrl/newRecipeCtrl.php';
             </div>
             <h4>Votre recette:</h4>
             <div class="form-row">
-                <textarea name="contenuRecette" class="form-control form-control-lg col-lg-8" placeholder="Saisisez ici votre recette" cols="50" rows="10"></textarea>
+                <textarea name="contenuRecette" class="form-control form-control-lg" placeholder="Saisisez ici votre recette" cols="10" rows="10"></textarea>
             </div>
             <div class="btn btn-primary">
                 <button type="submit" class="btn btn-primary">Enregistrez</button>

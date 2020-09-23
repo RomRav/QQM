@@ -30,7 +30,7 @@ class IngredientDAO {
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
             while ($raw = $raws->fetch()) {
-                $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie']);
+                $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie'], null, null);
                 array_push($listIngredient, $ingredient);
             }
         } catch (PDOException $ex) {
@@ -42,7 +42,7 @@ class IngredientDAO {
     /**
      * selectOne()
      * @author Romain Ravault
-     * 25/02/202
+     * 25/02/2020
      * @return type
      */
     public static function selectOne(pdo $pdo, int $idIngredient) {
@@ -52,7 +52,27 @@ class IngredientDAO {
             $stmt->bindParam(1, $idIngredient);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie']);
+            $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie'], null, null);
+        } catch (PDOException $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $ingredient;
+    }
+    
+    /**
+     * selectOneByName()
+     * @author Romain Ravault
+     * 22/09/2020
+     * @return type
+     */
+    public static function selectOneByName(pdo $pdo, string $ingredientName) {
+        try {
+            $requet = "SELECT * FROM qqm.ingredient WHERE ingredient = ? ;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $ingredientName);
+            $stmt->execute();
+            $raw = $stmt->fetch(PDO::FETCH_ASSOC);
+            $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie'], null, null );
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }

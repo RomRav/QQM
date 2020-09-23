@@ -17,7 +17,7 @@ class newRecipeDAO {
      * @return type
      */
     public static function insertLinksOfNewRecipe(pdo $pdo, int $newRecipeId, object $newRecipe) {
-        $request = "INSERT INTO qqm.a_recipe (id_recipe, id_ingredient) VALUES (?, ?);";
+        $request = "INSERT INTO qqm.a_recipe (id_recipe, id_ingredient, qty, id_UOM) VALUES (?, ?, ?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_country(id_recipe, id_country) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_meal_position(id_recipe, position) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_season(id_recipe, season_name) VALUES (?, ?);";
@@ -33,6 +33,8 @@ class newRecipeDAO {
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newRecipeId);
             $stmt->bindParam(2, $newRecipeIngredient);
+            $stmt->bindParam(2, $newRecipeQty);
+            $stmt->bindParam(2, $newRecipe);
             $stmt->bindParam(3, $newRecipeId);
             $stmt->bindParam(4, $newRecipeCountry);
             $stmt->bindParam(5, $newRecipeId);
