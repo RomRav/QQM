@@ -7,7 +7,7 @@
  * 29/02/2020
  *  Last update 03/03/2020
  */
-class newRecipeDAO {
+class NewRecipeDAO {
 
     /**
      * insertLinksOfNewRecipe function
@@ -17,7 +17,18 @@ class newRecipeDAO {
      * @return type
      */
     public static function insertLinksOfNewRecipe(pdo $pdo, int $newRecipeId, object $newRecipe) {
-        $request = "INSERT INTO qqm.a_recipe (id_recipe, id_ingredient, qty, id_UOM) VALUES (?, ?, ?, ?);";
+
+        //Enregistement dans la BD du lien entre les ingrédients et la recette
+        $request = "";
+
+        $ingredientsTab = $newRecipe->getIngredient();
+        foreach ($ingredientsTab as $ingredient) {
+            $ingredientId = $ingredient->getIdIngredient();
+            $ingredientQty = $ingredient->getqty();
+            $ingredientUom = $ingredient->getIdUOM();
+            $request .= "INSERT INTO qqm.a_recipe (id_recipe, id_ingredient, qty, id_UOM) VALUES ($newRecipeId, $ingredientId, $ingredientQty, $ingredientUom);";
+        }
+        echo $request;
         $request .= "INSERT INTO qqm.the_recipe_country(id_recipe, id_country) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_meal_position(id_recipe, position) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_season(id_recipe, season_name) VALUES (?, ?);";
@@ -32,17 +43,13 @@ class newRecipeDAO {
             echo $newRecipeSeason;
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newRecipeId);
-            $stmt->bindParam(2, $newRecipeIngredient);
-            $stmt->bindParam(2, $newRecipeQty);
-            $stmt->bindParam(2, $newRecipe);
+            $stmt->bindParam(2, $newRecipeCountry);
             $stmt->bindParam(3, $newRecipeId);
-            $stmt->bindParam(4, $newRecipeCountry);
+            $stmt->bindParam(4, $newRecipePosition);
             $stmt->bindParam(5, $newRecipeId);
-            $stmt->bindParam(6, $newRecipePosition);
+            $stmt->bindParam(6, $newRecipeSeason);
             $stmt->bindParam(7, $newRecipeId);
-            $stmt->bindParam(8, $newRecipeSeason);
-            $stmt->bindParam(9, $newRecipeId);
-            $stmt->bindParam(10, $newRecipeContent);
+            $stmt->bindParam(8, $newRecipeContent);
             $stmt->execute();
             $numRec = $stmt->rowCount();
         } catch (PDOException $ex) {

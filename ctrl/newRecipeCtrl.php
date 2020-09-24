@@ -32,7 +32,7 @@ $contenue = filter_input(INPUT_POST, "contenue", FILTER_SANITIZE_SPECIAL_CHARS);
 $contenuRecette = filter_input(INPUT_POST, "contenuRecette");
 $ingredient = filter_input(INPUT_POST, "ingredient");
 $country = filter_input(INPUT_POST, "country");
-$choice = filter_input(INPUT_GET, "save");
+$choice = filter_input(INPUT_GET, "choice");
 $message = "";
 
 
@@ -46,15 +46,13 @@ if ($choice == "save") {
     foreach ($ingredientTable as $raw) {
         if ($itemId == 0) {
             $existIngredientInDb = IngredientDAO::selectOneByName($pdo, $raw);
-            echo $raw . '*****';
-            echo gettype($raw);
-            if ($existIngredientInDb->getIngredientName() == NULL || isset($raw)) {
+            if ($existIngredientInDb->getIngredientName() == NULL) {
                 $ingredientObjTable = null;
-
                 $message = "L'ingredient $raw n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
                 $ingredientInputChecked = false;
             } else {
                 $ingredientObj->setIngredientName($raw);
+                $ingredientObj->setIdIngredient($existIngredientInDb->getIdIngredient());
             }
             $itemId = 1;
         } elseif ($itemId == 1) {
@@ -67,25 +65,28 @@ if ($choice == "save") {
                 $message = "L'unité de mesure $raw n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
                 $ingredientInputChecked = false;
             } else {
-                $ingredientObj->setIdUOM($raw);
+                $ingredientObj->setIdUOM($existUomInDb->getIdUom());
             }
-
             $itemId = 0;
             array_push($ingredientObjTable, $ingredientObj);
+            echo count($ingredientObjTable);
         }
     }
-
 //Contrôle et enregistrement du contenu saisie dans le formulaire d'ajout d'une recette
     if ($ingredientInputChecked == true) {
+
         if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
             $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
         } else {
             $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country);
-            var_dump($newRecipe);
-            $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 2);
+            $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 4);
             if ($recRecipe == 1) {
                 $newRecipeId = $pdo->lastInsertId();
-                $newRecipeLink = newRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
+                $newRecipeLink = NewRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
+//                echo $newRecipeLink;
+//                if($newRecipeLink==1){
+//                    
+//                }
                 $pdo->commit();
                 $message .= $recRecipe . " recette bien enregistré";
             } else {
