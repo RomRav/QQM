@@ -25,7 +25,7 @@ require_once '../ctrl/newRecipeCtrl.php';
         include 'partials/header.php';
         ?>
         <h2>Ajoutez une recette:</h2>
-        <form action="../ctrl/newRecipeCtrl.php" method="post" >
+        <form action="../ctrl/newRecipeCtrl.php?choice=save" method="post" >
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
