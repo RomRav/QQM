@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<!--recipeIHM Romain Ravault 01/03/2020 -->
+<!--
+recipeIHM Romain Ravault 01/03/2020 
+Last update: 25/09/2020
+-->
 
 <?php
 require_once '../ctrl/recipeCtrl.php';
@@ -19,10 +22,21 @@ require_once '../ctrl/recipeCtrl.php';
         include 'partials/header.php';
         include 'partials/nav.php';
         ?>
-        <?php echo $title ?>
+        <div class="container row">
+            <?php echo $title ?>
+        </div>
         <hr>
         <hr>
-        <?php echo nl2br($recipe) ?>
+        <div class="container row">
+            <div class="container col-7">
+                <h2>Recette:</h2>
+                <?php echo nl2br($recipe) ?>
+            </div>
+            <div class="container col-5">
+                <h2>Ingredients:</h2>
+                <?php ?>
+            </div>
+        </div>
     </body>
 </html>
 

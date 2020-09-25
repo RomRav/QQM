@@ -40,41 +40,39 @@ if ($choice == "save") {
     //Liste des ingredients en tableau de la classe Ingredient
     $ingredientTable = explode(',', $ingredient);
     $itemId = 0;
-    $ingredientObj = new Ingredient(null, null, null, null, null);
+    $ingredientObj = [];
     $ingredientObjTable = [];
     $ingredientInputChecked = true;
-    foreach ($ingredientTable as $raw) {
+    for ($i = 0; $i < count($ingredientTable); $i++) {
         if ($itemId == 0) {
-            $existIngredientInDb = IngredientDAO::selectOneByName($pdo, $raw);
+            $existIngredientInDb = IngredientDAO::selectOneByName($pdo, $ingredientTable[$i]);
             if ($existIngredientInDb->getIngredientName() == NULL) {
                 $ingredientObjTable = null;
-                $message = "L'ingredient $raw n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
+                $message = "L'ingredient $ingredientTable[$i] n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
                 $ingredientInputChecked = false;
             } else {
-                $ingredientObj->setIngredientName($raw);
-                $ingredientObj->setIdIngredient($existIngredientInDb->getIdIngredient());
+                $ingredientObj["name"] = $ingredientTable[$i];
+                $ingredientObj["id"] = $existIngredientInDb->getIdIngredient();
             }
             $itemId = 1;
         } elseif ($itemId == 1) {
-            $ingredientObj->setQty($raw);
+            $ingredientObj["qty"] = $ingredientTable[$i];
             $itemId = 2;
         } elseif ($itemId == 2) {
-            $existUomInDb = UniteOfMeasureDAO::selectOneByName($pdo, $raw);
+            $existUomInDb = UniteOfMeasureDAO::selectOneByName($pdo, $ingredientTable[$i]);
             if ($existUomInDb->getUom() == NULL) {
                 $ingredientObjTable = null;
-                $message = "L'unité de mesure $raw n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
+                $message = "L'unité de mesure $ingredientTable[$i] n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
                 $ingredientInputChecked = false;
             } else {
-                $ingredientObj->setIdUOM($existUomInDb->getIdUom());
+                $ingredientObj["uom"] = $existUomInDb->getIdUom();
             }
             $itemId = 0;
-            array_push($ingredientObjTable, $ingredientObj);
-            echo count($ingredientObjTable);
+            $ingredientObjTable[] = $ingredientObj;
         }
     }
 //Contrôle et enregistrement du contenu saisie dans le formulaire d'ajout d'une recette
     if ($ingredientInputChecked == true) {
-
         if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
             $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
         } else {
@@ -83,10 +81,6 @@ if ($choice == "save") {
             if ($recRecipe == 1) {
                 $newRecipeId = $pdo->lastInsertId();
                 $newRecipeLink = NewRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
-//                echo $newRecipeLink;
-//                if($newRecipeLink==1){
-//                    
-//                }
                 $pdo->commit();
                 $message .= $recRecipe . " recette bien enregistré";
             } else {

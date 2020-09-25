@@ -23,12 +23,11 @@ class NewRecipeDAO {
 
         $ingredientsTab = $newRecipe->getIngredient();
         foreach ($ingredientsTab as $ingredient) {
-            $ingredientId = $ingredient->getIdIngredient();
-            $ingredientQty = $ingredient->getqty();
-            $ingredientUom = $ingredient->getIdUOM();
+            $ingredientId = $ingredient["id"];
+            $ingredientQty = $ingredient["qty"];
+            $ingredientUom = $ingredient["uom"];
             $request .= "INSERT INTO qqm.a_recipe (id_recipe, id_ingredient, qty, id_UOM) VALUES ($newRecipeId, $ingredientId, $ingredientQty, $ingredientUom);";
         }
-        echo $request;
         $request .= "INSERT INTO qqm.the_recipe_country(id_recipe, id_country) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_meal_position(id_recipe, position) VALUES (?, ?);";
         $request .= "INSERT INTO qqm.the_recipe_season(id_recipe, season_name) VALUES (?, ?);";
@@ -40,7 +39,6 @@ class NewRecipeDAO {
         $newRecipeContent = $newRecipe->getContent();
         $newRecipeSeason = $newRecipe->getSeason();
         try {
-            echo $newRecipeSeason;
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newRecipeId);
             $stmt->bindParam(2, $newRecipeCountry);
