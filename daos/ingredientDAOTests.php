@@ -4,6 +4,7 @@
  * Test des méthodes de la class ingredientDAO
  * @authore: Romain Ravault
  * 25/02/2020
+ * Last update 28/09/2020
  */
 
 require_once 'IngredientDAO.php';
@@ -29,6 +30,20 @@ $idIngredient = 1;
 $ingredient = IngredientDAO::selectOne($pdo, $idIngredient);
 echo 'id ingredient: ' . $ingredient->getIdIngredient() . '  //***\\ nom de l\'ingredient: ' . $ingredient->getIngredientName() . ':' . $ingredient->getIngredientCalorie() . ' calorie.<br>';
 
+//Test de la selection d'une recette
+echo '<hr><br>SELECT UNE RECETTE PAR SON ID AVEC LES INGREDIENTS<br><hr>';
+$idRecipe = 61;
+$ingredients = IngredientDAO::selectOnePLus($pdo, $idRecipe);
+
+foreach ($ingredients as $ingredient) {
+    print_r($ingredient);
+    echo $ingredient->getIdUOM() . ' aa ';
+    echo 'ID Ingredients: '
+    . $ingredient->getIdIngredient() . '  <br><hr>Ingredient: '
+    . $ingredient->getIngredientName() . '<br><hr> Quantité:<br>'
+    . $ingredient->getqty() . '  <br><hr><br> Unité de mesure:'
+    . $ingredient->getIdUOM() . '<br><hr><hr><br>';
+}
 
 
 ////Test de l'ajout d'un nouveau ingredient

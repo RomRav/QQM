@@ -83,35 +83,6 @@ class RecipeDAO {
     }
 
     /**
-     * selectOnePlus()
-     * @author Romain Ravault
-     * 25/09/202
-     * @return type
-     */
-    public static function selectOnePlus(pdo $pdo, int $idRecipe) {
-        try {
-            $requet = "SELECT * FROM qqm.a_recipe 
-INNER JOIN recipe ON a_recipe.id_recipe = recipe.id_recipe
-INNER JOIN ingredient ON a_recipe.id_ingredient = ingredient.id_ingredient
-INNER JOIN unite_of_measure ON a_recipe.id_UOM = unite_of_measure.id_uom
-WHERE recipe.id_recipe = ?;";
-            $stmt = $pdo->prepare($requet);
-            $stmt->bindParam(1, $idRecipe);
-            $stmt->execute();
-            $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            while ($ingredient = $raw->fetch()) {
-                $ingredientObj = new Ingredient($ingredient['id_ingredient'], $ingredient['ingredient'], $ingredient['ingredient_calorie'], $ingredient['qty'], $ingredient['uom']);
-                $listIngredients[] = $ingredientObj;
-            }
-            var_dump($listIngredients);
-            $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], $raw['recipe'], $raw['recipe_visibility'], $raw['id_cooker']);
-        } catch (PDOException $ex) {
-            echo 'ERREUR:' . $ex->getMessage();
-        }
-        return $recipe;
-    }
-
-    /**
      * insert()
      * @author Romain Ravault
      * 26/02/2020

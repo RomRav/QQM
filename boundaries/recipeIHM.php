@@ -34,7 +34,7 @@ require_once '../ctrl/recipeCtrl.php';
             </div>
             <div class="container col-5">
                 <h2>Ingredients:</h2>
-                <?php ?>
+                <?php echo $ingredientsList; ?>
             </div>
         </div>
     </body>

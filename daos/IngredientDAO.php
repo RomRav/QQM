@@ -58,7 +58,7 @@ class IngredientDAO {
         }
         return $ingredient;
     }
-    
+
     /**
      * selectOneByName()
      * @author Romain Ravault
@@ -72,11 +72,40 @@ class IngredientDAO {
             $stmt->bindParam(1, $ingredientName);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie'], null, null );
+            $ingredient = new Ingredient($raw['id_ingredient'], $raw['ingredient'], $raw['ingredient_calorie'], null, null);
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
         return $ingredient;
+    }
+
+    /**
+     * selectOnePlus()
+     * @author Romain Ravault
+     * 25/09/202
+     * Last update 28/09/2020
+     * @return type
+     */
+    public static function selectOnePlus(pdo $pdo, int $idRecipe) {
+        $listIngredients = [];
+        try {
+            $requet = "SELECT * FROM qqm.a_recipe 
+INNER JOIN ingredient ON a_recipe.id_ingredient = ingredient.id_ingredient
+INNER JOIN unite_of_measure ON a_recipe.id_UOM = unite_of_measure.id_uom
+WHERE a_recipe.id_recipe = ?;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $idRecipe);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            while ($ingredient = $stmt->fetch()) {
+                $ingredientObj = new Ingredient($ingredient['id_ingredient'], $ingredient['ingredient'], $ingredient['ingredient_calorie'], $ingredient['qty'], $ingredient['uom']);
+                $listIngredients[] = $ingredientObj;
+            }
+        } catch (PDOException $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $listIngredients;
     }
 
     /**

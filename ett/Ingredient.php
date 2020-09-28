@@ -19,7 +19,7 @@ class Ingredient {
         $this->ingredientName = $ingredientName;
         $this->ingredientCalorie = $ingredientCalorie;
         $this->qty = $qty;
-        $this->id_UOM = $idUOM;
+        $this->idUOM = $idUOM;
     }
 
     public function getIdIngredient() {

@@ -27,7 +27,6 @@ $pdo->beginTransaction();
 //    . $raw->getRecipeVisibility() . ' utilisateur n°:' . $raw->getIdCooker() .
 //    '<br>************************************************************************************************************************************************************************<br>';
 //}
-
 //Test de la selection de toutes les titres de recettes
 //$recipesTitle = RecipeDAO::selectAllTitle($pdo);
 //echo '<hr><br>SELECT ALL TITLES<br><hr>';
@@ -38,7 +37,6 @@ $pdo->beginTransaction();
 //    . $raw->getRecipeTitle() . '<br><br>'
 //    . '<br>************************************************************************************************************************************************************************<br>';
 //}
-
 ////Test de la selection d'une recette
 //echo '<hr><br>SELECT UNE RECETTE PAR SON ID<br><hr>';
 //$idRecipe = 2;
@@ -48,20 +46,6 @@ $pdo->beginTransaction();
 // . $recipe->getRecipeTitle() . '<br><hr> recette:<br>'
 // . $recipe->getRecipe() . '  .<br><hr><br> Recette visibilité:'
 // . $recipe->getRecipeVisibility() . ' utilisateur n°:' . $recipe->getidCooker();
-
-
-
-//Test de la selection d'une recette
-echo '<hr><br>SELECT UNE RECETTE PAR SON ID AVEC LES INGREDIENTS<br><hr>';
-$idRecipe = 61;
-$recipe = RecipeDAO::selectOnePLus($pdo, $idRecipe);
-echo 'id recipe: '
- . $recipe->getIdRecipe() . '  //***\ Titre de la recette: '
- . $recipe->getRecipeTitle() . '<br><hr> recette:<br>'
- . $recipe->getRecipe() . '  .<br><hr><br> Recette visibilité:'
- . $recipe->getRecipeVisibility() . ' utilisateur n°:' . $recipe->getidCooker();
-
-
 ////Test de l'ajout d'une nouvelle recette
 //echo '<hr><br>AJOUTER UNE RECETTE<br><hr>';
 //$newRecipeTitle = 'AAAAAA';
