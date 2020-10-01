@@ -15,7 +15,7 @@
 require_once 'Connexion.php';
 require_once '../ett/Cooker.php';
 
-class cookerDAO {
+class CookerDAO {
 
     /**
      * selectAll()

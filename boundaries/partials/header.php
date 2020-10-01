@@ -15,6 +15,10 @@
             <a class="ml-1 list-group-item list-group-item-action" href="../ctrl/routeur.php?route=newRecipe">Ajoutez une recette</a>
         </li>
         &nbsp;&nbsp;
+        <li>
+            <a class="ml-1 list-group-item list-group-item-action" href="../ctrl/routeur.php?route=administration">Administration</a>
+        </li>
+        &nbsp;&nbsp;
     </ul>
 </nav>
     

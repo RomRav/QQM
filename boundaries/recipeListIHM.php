@@ -15,7 +15,6 @@
 
         <?php
         include 'partials/header.php';
-        include 'partials/nav.php';
         ?>
         <h2>Liste des recettes</h2>
         <?php
