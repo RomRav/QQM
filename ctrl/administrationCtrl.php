@@ -36,62 +36,151 @@ $pdo->beginTransaction();
 //$country = filter_input(INPUT_POST, "country");
 $choice = filter_input(INPUT_GET, "choice");
 $category = filter_input(INPUT_GET, "cat");
-//$message = "";
-if ($choice != null) {
-    echo $choice . $category;
-    $message = 'ok';
-}
-
+$message = "";
 
 //Récupération de la liste des cooker
-$selectCooker = "";
+$selectCooker = "<select name='cooker'>";
 $cookerTable = CookerDAO::selectAll($pdo);
 foreach ($cookerTable as $cooker) {
     $selectCooker .= "<option value='" . $cooker->getIdCooker() . "'>" . $cooker->getPseudo() . "</option>";
 }
+$selectCooker.="</select>";
+
 //Récupération de la liste des type de plats
-$selectType = "";
+$selectType = "<select name='type'>";
 $typesTable = TypeDAO::selectAll($pdo);
 foreach ($typesTable as $type) {
     $selectType .= "<option value='" . $type->getIdType() . "'>" . $type->getTypeName() . "</option>";
 }
+$selectType.="</select>";
+
 ////Récupération de la liste des Unité de mesure
-$selectUom = "";
+$selectUom = "<select name='uom'>";
 $uomTable = UniteOfMeasureDAO::selectAll($pdo);
 foreach ($uomTable as $uom) {
     $selectUom .= "<option value='" . $uom->getIdUom() . "'>" . $uom->getUom() . "</option>";
 }
+$selectUom.="</select>";
+
 ////Récupération de la liste des positions
-$selectPosition = "";
+$selectPosition = "<select name='position'>";
 $positionTable = PositionDAO::selectAll($pdo);
 foreach ($positionTable as $position) {
     $selectPosition .= "<option value='" . $position . "'>" . $position . "</option>";
 }
+$selectPosition.="</select>";
+
 ////Récupération de la liste des pays
-$selectCountry = "";
+$selectCountry = "<select name='country'>";
 $countryTable = PaysDAO::selectAll($pdo);
 foreach ($countryTable as $country) {
     $selectCountry .= "<option value='" . $country->getIdUom() . "'>" . $country->getUom() . "</option>";
 }
+$selectCountry.="</select>";
+
 ////Récupération de la liste des ingredients
-$selectIngredient = "";
+$selectIngredient = "<select name='ingredient'>";
 $ingredientTable = IngredientDAO::selectAll($pdo);
 foreach ($ingredientTable as $ingredient) {
     $selectIngredient .= "<option value='" . $ingredient->getIdIngredient() . "'>" . $ingredient->getIngredientName() . "</option>";
 }
+$selectIngredient.="</select>";
 
+//Appel de la methode formBuilder() avec les arguments nécessaire en fonction du choix utilisateur
+if ($choice != null) {
+    switch ($choice) {
+        case "cooker":
+            $cookerForm = formBuilder($choice, $category, $selectCooker);
+            $typeForm = "";
+            $ingredientForm = "";
+            $countryForm = "";
+            $uomForm = "";
+            $positionForm = "";
+            break;
+        case "type":
+            $typeForm = formBuilder($choice, $category, $selectType);
+            $cookerForm = "";
+            $ingredientForm = "";
+            $countryForm = "";
+            $uomForm = "";
+            $positionForm = "";
+            break;
+        case "country":
+            $countryForm = formBuilder($choice, $category, $selectCountry);
+            $cookerForm = "";
+            $typeForm = "";
+            $ingredientForm = "";
+            $uomForm = "";
+            $positionForm = "";
+            break;
+        case "ingredient":
+            $ingredientForm = formBuilder($choice, $category, $selectIngredient);
+            $cookerForm = "";
+            $typeForm = "";
+            $countryForm = "";
+            $uomForm = "";
+            $positionForm = "";
+            break;
+        case "position":
+            $positionForm = formBuilder($choice, $category, $selectPosition);
+            $cookerForm = "";
+            $typeForm = "";
+            $ingredientForm = "";
+            $countryForm = "";
+            $uomForm = "";
+            break;
+        case "uom":
+            $uomForm = formBuilder($choice, $category, $selectUom);
+            $cookerForm = "";
+            $typeForm = "";
+            $ingredientForm = "";
+            $countryForm = "";
+            $positionForm = "";
+            break;
+    }
+    $message = 'ok';
+} else {
+    $cookerForm = "";
+    $typeForm = "";
+    $ingredientForm = "";
+    $countryForm = "";
+    $uomForm = "";
+    $positionForm = "";
+}
 
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Methode formBiolder crée le formulaire en fonction de l'action désiré (CUD) sur l'item choisit
+ * @authore : Romain Ravault
+ * 01/10/2020
+ * @param type $choice
+ * @param type $cat
+ * @param type $select
+ * @return string
+ */
+function formBuilder($choice, $cat, $select) {
+    $formulaire = "<h5>$cat</h5><form action='../boundaries/administrationCtrl.php' methode = 'POST'>";
+    $button = "<button type='button' class='btn-primary'>Valider</button>";
+    $input = "<input type='text' class='form-control'>";
+    switch ($cat) {
+        case 'delete':
+            $formulaire.= $select . '<br><br>';
+            $formulaire.=$button;
+            $formulaire.="</form><br>";
+            break;
+        case 'update' :
+            $formulaire.= $select . '<br><br>';
+            $formulaire.=$input;
+            $formulaire.=$button;
+            $formulaire.="</form><br>";
+            break;
+        case 'add':
+            $formulaire.=$input;
+            $formulaire.=$button;
+            $formulaire.="</form><br>";
+            break;
+    }
+    return $formulaire;
+}
 
 if ($message != "") {
     include '../boundaries/administrationIHM.php';

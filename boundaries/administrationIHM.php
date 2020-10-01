@@ -28,26 +28,22 @@ include 'partials/header.php';
                         <h5 class="card-title">Cuisinier</h5>
                     </div>
                     <div class="card-body">
-
-                        <form>
-                            <select>
-                                <?php
-                                echo $selectCooker;
-                                ?>
-                            </select>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <a href="../ctrl/administrationCtrl.php?choice=cooker&cat=update"  class='btn btn-outline-primary'>Modifier</a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="../ctrl/administrationCtrl.php?choice=cooker&cat=add"  class='btn btn-outline-success'>Ajouter</a>
-                                    </div>
-                                    <div class="col-4">
-                                        <a href="../ctrl/administrationCtrl.php?choice=cooker&cat=delete"  class='btn btn-outline-danger'>Supprimer</a>
-                                    </div>
+                        <?php
+                        echo $cookerForm;
+                        ?>        
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="../ctrl/administrationCtrl.php?choice=cooker&cat=update"  class='btn btn-outline-primary'>Modifier</a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../ctrl/administrationCtrl.php?choice=cooker&cat=add"  class='btn btn-outline-success'>Ajouter</a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="../ctrl/administrationCtrl.php?choice=cooker&cat=delete"  class='btn btn-outline-danger'>Supprimer</a>
                                 </div>
                             </div>
+                        </div>
 
                     </div>
                 </div>
@@ -59,9 +55,9 @@ include 'partials/header.php';
                         <h5 class="card-title">Type de plat</h5>
                     </div>
                     <div class="card-body">
-                        <select>
-                            <?php echo $selectType; ?>
-                        </select>
+                        <?php
+                        echo $typeForm;
+                        ?>
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-4">
@@ -88,9 +84,9 @@ include 'partials/header.php';
                         <h5 class="card-title">Pays</h5>
                     </div>
                     <div class="card-body">
-                        <select>
-                            <?php echo $selectCountry; ?>
-                        </select>
+                        <?php
+                        echo $countryForm;
+                        ?>
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-4">
@@ -115,9 +111,9 @@ include 'partials/header.php';
                         <h5 class="card-title">Ingredients</h5>
                     </div>
                     <div class="card-body">
-                        <select>
-                            <?php echo $selectIngredient; ?>
-                        </select>
+                        <?php
+                        echo $ingredientForm;
+                        ?>
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-4">
@@ -145,9 +141,9 @@ include 'partials/header.php';
                     <h5 class="card-title">Position du plat</h5>
                 </div>
                 <div class="card-body">
-                    <select>
-                        <?php echo $selectPosition; ?>
-                    </select>
+                    <?php
+                    echo $positionForm;
+                    ?>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-4">
@@ -172,9 +168,9 @@ include 'partials/header.php';
                     <h5 class="card-title">Unité de mesure</h5>
                 </div>
                 <div class="card-body">
-                    <select>
-                        <?php echo $selectUom; ?>
-                    </select>
+                    <?php
+                    echo $uomForm;
+                    ?>
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-4">
