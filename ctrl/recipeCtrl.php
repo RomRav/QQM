@@ -17,8 +17,6 @@ if ($selectedRecipe != NULL) {
 $ingredientsList = "<ul class='list-group'>";
 if ($ingredients != NULL) {
     foreach ($ingredients as $ingredient) {
-//        print_r($ingredient);
-        echo $ingredient->getIngredientName();
         $ingredientsList .= "<li class='list-group-item'> ";
         $ingredientsList.=$ingredient->getIngredientName() ." ";
         $ingredientsList.= $ingredient->getqty()." ";

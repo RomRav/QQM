@@ -20,7 +20,6 @@ require_once '../ctrl/recipeCtrl.php';
     <body>
         <?php
         include 'partials/header.php';
-        include 'partials/nav.php';
         ?>
         <div class="container row">
             <?php echo $title ?>
