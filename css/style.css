@@ -42,3 +42,33 @@ body{
     box-shadow: 5px 5px 5px 1px gray;
 }
 
+.form{
+
+    padding: 5px;
+    border: 1px gray solid;
+    border-radius: 3px;
+    box-shadow: 1px 1px 10px -2px gray;
+    width: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    
+}
+
+.authForm-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50em;
+  width: 100%;
+/*  background-color: blue;*/
+}
+
+.label-div{
+    margin: 3px;
+}
+
+.input-div{
+  margin: 3px;
+}
+

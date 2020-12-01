@@ -20,6 +20,9 @@ include 'partials/header.php';
     </head>
     <body>
         <h1>Administration</h1>
+        <?php
+        echo $message;
+        ?>
         <div class="row">
             <div class="col-6">
                 <!--Cooker Card -->

@@ -13,6 +13,9 @@ if ($route == NULL) {
     $route = filter_input(INPUT_GET, "route");
 }
 switch ($route) {
+    case "authentification":
+        $route = '../boundaries/authentificationIHM.php';
+        break;
     case "newRecipe":
         $route = '../boundaries/newRecipeIHM.php';
         break;
@@ -26,7 +29,7 @@ switch ($route) {
         $route = '../boundaries/administrationIHM.php';
         break;
     default :
-        $route = '../boundaries/newRecipeIHM.php';
+        $route = '../boundaries/pageInconnu.php';
         break;
 }
 include $route;

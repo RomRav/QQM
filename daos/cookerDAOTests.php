@@ -29,7 +29,11 @@ $idCooker = 1;
 $cooker = cookerDAO::selectOne($pdo, $idCooker);
 echo 'id cooker: ' . $cooker->getIdCooker() . '  //***\ pseudo: ' . $cooker->getPseudo() . ' pwd:' . $cooker->getPwd() . '.<br>';
 
-
+//Test de la selection d'un utilisateur par son pseudo
+echo '<hr><br>SELECT UN UTILISATEUR PAR SON PSEUDO<br><hr>';
+$pseudo = "romain";
+$cooker = cookerDAO::selectOneByPseudo($pdo, $pseudo);
+echo 'id cooker: ' . $cooker->getIdCooker() . '  //***\ pseudo: ' . $cooker->getPseudo() . ' pwd:' . $cooker->getPwd() . '.<br>';
 
 ////Test de l'ajout d'un nouveau utilisateur
 //echo '<hr><br>AJOUTER UN UTILISATEUR<br><hr>';
