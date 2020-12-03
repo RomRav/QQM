@@ -21,7 +21,7 @@ Last update: 01/12/2020
         <div class="authForm-content">
             <div class="form">
                 <h3>Authentification</h3>
-                <form action="authentificationCtrl.php" method="GET">
+                <form action="authentificationCtrl.php" method="POST">
                     <div class="label-div">
                         <label for="pseudo" class="input">Pseudo</label>
                     </div>
@@ -37,8 +37,12 @@ Last update: 01/12/2020
                     </div>
                     <button type="submit">Validez</button>
                 </form>
+            </div>
+            <div class="message">
                 <?php
-                $message
+                if (isset($message)) {
+                    echo $message;
+                }
                 ?>
             </div>
         </div>

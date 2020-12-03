@@ -16,7 +16,7 @@ class Connexion {
      * connexion à une BD 
      * @param type $parametresConnexion
      */
-    public static function seConnecter($parametresConnexion) {
+    public static function seConnecter() {
         //Récup des parametres de connexion à la BD.
         $parametre = parse_ini_file("bd.ini");
 

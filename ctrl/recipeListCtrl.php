@@ -6,7 +6,7 @@ require_once '../daos/RecipeDAO.php';
 
 
 //Connexion
-$pdo = Connexion::seConnecter('../daos/bd.ini');
+$pdo = Connexion::seConnecter();
 
 
 //Récupération de la liste des recettes

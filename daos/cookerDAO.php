@@ -65,11 +65,12 @@ class CookerDAO {
      * 26/02/202
      * @return type
      */
-    public static function selectOneByPseudo(pdo $pdo, string $pseudo) {
+    public static function selectOneByPseudo(pdo $pdo, $pseudo, $pwd) {
         try {
-            $requet = "SELECT * FROM qqm.cooker WHERE pseudo = ? ;";
+            $requet = "SELECT * FROM qqm.cooker WHERE pseudo = ? AND pwd=?;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $pseudo);
+            $stmt->bindParam(2, $pwd);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
             $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd']);

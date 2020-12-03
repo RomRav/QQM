@@ -2,6 +2,7 @@ body{
     width: 900px;
     background-color: red;
     margin: auto;
+    
 }
 
 ul{
@@ -27,7 +28,6 @@ body{
 .recipe_list{
     display: flex;
     flex-direction: column;
-
 }
 
 .list_item{
@@ -43,25 +43,26 @@ body{
 }
 
 .form{
-
-    padding: 5px;
+    padding: 3px;
     border: 1px gray solid;
     border-radius: 3px;
     box-shadow: 1px 1px 10px -2px gray;
-    width: 15em;
     display: flex;
     flex-direction: column;
     align-items:center;
-    
+    height: 14em;
+    width: 14em;
+  
 }
 
 .authForm-content{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   height: 50em;
-  width: 100%;
-/*  background-color: blue;*/
+ width: 100%;
+
 }
 
 .label-div{
@@ -72,3 +73,7 @@ body{
   margin: 3px;
 }
 
+.message{
+    width: 45em;
+   
+}
