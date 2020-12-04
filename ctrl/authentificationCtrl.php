@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 /**
  * authentificationCtrl.php
  * @authore : Romain Ravault
@@ -13,20 +14,30 @@ require_once '../daos/connexion.php';
 
 $pdo = Connexion::seConnecter();
 $message = "";
-$cible="authentificationIHM.php";
+$cible = "authentificationIHM.php";
 
+$isMdpSaved = filter_input(INPUT_POST, 'chkSavMdp');
 $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
-$cooker = CookerDAO::selectOneByPseudo($pdo, $pseudo, $password);
-if($cooker->getPseudo()!=NULL){
-    $cible='recipeListIHM.php';
-    $message="ok";
+$cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
+if ($cooker != NULL) {
+    $cible = 'recipeListIHM.php';
+    $message = "ok";
+    $_SESSION['pseudo'] = $cooker;
 } else {
     $message = "Le pseudo ou mot de passe n'est pas reconnu!";
 }
 
 if ($message != "") {
-    include '../boundaries/'.$cible;
+    include '../boundaries/' . $cible;
+}
+
+
+//Verification si le mot de passe doit être sauvegarder et crée un COOKIE en fonction
+if ($isMdpSaved == "on") {
+    setcookie('mdp', $password, time() + (3600 * 24 * 365), "/");
+} else {
+    setcookie('mdp', '', 1, "/");
+    unset($_COOKIE['mdp']);
 }

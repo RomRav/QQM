@@ -58,14 +58,14 @@ class CookerDAO {
         }
         return $cooker;
     }
-    
+
     /**
      * selectOneByPseudo()
      * @author Romain Ravault
      * 26/02/202
      * @return type
      */
-    public static function selectOneByPseudo(pdo $pdo, $pseudo, $pwd) {
+    public static function selectOneByPseudoAndMdp(pdo $pdo, $pseudo, $pwd) {
         try {
             $requet = "SELECT * FROM qqm.cooker WHERE pseudo = ? AND pwd=?;";
             $stmt = $pdo->prepare($requet);
@@ -73,7 +73,11 @@ class CookerDAO {
             $stmt->bindParam(2, $pwd);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd']);
+            if ($raw != false) {
+                $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd']);
+            } else {
+                $cooker = null;
+            }
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
