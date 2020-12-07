@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 authentificationIHM Romain Ravault 01/12/2020 
-Last update: 04/12/2020 
+Last update: 07/12/2020 
 -->
 
 <html>
@@ -15,7 +15,7 @@ Last update: 04/12/2020
         <title>Qu'est-ce qu'on mange?</title>
     </head>
     <body>
-
+        <?php include 'partials/header.php'; ?>
         <div class="authForm-content">
             <div class="form">
                 <h3>Authentification</h3>
@@ -36,17 +36,16 @@ Last update: 04/12/2020
                     <div>
                         <?php
                         $mdp = filter_input(INPUT_COOKIE, 'mdp');
-                        if($mdp){
+                        if ($mdp) {
                             echo '<input type="checkbox" id="chkSavMdp" name="chkSavMdp" checked/>
                                <label for="chkSavMdp">se souvenir de moi</label>';
                         } else {
                             echo '<input type="checkbox" id="chkSavMdp" name="chkSavMdp" />
                                <label for="chkSavMdp">se souvenir de moi</label>';
                         }
-                        
-                                ?>
+                        ?>
                     </div>
-                                
+
                     <div>
                         <button type="submit">Validez</button>
                     </div>

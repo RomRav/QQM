@@ -22,7 +22,7 @@
         </li>
         &nbsp;&nbsp;
         <li>
-            <a href="/ctrl/deconnexion.php"><img src="../images/deco.jpg" /></a>
+            <a href="../ctrl/deconnexion.php"><img src="../images/deco.jpg" /></a>
         </li>
         &nbsp;&nbsp;
     </ul>
