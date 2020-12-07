@@ -6,7 +6,7 @@ session_start();
  * @authore : Romain Ravault
  * 01/12/2020
  *
- * last update: 01/12/2020
+ * last update: 04/12/2020
  */
 require_once '../ett/Cooker.php';
 require_once '../daos/cookerDAO.php';
@@ -24,15 +24,10 @@ $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
 if ($cooker != NULL) {
     $cible = 'recipeListIHM.php';
     $message = "ok";
-    $_SESSION['pseudo'] = $cooker;
+    $_SESSION['cooker'] = $cooker;
 } else {
     $message = "Le pseudo ou mot de passe n'est pas reconnu!";
 }
-
-if ($message != "") {
-    include '../boundaries/' . $cible;
-}
-
 
 //Verification si le mot de passe doit être sauvegarder et crée un COOKIE en fonction
 if ($isMdpSaved == "on") {
@@ -40,4 +35,9 @@ if ($isMdpSaved == "on") {
 } else {
     setcookie('mdp', '', 1, "/");
     unset($_COOKIE['mdp']);
+}
+
+
+if ($message != "") {
+    include '../boundaries/' . $cible;
 }

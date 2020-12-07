@@ -1,6 +1,8 @@
 <?php
 /*
  * header.php
+ * Romain Ravault
+ * Laste update 07/01/2020
  */
 ?>
 <header>
@@ -17,6 +19,10 @@
         &nbsp;&nbsp;
         <li>
             <a class="ml-1 list-group-item list-group-item-action" href="../ctrl/routeur.php?route=administration">Administration</a>
+        </li>
+        &nbsp;&nbsp;
+        <li>
+            <a href="/ctrl/deconnexion.php"><img src="../images/deco.jpg" /></a>
         </li>
         &nbsp;&nbsp;
     </ul>

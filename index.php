@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<!--index.php Romain Ravault 27/02/2020-->
+<!--index.php Romain Ravault 27/02/2020 Last update 04/12/2020-->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -7,7 +8,14 @@
     </head>
     <body>
         <?php
-        header("location: ctrl/routeur.php?route=authentification");
+        session_start();
+        $route = "";
+        if (filter_input(INPUT_COOKIE, 'mdp') !== null) {
+            $route = "recipeList";
+        } else {
+            $route = "authentification";
+        }
+        header("location: ctrl/routeur.php?route=" . $route);
         ?>
     </body>
 </html>
