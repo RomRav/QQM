@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 authentificationIHM Romain Ravault 01/12/2020 
-Last update: 07/12/2020 
+Last update: 08/12/2020 
 -->
 
 <html>
@@ -19,7 +19,7 @@ Last update: 07/12/2020
         <div class="authForm-content">
             <div class="form">
                 <h3>Authentification</h3>
-                <form action="authentificationCtrl.php" method="POST">
+                <form class="idLogForm" action="authentificationCtrl.php?type=log" method="POST">
                     <div class="label-div">
                         <label for="pseudo" class="input">Pseudo</label>
                     </div>
@@ -27,12 +27,21 @@ Last update: 07/12/2020
                         <input id="pseudo" type="text" name="pseudo">
                     </div>
 
-                    <div class="label-div">
+                    <div class="label-pseudo">
                         <label for="password" class="label">Mot de passe</label>
                     </div>
-                    <div class="input-div">
+                    <div class="input-pwd">
                         <input id="password" class="input" type="password" name="password">
                     </div>
+                    <div class="same-pwd-checker" >
+                        <div class="label-pseudo">
+                            <label for="pwdCheckInput" class="label">Vérification du Mot de passe</label>
+                        </div>
+                        <div class="same-input-pwd-checker">
+                            <input id="pwdCheckInput" type="password" name="pwdCheckInput">
+                        </div>
+                    </div>
+
                     <div>
                         <?php
                         $mdp = filter_input(INPUT_COOKIE, 'mdp');
@@ -58,6 +67,11 @@ Last update: 07/12/2020
                 }
                 ?>
             </div>
+            <div id="authFormChange">
+                <p>Créer un compte</p>
+            </div>
         </div>
+        <script src="../js/jquery.js" ></script>
+        <script src="../js/jq.js"></script>
     </body>
 </html>

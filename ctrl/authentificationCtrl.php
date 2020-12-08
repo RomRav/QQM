@@ -19,15 +19,23 @@ $cible = "authentificationIHM.php";
 $isMdpSaved = filter_input(INPUT_POST, 'chkSavMdp');
 $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+$typeOfForm = filter_input(INPUT_GET, 'type');
 
-$cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
-if ($cooker != NULL) {
-    $cible = 'recipeListIHM.php';
-    $message = "ok";
-    $_SESSION['cooker'] = $cooker;
+//Verification du choix de formulaire, login ou register
+if ($typeOfForm == 'log') {
+    $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
+    if ($cooker != NULL) {
+        $cible = 'recipeListIHM.php';
+        $message = "ok";
+        $_SESSION['cooker'] = $cooker;
+    } else {
+        $message = "Le pseudo ou mot de passe n'est pas reconnu!";
+    }
 } else {
-    $message = "Le pseudo ou mot de passe n'est pas reconnu!";
+    
+    $message = "ok";
 }
+
 
 //Verification si le mot de passe doit être sauvegarder et crée un COOKIE en fonction
 if ($isMdpSaved == "on") {

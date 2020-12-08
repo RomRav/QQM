@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--index.php Romain Ravault 27/02/2020 Last update 04/12/2020-->
 <html>
@@ -16,6 +15,6 @@
             $route = "authentification";
         }
         header("location: ctrl/routeur.php?route=" . $route);
-        ?>
+        ?>        
     </body>
 </html>

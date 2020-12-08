@@ -2,7 +2,7 @@ body{
     max-width: 90%;
     background-color: red;
     margin: auto;
-    
+
 }
 
 ul{
@@ -55,25 +55,39 @@ body{
 }
 
 .authForm-content{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  height: 50em;
- width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 50em;
+    width: 100%;
 }
 
-.label-div{
+.label-pseudo{
     margin: 3px;
 }
 
-.input-div{
-  margin: 3px;
+.input-pwd{
+    margin: 3px;
+}
+
+.same-input-pwd-checker{
+    margin: 3px;
 }
 
 .message{
     text-align: center;
     width: 45em;
-  
+}
+
+
+
+#authFormChange:hover{
+    text-shadow: 1px 1px 10px gray;
+    cursor: pointer;
+}
+
+#authFormChange:active{
+    text-shadow: 1px 1px 10px black;
 }
