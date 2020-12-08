@@ -19,7 +19,9 @@ $cible = "authentificationIHM.php";
 $isMdpSaved = filter_input(INPUT_POST, 'chkSavMdp');
 $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+$passwordCheck = filter_input(INPUT_POST, 'pwdCheckInput', FILTER_SANITIZE_SPECIAL_CHARS);
 $typeOfForm = filter_input(INPUT_GET, 'type');
+
 
 //Verification du choix de formulaire, login ou register
 if ($typeOfForm == 'log') {
@@ -32,8 +34,11 @@ if ($typeOfForm == 'log') {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
 } else {
-    
-    $message = "ok";
+    if ($password == $passwordCheck) {
+        $message = "La saisie du mot de passe est identique!";
+    } else {
+        $message = "La saisie du mot de passe n'est pas identique!";
+    }
 }
 
 

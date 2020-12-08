@@ -30,21 +30,18 @@ $(document).ready(function () {
         }
     });
 
-    $('#password').change(() => {
-        console.log('bb');
-    });
-
-    $('#pwdCheckInput').change(() => {
-        console.log('aa');
-        var pwd = $('.input-pwd');
-        var checkPwd = $('.same-input-pwd-checker');
-        console.log(pwd);
-        console.log(checkPwd);
-        if (pwd == checkPwd) {
-            $('.message').html('<p>Mot de passe identique</p>');
-        } else {
-            $('.message').html('<p>La saisie n\'est pas identique</p>');
-        }
-    });
+   
+//    $('#pwdCheckInput').change(() => {
+//        console.log('aa');
+//        var pwd = $('.input-pwd');
+//        var checkPwd = $('.same-input-pwd-checker');
+//        console.log(pwd);
+//        console.log(checkPwd);
+//        if (pwd == checkPwd) {
+//            $('.message').html('<p>Mot de passe identique</p>');
+//        } else {
+//            $('.message').html('<p>La saisie n\'est pas identique</p>');
+//        }
+//    });
 });
 
