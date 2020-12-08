@@ -41,7 +41,6 @@ Last update: 08/12/2020
                             <input id="pwdCheckInput" type="password" name="pwdCheckInput">
                         </div>
                     </div>
-
                     <div>
                         <?php
                         $mdp = filter_input(INPUT_COOKIE, 'mdp');
@@ -54,7 +53,6 @@ Last update: 08/12/2020
                         }
                         ?>
                     </div>
-
                     <div>
                         <button type="submit">Validez</button>
                     </div>
