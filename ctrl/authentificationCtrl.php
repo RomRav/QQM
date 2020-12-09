@@ -13,6 +13,7 @@ require_once '../daos/cookerDAO.php';
 require_once '../daos/connexion.php';
 
 $pdo = Connexion::seConnecter();
+$pdo->beginTransaction();
 $message = "";
 $cible = "authentificationIHM.php";
 
@@ -34,10 +35,14 @@ if ($typeOfForm == 'log') {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
 } else {
-    if ($password == $passwordCheck) {
-        $message = "La saisie du mot de passe est identique!";
+    $newUserInsertCheck = CookerDAO::insert($pdo, $pseudo, $password);
+    if ($newUserInsertCheck == 1) {
+        $pdo->commit();
+        $cible = 'recipeListIHM.php';
+        $message = 'ok';
     } else {
-        $message = "La saisie du mot de passe n'est pas identique!";
+        $message='Erreur de création de compte.';
+        $cible = "authentificationIHM.php";
     }
 }
 

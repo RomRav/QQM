@@ -5,6 +5,7 @@
  * Bibliothéque d'accées au données utilisateur
  * @author Romain
  * 26/02/2020
+ * last update: 09/12/2020
  *  
  * selectAll($pdo): récupération de la liste de tous les utilisateurs
  * selectOne($pdo, $id): récupération d'un utilisateur
@@ -45,7 +46,7 @@ class CookerDAO {
      * 26/02/202
      * @return type
      */
-    public static function selectOne(pdo $pdo, int $idCooker) {
+    public static function selectOne(pdo $pdo,  $idCooker) {
         try {
             $requet = "SELECT * FROM qqm.cooker WHERE id_cooker = ? ;";
             $stmt = $pdo->prepare($requet);
@@ -93,7 +94,7 @@ class CookerDAO {
      * @param string $newCookerPwd
      * @return type
      */
-    public static function insert(pdo $pdo, string $newCooker, string $newCookerPwd) {
+    public static function insert(pdo $pdo, $newCooker, $newCookerPwd) {
         try {
             $request = "INSERT INTO qqm.cooker(pseudo, pwd) VALUE(?,?);";
             $stmt = $pdo->prepare($request);

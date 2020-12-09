@@ -81,7 +81,14 @@ body{
     width: 45em;
 }
 
+.list-nav:hover{
+    transform: scale(1.1);
+}
 
+.list-nav{
+    transition: transform 100ms;
+    transition-timing-function: linear;
+}
 
 #authFormChange:hover{
     text-shadow: 1px 1px 10px gray;

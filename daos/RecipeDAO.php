@@ -68,7 +68,7 @@ class RecipeDAO {
      * 26/02/202
      * @return type
      */
-    public static function selectOne(pdo $pdo, int $idRecipe) {
+    public static function selectOne(pdo $pdo, $idRecipe) {
         try {
             $requet = "SELECT * FROM qqm.recipe WHERE id_recipe = ? ;";
             $stmt = $pdo->prepare($requet);

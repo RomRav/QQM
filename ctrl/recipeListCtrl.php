@@ -9,7 +9,7 @@ require_once '../daos/RecipeDAO.php';
 $pdo = Connexion::seConnecter();
 
 
-//Récupération de la liste des recettes
+//Récupération de la liste des recettes ou des recettes de l'utilisateur logger
 $recipeTitleList = RecipeDAO::selectAllTitle($pdo);
 if (count($recipeTitleList) > 0) {
     $list = '';
