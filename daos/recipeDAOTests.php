@@ -14,6 +14,9 @@ require_once 'Connexion.php';
 $pdo = Connexion::seConnecter("bd.ini");
 $pdo->beginTransaction();
 
+//Test de la récupération des titres des recettes d'un utilisateur
+$recipeTitleList = RecipeDAO::selectTitleByIdCooker($pdo, 1);
+var_dump($recipeTitleList);
 
 //Test de la selection de toutes les recettes
 //$recipes = RecipeDAO::selectAll($pdo);

@@ -118,7 +118,7 @@ class CookerDAO {
      * @param int $idCooker   
      * @return type
      */
-    public static function delete(pdo $pdo, int $idCooker) {
+    public static function delete(pdo $pdo, $idCooker) {
         $liDelete = 0;
         $request = "DELETE FROM qqm.cooker WHERE id_cooker = ?";
         try {
@@ -144,7 +144,7 @@ class CookerDAO {
      * @param string $newCookerPwd
      * @return type
      */
-    public static function update(pdo $pdo, int $idCooker, string $newCookerPseudo, string $newCookerPwd) {
+    public static function update(pdo $pdo, $idCooker, $newCookerPseudo, $newCookerPwd) {
         $request = 'UPDATE qqm.cooker SET pseudo = ?, pwd = ? WHERE id_cooker = ?';
         $liUpdated = 0;
         try {

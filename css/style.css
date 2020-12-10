@@ -29,19 +29,36 @@ body{
 
 .recipe_list{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .list_item{
+    position: relative;
     border: 1px black solid;
     border-radius: 10px;
     margin: 5px;
     padding: 5px;
-    font-size: 1.3em
+    font-size: 1.3em;
+    height: 10em;
+    width: 15em;
+    margin: 0.4em;
+    transition: transform 300ms;
+    transition-timing-function: ease-in-out;
 }
 
 .list_item:hover{
+    transform: scale(1.1);
     box-shadow: 5px 5px 5px 1px gray;
+}
+
+.list_item a::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .form{

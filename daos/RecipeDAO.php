@@ -63,6 +63,32 @@ class RecipeDAO {
     }
 
     /**
+     * selectByCooker()
+     * @author Romain Ravault
+     * 12/10/2020
+     * @return type
+     */
+    public static function selectTitleByIdCooker(pdo $pdo, $idCooker) {
+        echo $idCooker;
+        $listRecipeTitle = [];
+        try {
+            $requet = "SELECT id_recipe, recipe_title FROM qqm.recipe WHERE id_cooker = ? ;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $idCooker);
+            $stmt->execute();
+            $raws = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($raws as $raw) {
+                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '');
+                array_push($listRecipeTitle, $recipe);
+            }
+        } catch (PDOException $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        
+        return $listRecipeTitle;
+    }
+
+    /**
      * selectOne()
      * @author Romain Ravault
      * 26/02/202
