@@ -31,7 +31,7 @@ class RecipeDAO {
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
             while ($raw = $raws->fetch()) {
-                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], $raw['recipe'], $raw['recipe_visibility'], $raw['id_cooker']);
+                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], $raw['recipe'], $raw['recipe_visibility'], $raw['id_cooker'], $raw['photoFileName']);
                 array_push($listRecipe, $recipe);
             }
         } catch (PDOException $ex) {
@@ -49,11 +49,12 @@ class RecipeDAO {
     public static function selectAllTitle($pdo) {
         $listRecipeTitle = [];
         try {
-            $requet = "SELECT id_recipe, recipe_title FROM recipe;";
+            $requet = "SELECT id_recipe, recipe_title, photoFileName FROM recipe;";
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
+            var_dump($raws);
             while ($raw = $raws->fetch()) {
-                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '');
+                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '', $raw['photoFileName']);
                 array_push($listRecipeTitle, $recipe);
             }
         } catch (PDOException $ex) {
@@ -69,22 +70,22 @@ class RecipeDAO {
      * @return type
      */
     public static function selectTitleByIdCooker(pdo $pdo, $idCooker) {
-        echo $idCooker;
         $listRecipeTitle = [];
         try {
-            $requet = "SELECT id_recipe, recipe_title FROM qqm.recipe WHERE id_cooker = ? ;";
+            $requet = "SELECT id_recipe, recipe_title, photoFileName FROM qqm.recipe WHERE id_cooker = ? ;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $idCooker);
             $stmt->execute();
             $raws = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($raws as $raw) {
-                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '');
+                $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '', $raw['photoFileName']);
+                var_dump($recipe);
                 array_push($listRecipeTitle, $recipe);
             }
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
-        
+
         return $listRecipeTitle;
     }
 
@@ -101,7 +102,7 @@ class RecipeDAO {
             $stmt->bindParam(1, $idRecipe);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], $raw['recipe'], $raw['recipe_visibility'], $raw['id_cooker']);
+            $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], $raw['recipe'], $raw['recipe_visibility'], $raw['id_cooker'], $raw['photoFileName']);
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
@@ -119,14 +120,15 @@ class RecipeDAO {
      * @param string $newIdCooker
      * @return type
      */
-    public static function insert(pdo $pdo, string $newRecipeTitle, string $newRecipe, int $newRecipeVisibility, int $newIdCooker) {
+    public static function insert(pdo $pdo, $newRecipeTitle, $newRecipe, $newRecipeVisibility, $newIdCooker, $phoyoFileName) {
         try {
-            $request = "INSERT INTO qqm.recipe(recipe_title, recipe, recipe_visibility, id_cooker) VALUE(?,?,?,?);";
+            $request = "INSERT INTO qqm.recipe(recipe_title, recipe, recipe_visibility, id_cooker) VALUE(?,?,?,?,?);";
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newRecipeTitle);
             $stmt->bindParam(2, $newRecipe);
             $stmt->bindParam(3, $newRecipeVisibility);
             $stmt->bindParam(4, $newIdCooker);
+            $stmt->bindParam(5, $photoFileName);
             $stmt->execute();
             $insertVerif = $stmt->rowCount();
         } catch (PDOException $ex) {
@@ -145,7 +147,7 @@ class RecipeDAO {
      * @param int $idRecipe   
      * @return type
      */
-    public static function delete(pdo $pdo, int $idRecipe) {
+    public static function delete(pdo $pdo, $idRecipe) {
         $liDelete = 0;
         $request = "DELETE FROM qqm.recipe WHERE id_recipe = ?";
         try {
@@ -173,8 +175,8 @@ class RecipeDAO {
      * @param int $newIdCooker
      * @return type
      */
-    public static function update(pdo $pdo, int $idRecipe, string $newRecipeTitle, string $newRecipe, string $newRecipeVisibility, int $newIdCooker) {
-        $request = 'UPDATE qqm.recipe SET recipe_title = ?, recipe = ?, recipe_visibility = ?, id_cooker = ? WHERE id_recipe = ?';
+    public static function update(pdo $pdo, $idRecipe, $newRecipeTitle, $newRecipe, $newRecipeVisibility, $newIdCooker, $photoFileName) {
+        $request = 'UPDATE qqm.recipe SET recipe_title = ?, recipe = ?, recipe_visibility = ?, id_cooker = ?, photoFileName = ? WHERE id_recipe = ?';
         $liUpdated = 0;
         try {
             $stmt = $pdo->prepare($request);
@@ -183,6 +185,7 @@ class RecipeDAO {
             $stmt->bindParam(3, $newRecipeVisibility);
             $stmt->bindParam(4, $newIdCooker);
             $stmt->bindParam(5, $idRecipe);
+            $stmt->bindParam(6, $photoFileName);
             $stmt->execute();
             $liUpdated = $stmt->rowCount();
         } catch (PDOException $ex) {

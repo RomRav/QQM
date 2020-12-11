@@ -15,21 +15,21 @@ $pdo = Connexion::seConnecter("bd.ini");
 $pdo->beginTransaction();
 
 //Test de la récupération des titres des recettes d'un utilisateur
-$recipeTitleList = RecipeDAO::selectTitleByIdCooker($pdo, 1);
-var_dump($recipeTitleList);
+//$recipeTitleList = RecipeDAO::selectTitleByIdCooker($pdo, 1);
+//var_dump($recipeTitleList);
 
 //Test de la selection de toutes les recettes
-//$recipes = RecipeDAO::selectAll($pdo);
-//echo '<hr><br>SELECT ALL<br><hr>';
-//foreach ($recipes as $raw) {
-//
-//    echo 'id recipe: '
-//    . $raw->getIdRecipe() . '  //***\ Titre de la recette: '
-//    . $raw->getRecipeTitle() . '<br><hr> recette:<br>'
-//    . nl2br($raw->getRecipe()) . '  .<br><hr><br> Recette visibilité:'
-//    . $raw->getRecipeVisibility() . ' utilisateur n°:' . $raw->getIdCooker() .
-//    '<br>************************************************************************************************************************************************************************<br>';
-//}
+$recipes = RecipeDAO::selectAll($pdo);
+echo '<hr><br>SELECT ALL<br><hr>';
+foreach ($recipes as $raw) {
+
+    echo 'id recipe: '
+    . $raw->getIdRecipe() . '  //***\ Titre de la recette: '
+    . $raw->getRecipeTitle() . '<br><hr> recette:<br>'
+    . nl2br($raw->getRecipe()) . '  .<br><hr><br> Recette visibilité:'
+    . $raw->getRecipeVisibility() . ' utilisateur n°:' . $raw->getIdCooker() . $raw->getPhotoFileName();
+    '<br>************************************************************************************************************************************************************************<br>';
+}
 //Test de la selection de toutes les titres de recettes
 //$recipesTitle = RecipeDAO::selectAllTitle($pdo);
 //echo '<hr><br>SELECT ALL TITLES<br><hr>';

@@ -13,13 +13,15 @@ class Recipe {
     private $recipe;
     private $recipeVisibility;
     private $idCooker;
+    private $photoFileName;
 
-    function __construct($idRecipe, $recipeTitle, $recipe, $recipeVisibility, $idCooker) {
+    function __construct($idRecipe, $recipeTitle, $recipe, $recipeVisibility, $idCooker, $photoFileName) {
         $this->idRecipe = $idRecipe;
         $this->recipeTitle = $recipeTitle;
         $this->recipe = $recipe;
         $this->recipeVisibility = $recipeVisibility;
         $this->idCooker = $idCooker;
+        $this->photoFileName = $photoFileName;
     }
 
     public function getIdRecipe() {
@@ -42,6 +44,10 @@ class Recipe {
         return $this->idCooker;
     }
 
+    public function getPhotoFileName() {
+        return $this->photoFileName;
+    }
+
     public function setIdRecipe($idRecipe) {
         $this->idRecipe = $idRecipe;
     }
@@ -60,6 +66,10 @@ class Recipe {
 
     public function setIdCooker($idCooker) {
         $this->idCooker = $idCooker;
+    }
+
+    public function setPhotoFileName($photoFileName) {
+        $this->photoFileName = $photoFileName;
     }
 
 }

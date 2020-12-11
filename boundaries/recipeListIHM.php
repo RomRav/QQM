@@ -8,7 +8,7 @@ Last update: 10/12/2020
 <?php
 require_once '../ctrl/recipeListCtrl.php';
 ?>
-<html lang="en">
+<html lang="fr">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">

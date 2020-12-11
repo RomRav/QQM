@@ -23,14 +23,14 @@ $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 $passwordCheck = filter_input(INPUT_POST, 'pwdCheckInput', FILTER_SANITIZE_SPECIAL_CHARS);
 $typeOfForm = filter_input(INPUT_GET, 'type');
 
-
 //Verification du choix de formulaire, login ou register
 if ($typeOfForm == 'log') {
     $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
     if ($cooker != NULL) {
         $cible = 'recipeListIHM.php';
         $message = "ok";
-        $_SESSION['cooker'] = $cooker;
+        $_SESSION['cooker'] = $cooker->getPseudo();
+        $_SESSION['idCooker'] = $cooker->getIdCooker();
     } else {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
@@ -41,12 +41,10 @@ if ($typeOfForm == 'log') {
         $cible = 'recipeListIHM.php';
         $message = 'ok';
     } else {
-        $message='Erreur de création de compte.';
+        $message = 'Erreur de création de compte.';
         $cible = "authentificationIHM.php";
     }
 }
-
-
 //Verification si le mot de passe doit être sauvegarder et crée un COOKIE en fonction
 if ($isMdpSaved == "on") {
     setcookie('mdp', $password, time() + (3600 * 24 * 365), "/");
@@ -54,8 +52,6 @@ if ($isMdpSaved == "on") {
     setcookie('mdp', '', 1, "/");
     unset($_COOKIE['mdp']);
 }
-
-
 if ($message != "") {
-    include '../boundaries/' . $cible;
+    header("location: ../boundaries/" . $cible);
 }
