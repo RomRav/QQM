@@ -34,17 +34,48 @@ body{
 }
 
 .list_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
     border: 1px black solid;
     border-radius: 10px;
     margin: 5px;
-    padding: 5px;
+    padding: 0px;
     font-size: 1.3em;
     height: 10em;
     width: 15em;
     margin: 0.4em;
     transition: transform 300ms;
     transition-timing-function: ease-in-out;
+    background-color: white;
+}
+
+.card-img{
+    height: 8em;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img{
+
+    height: 100%;
+    border-radius: 5px;
+}
+
+.card-link{
+    background-color: rgb(230,248,244);
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px gray solid;
+    margin: 0px;
 }
 
 .list_item:hover{
@@ -116,7 +147,3 @@ body{
     text-shadow: 1px 1px 10px black;
 }
 
-.card-img{
-    height: 6em;
-    width: 6em;
-}

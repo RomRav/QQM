@@ -52,7 +52,6 @@ class RecipeDAO {
             $requet = "SELECT id_recipe, recipe_title, photoFileName FROM recipe;";
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
-            var_dump($raws);
             while ($raw = $raws->fetch()) {
                 $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '', $raw['photoFileName']);
                 array_push($listRecipeTitle, $recipe);
@@ -79,7 +78,6 @@ class RecipeDAO {
             $raws = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($raws as $raw) {
                 $recipe = new Recipe($raw['id_recipe'], $raw['recipe_title'], '', '', '', $raw['photoFileName']);
-                var_dump($recipe);
                 array_push($listRecipeTitle, $recipe);
             }
         } catch (PDOException $ex) {
