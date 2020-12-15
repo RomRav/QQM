@@ -41,7 +41,7 @@ $selectedUom = filter_input(INPUT_POST, 'selectUom');
 //Récupération de l'item et de l'action choisie
 $selectedItem = filter_input(INPUT_GET, "choice");
 $selectedAction = filter_input(INPUT_GET, "cat");
-$message = "ok";
+$message = "<p class='message'>ok</p>";
 
 //Récupération de la liste des cooker
 $selectCooker = "<select name='selectCooker'><option value='' >Selectionner</option>";
@@ -241,9 +241,9 @@ function formBuilder($choice, $cat, $select) {
             $formulaire .= $input;
             if ($choice == "cooker") {
                 $formulaire .= "<label>Mot de passe</label>";
-                $formulaire .= "<input type='password' class='form-control' name='mdp'>";
+                $formulaire .= "<input type='password' class='form-control password' name='mdp'>";
                 $formulaire .= "<label>Vérification du mot de passe</label>";
-                $formulaire .= "<input type='password' class='form-control' name='verifMdp'>";
+                $formulaire .= "<input type='password' class='form-control pwdCheckInput' name='verifMdp'>";
             } elseif ($choice == "ingredient") {
                 $formulaire .= "<label>Calorie</label>";
                 $formulaire .= "<input type='text' class='form-control' name='calorie'>";
@@ -256,9 +256,9 @@ function formBuilder($choice, $cat, $select) {
             $formulaire .= $input;
             if ($choice == "cooker") {
                 $formulaire .= "<label>Mot de passe</label>";
-                $formulaire .= "<input type='password' class='form-control' name='mdp'>";
+                $formulaire .= "<input type='password' class='form-control password' name='mdp'>";
                 $formulaire .= "<label>Vérification du mot de passe</label>";
-                $formulaire .= "<input type='password' class='form-control' name='verifMdp'>";
+                $formulaire .= "<input type='password' class='form-control pwdCheckInput' name='verifMdp'>";
             } elseif ($choice == "ingredient") {
                 $formulaire .= "<label>Calorie</label>";
                 $formulaire .= "<input type='text' class='form-control' name='calorie'>";
@@ -274,9 +274,9 @@ function checkResponseAndMessage($resp, $pdo) {
     $message = "";
     if ($resp == 1) {
         $pdo->commit();
-        $message = 'OK';
+        $message = '<p class="message">OK</p>';
     } else {
-        $message = 'KO';
+        $message = '<p class="message">KO</p>';
         $pdo->rollBack();
     }
     return $message;

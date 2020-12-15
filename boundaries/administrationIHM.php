@@ -192,5 +192,7 @@ include 'partials/header.php';
             </div>
         </div>
     </div>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jq.js"></script>
 </body>
 </html>

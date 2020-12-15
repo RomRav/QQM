@@ -34,7 +34,6 @@ function recipeCardBuilder($recipeTitleList) {
     if (count($recipeTitleList) > 0) {
         $list = '';
         foreach ($recipeTitleList as $recipe) {
-            echo $recipe->getIdRecipe() .' ** '.$recipe->getPhotoFileName().'<br>';
             $list .= "<div class='list_item'>";
             $list .= "<div class='card-img'><img src='../images/recipes_images/" . $recipe->getPhotoFileName() . "'/></div>";
             $list .= "<div class='card-link'><a href='routeur.php?route=recipe&id=" . $recipe->getIdRecipe() . "'>" . $recipe->getrecipeTitle() . "</a></div>";
