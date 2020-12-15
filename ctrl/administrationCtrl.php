@@ -5,7 +5,7 @@
  * @authore : Romain Ravault
  * 30/09/2020
  *
- * last update: 07/10/2020
+ * last update: 15/12/2020
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/CookerDAO.php';
@@ -28,6 +28,8 @@ $inputedIngredient = filter_input(INPUT_POST, "ingredient", FILTER_SANITIZE_SPEC
 $inputedCountry = filter_input(INPUT_POST, "country", FILTER_SANITIZE_SPECIAL_CHARS);
 $inputedType = filter_input(INPUT_POST, "type", FILTER_SANITIZE_SPECIAL_CHARS);
 $inputedUom = filter_input(INPUT_POST, "uom", FILTER_SANITIZE_SPECIAL_CHARS);
+$inputMdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_SPECIAL_CHARS);
+$inputCalorie = filter_input(INPUT_POST, "calorie", FILTER_SANITIZE_SPECIAL_CHARS);
 
 $selectedPosition = filter_input(INPUT_POST, "selectPosition");
 $selectedCooker = filter_input(INPUT_POST, "selectCooker");
@@ -47,7 +49,7 @@ $cookerTable = CookerDAO::selectAll($pdo);
 foreach ($cookerTable as $cooker) {
     $selectCooker .= "<option value='" . $cooker->getIdCooker() . "'>" . $cooker->getPseudo() . "</option>";
 }
-$selectCooker.="</select>";
+$selectCooker .= "</select>";
 
 //Récupération de la liste des type de plats
 $selectType = "<select name='selectType'><option value='' >Selectionner</option>";
@@ -55,7 +57,7 @@ $typesTable = TypeDAO::selectAll($pdo);
 foreach ($typesTable as $type) {
     $selectType .= "<option value='" . $type->getIdType() . "'>" . $type->getTypeName() . "</option>";
 }
-$selectType.="</select>";
+$selectType .= "</select>";
 
 ////Récupération de la liste des Unité de mesure
 $selectUom = "<select name='selectUom'><option value='' >Selectionner</option>";
@@ -63,7 +65,7 @@ $uomTable = UniteOfMeasureDAO::selectAll($pdo);
 foreach ($uomTable as $uom) {
     $selectUom .= "<option value='" . $uom->getIdUom() . "'>" . $uom->getUom() . "</option>";
 }
-$selectUom.="</select>";
+$selectUom .= "</select>";
 
 ////Récupération de la liste des positions
 $selectPosition = "<select name='selectPosition'><option value='' >Selectionner</option>";
@@ -71,7 +73,7 @@ $positionTable = PositionDAO::selectAll($pdo);
 foreach ($positionTable as $position) {
     $selectPosition .= "<option value='" . $position . "'>" . $position . "</option>";
 }
-$selectPosition.="</select>";
+$selectPosition .= "</select>";
 
 ////Récupération de la liste des pays
 $selectCountry = "<select name='selectCountry'><option value='' >Selectionner</option>";
@@ -79,7 +81,7 @@ $countryTable = PaysDAO::selectAll($pdo);
 foreach ($countryTable as $country) {
     $selectCountry .= "<option value='" . $country->getIdUom() . "'>" . $country->getUom() . "</option>";
 }
-$selectCountry.="</select>";
+$selectCountry .= "</select>";
 
 ////Récupération de la liste des ingredients
 $selectIngredient = "<select name='selectIngredient'><option value='' >Selectionner</option>";
@@ -87,7 +89,7 @@ $ingredientTable = IngredientDAO::selectAll($pdo);
 foreach ($ingredientTable as $ingredient) {
     $selectIngredient .= "<option value='" . $ingredient->getIdIngredient() . "'>" . $ingredient->getIngredientName() . "</option>";
 }
-$selectIngredient.="</select>";
+$selectIngredient .= "</select>";
 
 //Appel de la methode formBuilder() avec les arguments nécessaire en fonction du choix utilisateur
 if ($selectedItem != null) {
@@ -100,10 +102,10 @@ if ($selectedItem != null) {
             $uomForm = "";
             $positionForm = "";
             if ($inputedCooker && $selectedCooker) {
-                $upCooker = CookerDAO::update($pdo, $selectedCooker, $inputedCooker, "123");
+                $upCooker = CookerDAO::update($pdo, $selectedCooker, $inputedCooker, $inputMdp);
                 $message = checkResponseAndMessage($upCooker, $pdo);
             } elseif ($inputedCooker) {
-                $addCooker = CookerDAO::insert($pdo, $inputedCooker, "123");
+                $addCooker = CookerDAO::insert($pdo, $inputedCooker, $inputMdp);
                 $message = checkResponseAndMessage($addCooker, $pdo);
             } elseif ($selectedCooker) {
                 $delCooker = CookerDAO::delete($pdo, $selectedCooker);
@@ -154,10 +156,10 @@ if ($selectedItem != null) {
             $uomForm = "";
             $positionForm = "";
             if ($inputedIngredient && $selectedIngredient) {
-                $upIngredient = IngredientDAO::update($pdo, $selectedIngredient, $inputedIngredient, "30");
+                $upIngredient = IngredientDAO::update($pdo, $selectedIngredient, $inputedIngredient, $inputCalorie);
                 $message = checkResponseAndMessage($upIngredient, $pdo);
             } elseif ($inputedIngredient) {
-                $addIngredient = IngredientDAO::insert($pdo, $inputedIngredient, "30");
+                $addIngredient = IngredientDAO::insert($pdo, $inputedIngredient, $inputCalorie);
                 $message = checkResponseAndMessage($addIngredient, $pdo);
             } elseif ($selectedIngredient) {
                 $delIngredient = IngredientDAO::delete($pdo, $selectedIngredient);
@@ -211,35 +213,58 @@ if ($selectedItem != null) {
 }
 
 /**
- * Methode formBiolder crée le formulaire en fonction de l'action désiré (CUD) sur l'item choisit
+ * Methode formBuilder crée le formulaire en fonction de l'action désiré (CUD) sur l'item choisit
  * @authore : Romain Ravault
  * 01/10/2020
- * LAST UPDATE 02/10/2020
+ * LAST UPDATE 15/12/2020
  * @param type $choice
  * @param type $cat
  * @param type $select
  * @return string
  */
 function formBuilder($choice, $cat, $select) {
-    $formulaire = "<h5>$cat</h5><form action='../ctrl/administrationCtrl.php?choice=$choice&cat=$cat' method='POST'>";
+    $formulaire = "<form action='../ctrl/administrationCtrl.php?choice=$choice&cat=$cat' method='POST'>";
     $button = "<button type='submit' class='btn-primary'>Valider</button>";
     $input = "<input type='text' class='form-control' name='$choice'>";
+    $label = "<label><h5>" . $choice . "</h5></label><br>";
     switch ($cat) {
         case 'delete':
-            $formulaire.= $select . '<br><br>';
-            $formulaire.=$button;
-            $formulaire.="</form><br>";
+            $formulaire .= $label;
+            $formulaire .= $select . '<br><br>';
+            $formulaire .= $button;
+            $formulaire .= "</form><br>";
             break;
         case 'update' :
-            $formulaire.= $select . '<br><br>';
-            $formulaire.=$input;
-            $formulaire.=$button;
-            $formulaire.="</form><br>";
+            $formulaire .= $label;
+            $formulaire .= $select . '<br><br>';
+            $formulaire .= "<label>Nouveau " . $choice . "</label>";
+            $formulaire .= $input;
+            if ($choice == "cooker") {
+                $formulaire .= "<label>Mot de passe</label>";
+                $formulaire .= "<input type='password' class='form-control' name='mdp'>";
+                $formulaire .= "<label>Vérification du mot de passe</label>";
+                $formulaire .= "<input type='password' class='form-control' name='verifMdp'>";
+            } elseif ($choice == "ingredient") {
+                $formulaire .= "<label>Calorie</label>";
+                $formulaire .= "<input type='text' class='form-control' name='calorie'>";
+            }
+            $formulaire .= $button;
+            $formulaire .= "</form><br>";
             break;
         case 'add':
-            $formulaire.=$input;
-            $formulaire.=$button;
-            $formulaire.="</form><br>";
+            $formulaire .= $label;
+            $formulaire .= $input;
+            if ($choice == "cooker") {
+                $formulaire .= "<label>Mot de passe</label>";
+                $formulaire .= "<input type='password' class='form-control' name='mdp'>";
+                $formulaire .= "<label>Vérification du mot de passe</label>";
+                $formulaire .= "<input type='password' class='form-control' name='verifMdp'>";
+            } elseif ($choice == "ingredient") {
+                $formulaire .= "<label>Calorie</label>";
+                $formulaire .= "<input type='text' class='form-control' name='calorie'>";
+            }
+            $formulaire .= $button;
+            $formulaire .= "</form><br>";
             break;
     }
     return $formulaire;

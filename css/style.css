@@ -53,7 +53,7 @@ body{
 
 .card-img{
     height: 8em;
-    width: 100%;
+    width: auto;
     margin: 0px;
     padding: 0px;
     border-radius: 10px;
