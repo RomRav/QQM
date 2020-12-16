@@ -5,7 +5,7 @@
  * Bibliothéque d'accées au données utilisateur
  * @author Romain
  * 26/02/2020
- * last update: 09/12/2020
+ * last update: 16/12/2020
  *  
  * selectAll($pdo): récupération de la liste de tous les utilisateurs
  * selectOne($pdo, $id): récupération d'un utilisateur
@@ -31,7 +31,7 @@ class CookerDAO {
             $raws = $pdo->query($requet);
             $raws->setFetchMode(PDO::FETCH_ASSOC);
             while ($raw = $raws->fetch()) {
-                $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd']);
+                $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd'], $raw['admin']);
                 array_push($listCooker, $cooker);
             }
         } catch (PDOException $ex) {
@@ -46,14 +46,14 @@ class CookerDAO {
      * 26/02/202
      * @return type
      */
-    public static function selectOne(pdo $pdo,  $idCooker) {
+    public static function selectOne(pdo $pdo, $idCooker) {
         try {
             $requet = "SELECT * FROM qqm.cooker WHERE id_cooker = ? ;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $idCooker);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
-            $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd']);
+            $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd'], $raw['admin']);
         } catch (PDOException $ex) {
             echo 'ERREUR:' . $ex->getMessage();
         }
@@ -75,7 +75,7 @@ class CookerDAO {
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($raw != false) {
-                $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd']);
+                $cooker = new Cooker($raw['id_cooker'], $raw['pseudo'], $raw['pwd'], $raw['admin']);
             } else {
                 $cooker = null;
             }
@@ -89,17 +89,19 @@ class CookerDAO {
      * insert()
      * @author Romain Ravault
      * 26/02/2020
+     * Last update: 16/12/2020
      * @param pdo $pdo
      * @param string $newCooker
      * @param string $newCookerPwd
      * @return type
      */
-    public static function insert(pdo $pdo, $newCooker, $newCookerPwd) {
+    public static function insert(pdo $pdo, $newCooker, $newCookerPwd, $adminStatus) {
         try {
-            $request = "INSERT INTO qqm.cooker(pseudo, pwd) VALUE(?,?);";
+            $request = "INSERT INTO qqm.cooker(pseudo, pwd, admin) VALUE(?,?,?);";
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newCooker);
             $stmt->bindParam(2, $newCookerPwd);
+            $stmt->bindParam(3, $adminStatus);
             $stmt->execute();
             $insertVerif = $stmt->rowCount();
         } catch (PDOException $ex) {
@@ -144,14 +146,15 @@ class CookerDAO {
      * @param string $newCookerPwd
      * @return type
      */
-    public static function update(pdo $pdo, $idCooker, $newCookerPseudo, $newCookerPwd) {
-        $request = 'UPDATE qqm.cooker SET pseudo = ?, pwd = ? WHERE id_cooker = ?';
+    public static function update(pdo $pdo, $idCooker, $newCookerPseudo, $newCookerPwd, $newAdminStatus) {
+        $request = 'UPDATE qqm.cooker SET pseudo = ?, pwd = ?, admin = ? WHERE id_cooker = ?';
         $liUpdated = 0;
         try {
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newCookerPseudo);
             $stmt->bindParam(2, $newCookerPwd);
             $stmt->bindParam(3, $idCooker);
+            $stmt->bindParam(4, $newAdminStatus);
             $stmt->execute();
             $liUpdated = $stmt->rowCount();
         } catch (PDOException $ex) {

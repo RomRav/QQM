@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+//session_start();
 /**
  * authentificationCtrl.php
  * @authore : Romain Ravault
@@ -31,6 +31,8 @@ if ($typeOfForm == 'log') {
         $message = "ok";
         $_SESSION['cooker'] = $cooker->getPseudo();
         $_SESSION['idCooker'] = $cooker->getIdCooker();
+        $_SESSION['admin'] = $cooker->getAdmin();
+        $cible = 'recipeListIHM.php';
     } else {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
@@ -53,5 +55,5 @@ if ($isMdpSaved == "on") {
     unset($_COOKIE['mdp']);
 }
 if ($message != "") {
-    header("location: ../boundaries/" . $cible);
+    include "../boundaries/" . $cible;
 }

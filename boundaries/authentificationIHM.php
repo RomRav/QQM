@@ -38,7 +38,7 @@ Last update: 08/12/2020
                             <label for="pwdCheckInput" class="label">Vérification du Mot de passe</label>
                         </div>
                         <div class="same-input-pwd-checker">
-                            <input class="pwdCheckInput" type="password" name="pwdCheckInput">
+                            <input class="pwdCheckInput password" type="password" name="pwdCheckInput">
                         </div>
                     </div>
                     <div>

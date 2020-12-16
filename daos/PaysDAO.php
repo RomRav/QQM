@@ -46,7 +46,7 @@ class PaysDAO {
      * 21/02/202
      * @return type
      */
-    public static function selectOne(pdo $pdo, int $idPays) {
+    public static function selectOne(pdo $pdo, $idPays) {
         try {
             $requet = "SELECT * FROM country WHERE id_country = ? ;";
             $stmt = $pdo->prepare($requet);
@@ -68,7 +68,7 @@ class PaysDAO {
      * @param string $newCountry
      * @return type
      */
-    public static function insert(pdo $pdo, string $newCountry) {
+    public static function insert(pdo $pdo, $newCountry) {
         try {
             $request = "INSERT INTO qqm.country(country_name) VALUE(?);";
             $stmt = $pdo->prepare($request);
@@ -90,7 +90,7 @@ class PaysDAO {
      * @param int $idPay
      * @return type
      */
-    public static function delete(pdo $pdo, int $idPay) {
+    public static function delete(pdo $pdo, $idPay) {
         $liDelete = 0;
         $request = "DELETE FROM qqm.country WHERE id_country = ?";
         try {

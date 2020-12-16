@@ -5,7 +5,7 @@
  * @authore : Romain Ravault
  * 30/09/2020
  *
- * last update: 15/12/2020
+ * last update: 16/12/2020
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/CookerDAO.php';
@@ -102,10 +102,10 @@ if ($selectedItem != null) {
             $uomForm = "";
             $positionForm = "";
             if ($inputedCooker && $selectedCooker) {
-                $upCooker = CookerDAO::update($pdo, $selectedCooker, $inputedCooker, $inputMdp);
+                $upCooker = CookerDAO::update($pdo, $selectedCooker, $inputedCooker, $inputMdp, $selectedAdmin);
                 $message = checkResponseAndMessage($upCooker, $pdo);
             } elseif ($inputedCooker) {
-                $addCooker = CookerDAO::insert($pdo, $inputedCooker, $inputMdp);
+                $addCooker = CookerDAO::insert($pdo, $inputedCooker, $inputMdp, $selectedAdmin);
                 $message = checkResponseAndMessage($addCooker, $pdo);
             } elseif ($selectedCooker) {
                 $delCooker = CookerDAO::delete($pdo, $selectedCooker);

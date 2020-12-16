@@ -1,6 +1,6 @@
 <?php
+//   session_start();
 
-session_start();
 /**
  * recipeListCtrl.php
  * @authore : Romain Ravault
@@ -15,6 +15,7 @@ require_once '../daos/RecipeDAO.php';
 $pdo = Connexion::seConnecter();
 //Récupération de la liste des recettes ou des recettes de l'utilisateur logger
 if (isset($_SESSION['idCooker'])) {
+
     $idCooker = $_SESSION['idCooker'];
     $recipeTitleList = RecipeDAO::selectTitleByIdCooker($pdo, $idCooker);
     if (count($recipeTitleList) > 0) {
@@ -24,7 +25,6 @@ if (isset($_SESSION['idCooker'])) {
     }
 } else {
     $recipeTitleList = RecipeDAO::selectAllTitle($pdo);
-
     if (count($recipeTitleList) > 0) {
         $list = recipeCardBuilder($recipeTitleList);
     }
