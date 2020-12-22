@@ -1,12 +1,12 @@
 <?php
 
-//session_start();
+session_start();
 /**
  * authentificationCtrl.php
  * @authore : Romain Ravault
  * 01/12/2020
  *
- * last update: 04/12/2020
+ * last update: 18/12/2020
  */
 require_once '../ett/Cooker.php';
 require_once '../daos/cookerDAO.php';
@@ -27,7 +27,6 @@ $typeOfForm = filter_input(INPUT_GET, 'type');
 if ($typeOfForm == 'log') {
     $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
     if ($cooker != NULL) {
-        $cible = 'recipeListIHM.php';
         $message = "ok";
         $_SESSION['cooker'] = $cooker->getPseudo();
         $_SESSION['idCooker'] = $cooker->getIdCooker();

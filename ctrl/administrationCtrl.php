@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 /**
  * administrationCtrl.php
  * @authore : Romain Ravault

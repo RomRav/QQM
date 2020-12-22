@@ -1,4 +1,5 @@
 <?php
+
 /*
  * header.php
  * Romain Ravault
@@ -10,9 +11,10 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <ul class="list-group list-group-horizontal">
             <?php
+          
             if (isset($_SESSION['cooker'])) {
                 echo '<li class="list-nav">
-                <a class="ml-1 list-group-item list-group-item-action" href="../ctrl/routeur.php?route=newRecipe">Ajoutez une recette</a>
+                <a class="ml-1 list-group-item list-group-item-action" href="../boundaries/newRecipeIHM.php">Ajoutez une recette</a>
             </li>
             &nbsp;&nbsp;';
             } else {
