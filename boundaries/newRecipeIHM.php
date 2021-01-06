@@ -4,7 +4,7 @@
  * newRecipeIHM.php
  * @authore: Romain Ravault
  * 28/02/2020
- * last update 10/03/2020
+ * last update 06/01/2021
  */
 require_once '../ctrl/newRecipeCtrl.php';
 ?>
@@ -30,6 +30,11 @@ require_once '../ctrl/newRecipeCtrl.php';
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
             </div>
+            <div class="form-group">
+                <label>Ajoutez une photo</label></br>
+                <input id="imgFile" class="form-control-file" type="file" accept="image/jpeg">
+                <p>uniquement au format .jpg</p>
+            </div>
             <h4>Caractéristique de la recette</h4>
             <!--Les ingredients de la recette -->
             <div class="form-row">
@@ -40,7 +45,6 @@ require_once '../ctrl/newRecipeCtrl.php';
                               Carottes, 100, g,
                               Pomme de terre, 3, pcs,"></textarea>
                 </div>
-
             </div>
             <div class="form-row">
 
@@ -84,5 +88,7 @@ require_once '../ctrl/newRecipeCtrl.php';
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="../js/jquery.js" ></script>
+        <script src="../js/jq.js"></script>
     </body>
 </html>

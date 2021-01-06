@@ -2,15 +2,22 @@
  * jq.js
  * @author Romain Ravault
  * 08/12/2020
- * last update: 09/12/2020
+ * last update: 06/01/2021
  */
-
-
-
 $(document).ready(function () {
     $('.same-pwd-checker').css('display', 'none');
     var form = $('.idLogForm');
     var status = 0;
+
+    $('#imgFile').change(function (ev) {
+        var imgPrev = ev;
+        console.log(ev.target);
+        if (imgPrev) {
+            consol.log('a');
+            console.log(impPrev);
+        }
+    });
+
 
     //Gestion du click sur le texte 'créer un compte', modifie le form pour ajouter et vérifier la saisie du mdp 
     $('#authFormChange').click(() => {
@@ -29,24 +36,20 @@ $(document).ready(function () {
             status = 0;
         }
     });
-
-
-    
-        $('.pwdCheckInput').keyup(() => {
-            var pwd = $('.password').val();
-            var checkPwd = $('.pwdCheckInput').val();
-            var pseudo = $('.pseudo').val();
-            if (pwd == checkPwd & pseudo != 'undefined') {
-                $('.message').html('<p>Mot de passe identique</p>');
-                $('.message').css('color', 'green');
-                $('button').attr('type', 'submit');
-            } else {
-                $('.message').html('<p>La saisie n\'est pas identique</p>');
-                $('.message').css('color', 'red');
-                $('button').attr('type', 'button');
-            }
-        });
-    
-
+    //Gestion du message lors de la double saisie du mdp
+    $('.pwdCheckInput').keyup(() => {
+        var pwd = $('.password').val();
+        var checkPwd = $('.pwdCheckInput').val();
+        var pseudo = $('.pseudo').val();
+        if (pwd == checkPwd & pseudo != 'undefined') {
+            $('.message').html('<p>Mot de passe identique</p>');
+            $('.message').css('color', 'green');
+            $('button').attr('type', 'submit');
+        } else {
+            $('.message').html('<p>La saisie n\'est pas identique</p>');
+            $('.message').css('color', 'red');
+            $('button').attr('type', 'button');
+        }
+    });
 });
 
