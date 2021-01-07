@@ -2,7 +2,7 @@
  * jq.js
  * @author Romain Ravault
  * 08/12/2020
- * last update: 06/01/2021
+ * last update: 07/01/2021
  */
 $(document).ready(function () {
     $('.same-pwd-checker').css('display', 'none');
@@ -10,11 +10,15 @@ $(document).ready(function () {
     var status = 0;
 
     $('#imgFile').change(function (ev) {
-        var imgPrev = ev;
-        console.log(ev.target);
+        var imgPrev = ev.target.files[0];
         if (imgPrev) {
-            consol.log('a');
-            console.log(impPrev);
+            var reader = new FileReader();
+            reader.onload = function (ev) {
+                $('#prevImg').attr('src', '');
+                $('.prevDiv').prepend('<img id="prevImg" src="' + ev.target.result + '" />');
+                $('#prevImg').attr('width', '300px');
+            }
+            reader.readAsDataURL(imgPrev);
         }
     });
 

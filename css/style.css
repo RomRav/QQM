@@ -62,11 +62,10 @@ body{
     align-items: center;
 }
 
-img{
-
+/*img{
     height: 100%;
     border-radius: 5px;
-}
+}*/
 
 .card-link{
     background-color: rgb(230,248,244);

@@ -33,6 +33,7 @@ require_once '../ctrl/newRecipeCtrl.php';
             <div class="form-group">
                 <label>Ajoutez une photo</label></br>
                 <input id="imgFile" class="form-control-file" type="file" accept="image/jpeg">
+                <div class="prevDiv"></div>
                 <p>uniquement au format .jpg</p>
             </div>
             <h4>Caractéristique de la recette</h4>
