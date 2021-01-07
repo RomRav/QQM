@@ -77,7 +77,7 @@ if ($choice == "save") {
         if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
             $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
         } else {
-            $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country);
+            $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
             $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 4);
             if ($recRecipe == 1) {
                 $newRecipeId = $pdo->lastInsertId();

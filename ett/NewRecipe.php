@@ -4,7 +4,7 @@
  * Class newRecipe
  *
  * @author Romain
- * 28/02/2020
+ * 07/01/2021
  */
 class NewRecipe {
 
@@ -13,10 +13,11 @@ class NewRecipe {
     private $position;
     private $content;
     private $recipe;
-    private $ingredient =[];
+    private $ingredient = [];
     private $country;
+    private $photoFileName;
 
-    function __construct($title, $season, $position, $content, $recipe, $ingredient, $country) {
+    function __construct($title, $season, $position, $content, $recipe, $ingredient, $country, $photoFileName) {
         $this->title = $title;
         $this->season = $season;
         $this->position = $position;
@@ -24,6 +25,7 @@ class NewRecipe {
         $this->recipe = $recipe;
         $this->ingredient = $ingredient;
         $this->country = $country;
+        $this->photoFileName = $photoFileName;
     }
 
     public function getTitle() {
@@ -54,6 +56,10 @@ class NewRecipe {
         return $this->country;
     }
 
+    public function getPhotoFileName() {
+        return $this->photoFileName;
+    }
+
     public function setTitle($title) {
         $this->title = $title;
     }
@@ -80,6 +86,10 @@ class NewRecipe {
 
     public function setCountry($country) {
         $this->country = $country;
+    }
+
+    public function setPhotoFileName($photoFileName) {
+        $this->photoFileName = $photoFileName;
     }
 
 }
