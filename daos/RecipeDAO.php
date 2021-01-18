@@ -118,9 +118,10 @@ class RecipeDAO {
      * @param string $newIdCooker
      * @return type
      */
-    public static function insert(pdo $pdo, $newRecipeTitle, $newRecipe, $newRecipeVisibility, $newIdCooker, $phoyoFileName) {
+    public static function insert(pdo $pdo, $newRecipeTitle, $newRecipe, $newRecipeVisibility, $newIdCooker, $photoFileName) {
         try {
-            $request = "INSERT INTO qqm.recipe(recipe_title, recipe, recipe_visibility, id_cooker) VALUE(?,?,?,?,?);";
+//            echo '//' . $newRecipeTitle . '//' . $newRecipe . ' // ' . $newRecipeVisibility . ' // ' . $newIdCooker . ' // ' . $photoFileName;
+            $request = "INSERT INTO qqm.recipe(recipe_title, recipe, recipe_visibility, id_cooker, photoFileName) VALUE(?,?,?,?,?);";
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newRecipeTitle);
             $stmt->bindParam(2, $newRecipe);

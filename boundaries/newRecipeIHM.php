@@ -4,7 +4,7 @@
  * newRecipeIHM.php
  * @authore: Romain Ravault
  * 28/02/2020
- * last update 07/01/2021
+ * last update 08/01/2021
  */
 require_once '../ctrl/newRecipeCtrl.php';
 ?>
@@ -25,14 +25,14 @@ require_once '../ctrl/newRecipeCtrl.php';
         include 'partials/header.php';
         ?>
         <h2>Ajoutez une recette:</h2>
-        <form action="../ctrl/newRecipeCtrl.php?choice=save" method="post" >
+        <form action="../ctrl/newRecipeCtrl.php?choice=save" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
             </div>
             <div class="form-group">
                 <label>Ajoutez une photo</label></br>
-                <input id="imgFile" class="form-control-file" type="file" accept="image/jpeg">
+                <input id="imgFile" class="form-control-file" type="file" accept="image/jpeg" name="imgFile">
                 <div class="prevDiv"></div>
                 <p>uniquement au format .jpg</p>
             </div>

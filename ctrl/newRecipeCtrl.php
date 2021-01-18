@@ -5,8 +5,7 @@ session_start();
  * newRecipeCtrl.php
  * @authore : Romain Ravault
  * 28/02/2020
- *
- * last update: 29/02/2020
+ * last update: 08/001/2021
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/TypeDAO.php';
@@ -34,8 +33,8 @@ $contenuRecette = filter_input(INPUT_POST, "contenuRecette");
 $ingredient = filter_input(INPUT_POST, "ingredient");
 $country = filter_input(INPUT_POST, "country");
 $choice = filter_input(INPUT_GET, "choice");
+$idLogedCooker = $_SESSION["idCooker"];
 $message = "";
-
 
 if ($choice == "save") {
     //Liste des ingredients en tableau de la classe Ingredient
@@ -77,16 +76,27 @@ if ($choice == "save") {
         if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
             $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
         } else {
-            $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
-            $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, 1, 4);
-            if ($recRecipe == 1) {
-                $newRecipeId = $pdo->lastInsertId();
-                $newRecipeLink = NewRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
-                $pdo->commit();
-                $message .= $recRecipe . " recette bien enregistré";
-            } else {
-                $pdo->rollBack();
-                $message = "L'enregistrement de la recette à échoué.";
+            $file = $_FILES['imgFile']['error'];
+            var_dump($file);
+            $_FILES['imgFile']['name'] = $idLogedCooker . '-' . $titre . '.jpg';
+            $nomFichier = $_FILES['imgFile']['tmp_name'];
+            $photoFileName = basename($_FILES['imgFile']['name']);
+            $photoFileError = $_FILES['imgFile']['error'];
+            $isPhotoSave = move_uploaded_file($nomFichier, "../images/recipes-images/$photoFileName.jpg");
+            echo 'aaaAAA' . $photoFileError;
+            if ($isPhotoSave) {
+                $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
+//                echo '//' . $titre . '//' . $contenuRecette . ' // ' . $idLogedCooker . ' // ' . $photoFileName;
+                $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
+                if ($recRecipe == 1) {
+                    $newRecipeId = $pdo->lastInsertId();
+                    $newRecipeLink = NewRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
+                    $pdo->commit();
+                    $message .= $recRecipe . " recette bien enregistré";
+                } else {
+                    $pdo->rollBack();
+                    $message = "L'enregistrement de la recette à échoué.";
+                }
             }
         }
     }
