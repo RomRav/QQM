@@ -1,6 +1,6 @@
 /*
-Scripte d'insertion de donnée dans la base de donnée QQM
-11/02/2020
+Scripte d'insertion de données dans la base de données QQM
+Création 11/02/2020
 Romain Ravault
 */
 

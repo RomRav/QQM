@@ -1,44 +1,47 @@
 <?php
-
 /*
  * header.php
  * Romain Ravault
- * Laste update 07/01/2020
+ * Laste update 17/03/2021
  */
 ?>
+<div class="head_background"></div>
 <header>
-    <h1>Qu'est-ce qu'on mange?!</h1>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <ul class="list-group list-group-horizontal">
+    <h3>Qu'est-ce qu'on mange?!</h3>
+    <nav class="head_nav">
+        <ul class="head_ul">
             <?php
-          
             if (isset($_SESSION['cooker'])) {
-                echo '<li class="list-nav">
-                <a class="ml-1 list-group-item list-group-item-action" href="../boundaries/newRecipeIHM.php">Ajoutez une recette</a>
+                echo '<li class="head_li">
+                    
+                <a class="head_a"  href="../boundaries/newRecipeIHM.php">Ajoutez une recette</a>
+               
             </li>
             &nbsp;&nbsp;';
             } else {
-                echo '<li class="list-nav">
-                <a class="ml-1 list-group-item list-group-item-action" href="../ctrl/routeur.php?route=authentification">Authentification</a>
+                echo '<li class="head_li">
+                <a class="head_a" href="../ctrl/routeur.php?route=authentification">Authentification</a>
             </li>
             &nbsp;&nbsp;';
             }
             ?>
-            <li class="list-nav">
-                <a class="ml-1 list-group-item list-group-item-action" href="../ctrl/routeur.php?route=recipeList">Liste des recettes</a>
+            <li class="head_li">
+
+                <a class="head_a" href="../ctrl/routeur.php?route=recipeList">Liste des recettes</a>
+
             </li>
             &nbsp;&nbsp;
 
             <?php
             if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-                echo '<li class = "list-nav">
-            <a class = "ml-1 list-group-item list-group-item-action" href = "../ctrl/routeur.php?route=administration">Administration</a>
+                echo '<li class="head_li">
+            <a class="head_a" href = "../ctrl/routeur.php?route=administration">Administration</a>
             </li>';
             }
             ?>
             &nbsp;&nbsp;
-            <li class="list-nav">
-                <a href="../ctrl/deconnexion.php"><img src="../images/deco.jpg" /></a>
+            <li class="head_li">
+                <a class="head_a" href="../ctrl/deconnexion.php"><img src="../images/logout(3).png" /></a>
             </li>
             &nbsp;&nbsp;
         </ul>

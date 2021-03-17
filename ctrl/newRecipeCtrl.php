@@ -82,7 +82,7 @@ if ($choice == "save") {
             $nomFichier = $_FILES['imgFile']['tmp_name'];
             $photoFileName = basename($_FILES['imgFile']['name']);
             $photoFileError = $_FILES['imgFile']['error'];
-            $isPhotoSave = move_uploaded_file($nomFichier, "../images/recipes-images/$photoFileName.jpg");
+            $isPhotoSave = move_uploaded_file($nomFichier, "../images/recipes_images/$photoFileName");
             echo 'aaaAAA' . $photoFileError;
             if ($isPhotoSave) {
                 $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
