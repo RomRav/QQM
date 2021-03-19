@@ -56,6 +56,9 @@ Last update: 08/12/2020
                     <div>
                         <button type="submit">Validez</button>
                     </div>
+                    <div id="authFormChange">
+                        <p>Créer un compte</p>
+                    </div>
                 </form>
             </div>
             <div class="message">
@@ -65,9 +68,7 @@ Last update: 08/12/2020
                 }
                 ?>
             </div>
-            <div id="authFormChange">
-                <p>Créer un compte</p>
-            </div>
+
         </div>
         <script src="../js/jquery.js" ></script>
         <script src="../js/jq.js"></script>
