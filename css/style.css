@@ -3,6 +3,7 @@ body{
     background-color: whitesmoke;
     background-image: url("../images/food-background.jpg");
     background-position-x: center;
+    font-family: verdana, sans-serif;
 }
 
 ul{
@@ -85,11 +86,11 @@ header h3{
     margin: 0.4em;
     transition: transform 300ms , box-shadow 200ms 300ms;
     transition-timing-function: ease-in-out;
-    background-color: white;
+    
 }
 
 .card-img{
-    height: 8em;
+    height: 80%;
     width: auto;
     margin: 0px;
     padding: 0px;
@@ -105,13 +106,15 @@ img{
 }
 
 .card-link{
-    background-color: rgba(43,37,30,0.8);
+    background-color: rgba(255,201,82,1);
     border-radius: 10px;
     width: 100%;
+    height: 20%;
     display: flex;
     justify-content: center;
     border: 1px gray solid;
     margin: 0px;
+    
 }
 
 .list_item:hover{
@@ -131,7 +134,7 @@ img{
 
 .list_item a{
     text-decoration: none;
-    color: rgb(190,190,190);
+    color: rgb(38,70,83);
 }
 
 .form{
