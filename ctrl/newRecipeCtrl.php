@@ -19,6 +19,11 @@ require_once '../ett/Type.php';
 require_once '../ett/NewRecipe.php';
 require_once '../daos/UniteOfMeasureDAO.php';
 
+
+if (!isset($_SESSION['cooker']) && !isset($_COOKIE['mdp'])) {
+    header("location: ../ctrl/routeur.php?route=authentification");
+}
+
 //Connexion 
 $pdo = Connexion::seConnecter("../daos/bd.ini");
 $pdo->beginTransaction();

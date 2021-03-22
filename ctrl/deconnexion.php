@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 /*
  * deconnexion.php
  * Romain Ravault
@@ -8,11 +9,12 @@
  */
 
 if (isset($_SESSION['cooker'])) {
+    session_destroy();
     $_SESSION = array();
     unset($_SESSION['admin']);
     unset($_SESSION['cooker']);
     unset($_SESSION['idCooker']);
-    session_destroy();
+
     $message = 'Vous êtes déconnecté';
 } else {
     $message = "Vous n'étes pas connecté";

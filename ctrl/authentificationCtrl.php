@@ -35,7 +35,7 @@ if ($typeOfForm == 'log') {
     } else {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
-} else {
+} else if ($typeOfForm == 'id'){
     $newUserInsertCheck = CookerDAO::insert($pdo, $pseudo, $password);
     if ($newUserInsertCheck == 1) {
         $pdo->commit();

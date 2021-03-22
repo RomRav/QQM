@@ -11,7 +11,8 @@
     <nav class="head_nav">
         <ul class="head_ul">
             <?php
-            if (isset($_SESSION['cooker'])) {
+           
+            if (isset($_COOKIE['mdp'])) {
                 echo '<li class="head_li">
                     
                 <a class="head_a"  href="../boundaries/newRecipeIHM.php">Ajoutez une recette</a>

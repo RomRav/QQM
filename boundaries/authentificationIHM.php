@@ -15,7 +15,10 @@ Last update: 08/12/2020
         <title>Qu'est-ce qu'on mange?</title>
     </head>
     <body>
-        <?php include 'partials/header.php'; ?>
+        <?php 
+        
+        include 'partials/header.php';
+        ?>
         <div class="authForm-content">
             <div class="form">
                 <h3>Authentification</h3>

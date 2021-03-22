@@ -5,6 +5,7 @@ Last update:
 -->
 
 <?php
+
 require_once '../ctrl/administrationCtrl.php';
 include 'partials/header.php';
 ?>
