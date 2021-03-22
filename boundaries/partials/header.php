@@ -2,7 +2,7 @@
 /*
  * header.php
  * Romain Ravault
- * Laste update 17/03/2021
+ * Laste update 22/03/2021
  */
 ?>
 <div class="head_background"></div>
