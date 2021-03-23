@@ -36,7 +36,7 @@ if ($typeOfForm == 'log') {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
 } else if ($typeOfForm == 'id'){
-    $newUserInsertCheck = CookerDAO::insert($pdo, $pseudo, $password);
+    $newUserInsertCheck = CookerDAO::insert($pdo, $pseudo, $password, 0);
     if ($newUserInsertCheck == 1) {
         $pdo->commit();
         $cible = 'recipeListIHM.php';
@@ -48,7 +48,7 @@ if ($typeOfForm == 'log') {
 }
 //Verification si le mot de passe doit être sauvegarder et crée un COOKIE en fonction
 if ($isMdpSaved == "on") {
-    setcookie('mdp', $password, time() + (3600 * 24 * 365), "/");
+    setcookie('mdp', TRUE, time() + (3600 * 24 * 365), "/");
 } else {
     setcookie('mdp', '', 1, "/");
     unset($_COOKIE['mdp']);

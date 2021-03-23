@@ -30,16 +30,16 @@ $cooker = cookerDAO::selectOne($pdo, $idCooker);
 echo 'id cooker: ' . $cooker->getIdCooker() . '  //***\ pseudo: ' . $cooker->getPseudo() . ' pwd:' . $cooker->getPwd() . '.<br>';
 
 //Test de la selection d'un utilisateur par son pseudo
-echo '<hr><br>SELECT UN UTILISATEUR PAR SON PSEUDO<br><hr>';
-$pseudo = "romain";
-$cooker = cookerDAO::selectOneByPseudo($pdo, $pseudo);
-echo 'id cooker: ' . $cooker->getIdCooker() . '  //***\ pseudo: ' . $cooker->getPseudo() . ' pwd:' . $cooker->getPwd() . '.<br>';
-
+//echo '<hr><br>SELECT UN UTILISATEUR PAR SON PSEUDO<br><hr>';
+//$pseudo = "romain";
+//$cooker = cookerDAO::selectOneByPseudo($pdo, $pseudo);
+//echo 'id cooker: ' . $cooker->getIdCooker() . '  //***\ pseudo: ' . $cooker->getPseudo() . ' pwd:' . $cooker->getPwd() . '.<br>';
 ////Test de l'ajout d'un nouveau utilisateur
 //echo '<hr><br>AJOUTER UN UTILISATEUR<br><hr>';
-//$newCooker = 'Cécile';
-//$newCookerPwd = 789;
-//$addCooker = CookerDAO::insert($pdo, $newCooker, $newCookerPwd);
+//$newCooker = 'Robin';
+//$newCookerPwd = 159;
+//$admin = 0;
+//$addCooker = CookerDAO::insert($pdo, $newCooker, $newCookerPwd, $admin);
 //if ($addCooker == 1) {
 //    $pdo->commit();
 //    echo $addCooker . ' Utilisateur à bien été enregisté.';
@@ -59,17 +59,30 @@ echo 'id cooker: ' . $cooker->getIdCooker() . '  //***\ pseudo: ' . $cooker->get
 //    echo 'La suppréssion à échoué.';
 //}
 //Test de la modification d'un utilisateur
-echo '<hr><br>Modifier un utilisateur<br><hr>';
-$idCooker = 3;
-$newCookerPseudo = 'romain';
-$newCookerPwd = 789;
-$updatedCookerPseudo = CookerDAO::update($pdo, $idCooker, $newCookerPseudo, $newCookerPwd);
-if ($updatedCookerPseudo == 1) {
-    $pdo->commit();
-    echo $updatedCookerPseudo . ' utilisateur modifié.';
-} else {
-    $pdo->rollBack();
-    echo 'Utilisateur non modifié.';
-}
+//echo '<hr><br>Modifier un utilisateur<br><hr>';
+//$idCooker = 3;
+//$newCookerPseudo = 'romain';
+//$newCookerPwd = 789;
+//$updatedCookerPseudo = CookerDAO::update($pdo, $idCooker, $newCookerPseudo, $newCookerPwd);
+//if ($updatedCookerPseudo == 1) {
+//    $pdo->commit();
+//    echo $updatedCookerPseudo . ' utilisateur modifié.';
+//} else {
+//    $pdo->rollBack();
+//    echo 'Utilisateur non modifié.';
+//}
+
+echo '<br>test du hashage du mdp<br>';
+$mdp = '123';
+echo CookerDAO::passwordCrypter($mdp);
+
+echo '<br>Test de la methode getPassword()<br>';
+echo CookerDAO::getPassword($pdo, 'romain');
+
+echo '<br>Test de la methode checkPassword()<br>';
+$pseudo = "Robin";
+$mdp ='159';
+echo CookerDAO::checkPassword($pdo, $pseudo, $mdp);
+
 //Deconnexion
 Connexion::seDeconnecter($pdo);

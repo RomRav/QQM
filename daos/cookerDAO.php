@@ -5,7 +5,7 @@
  * Bibliothéque d'accées au données utilisateur
  * @author Romain
  * 26/02/2020
- * last update: 16/12/2020
+ * last update: 23/03/2021
  *  
  * selectAll($pdo): récupération de la liste de tous les utilisateurs
  * selectOne($pdo, $id): récupération d'un utilisateur
@@ -97,6 +97,7 @@ class CookerDAO {
      */
     public static function insert(pdo $pdo, $newCooker, $newCookerPwd, $adminStatus) {
         try {
+            $newCookerPwd = self::passwordCrypter($newCookerPwd);
             $request = "INSERT INTO qqm.cooker(pseudo, pwd, admin) VALUE(?,?,?);";
             $stmt = $pdo->prepare($request);
             $stmt->bindParam(1, $newCooker);
@@ -162,6 +163,68 @@ class CookerDAO {
             $liUpdated = -1;
         }
         return $liUpdated;
+    }
+
+    /**
+     * passwordHash()
+     * @author Romain Ravault
+     * 23/03/2021
+     * Hash le mot de passe.
+     * 
+     * @param type $pass
+     * @return type
+     */
+    public static function passwordCrypter($pass) {
+        return password_hash($pass, PASSWORD_DEFAULT);
+    }
+
+    /**
+     * getPassword()
+     * @author Romain Ravault
+     * 23/03/2021
+     * Récupérer le mot de passe d'un utilisateur.
+     * 
+     * @param PDO $pdo
+     * @param type $pseudo
+     * @return type
+     */
+    public static function getPassword(PDO $pdo, $pseudo) {
+        try {
+            $requet = "SELECT pwd FROM qqm.cooker WHERE pseudo = ?;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $pseudo);
+            $stmt->execute();
+            $raw = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($raw != false) {
+                $dbPwd = $raw['pwd'];
+            } else {
+                $dbPwd = null;
+            }
+        } catch (PDOException $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $dbPwd;
+    }
+
+    /**
+     * checkPassword()
+     * @author Romain Ravault
+     * 23/03/2021
+     * 
+     * @param PDO $pdo
+     * @param type $pseudo
+     * @param type $mdp
+     * @return boolean
+     */
+    public static function checkPassword(PDO $pdo, $pseudo, $mdp) {
+        if (empty($mdp)) {
+            return false;
+        }
+        $dbMdp = self::getPassword($pdo, $pseudo);
+        $verif = password_verify($mdp, $dbMdp);
+        
+        var_dump($verif);
+        return $verif;
     }
 
 }
