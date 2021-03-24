@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 authentificationIHM Romain Ravault 01/12/2020 
-Last update: 08/12/2020 
+Last update: 24/03/2021
 -->
 
 <html>
@@ -22,7 +22,7 @@ Last update: 08/12/2020
         <div class="authForm-content">
             <div class="form">
                 <h3>Authentification</h3>
-                <form class="idLogForm" action="authentificationCtrl.php?type=log" method="POST">
+                <form class="idLogForm" action="../ctrl/authentificationCtrl.php?type=log" method="POST">
                     <div class="label-div">
                         <label for="pseudo" class="label"">Pseudo</label>
                     </div>

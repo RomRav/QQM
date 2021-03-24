@@ -1,10 +1,20 @@
 <?php
+/**
+ * recipeCtrl.php
+ * @authore : Romain Ravault
+ * 28/02/2020
+ * last update: 24/03/2021
+ */
 
 require_once '../ett/Recipe.php';
 require_once '../daos/RecipeDAO.php';
 require_once '../daos/IngredientDAO.php';
 require_once '../daos/Connexion.php';
 
+
+if (!isset($_SESSION['pseudo']) && !isset($_COOKIE['pseudo'])) {
+    header("location: ../ctrl/routeur.php?route=authentification");
+}
 $pdo = Connexion::seConnecter('../daos/bd.ini');
 $idSelectedRecipe = filter_input(INPUT_GET, 'id');
 

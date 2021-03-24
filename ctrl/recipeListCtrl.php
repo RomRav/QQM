@@ -1,5 +1,6 @@
 <?php
- session_start();
+
+session_start();
 
 /**
  * recipeListCtrl.php
@@ -14,8 +15,12 @@ require_once '../daos/RecipeDAO.php';
 //Connexion
 $pdo = Connexion::seConnecter();
 //Récupération de la liste des recettes ou des recettes de l'utilisateur logger
+echo $_SESSION['pseudo'];
+if (!isset($_SESSION['pseudo']) && !isset($_COOKIE['pseudo'])) {
+    header("location: ../ctrl/routeur.php?route=authentification");
+}
 if (isset($_SESSION['idCooker'])) {
-
+    
     $idCooker = $_SESSION['idCooker'];
     $recipeTitleList = RecipeDAO::selectTitleByIdCooker($pdo, $idCooker);
     if (count($recipeTitleList) > 0) {

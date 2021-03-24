@@ -6,7 +6,7 @@ session_start();
  * @authore : Romain Ravault
  * 30/09/2020
  *
- * last update: 22/03/2021
+ * last update: 24/03/2021
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/CookerDAO.php';
@@ -18,7 +18,7 @@ require_once '../daos/IngredientDAO.php';
 require_once '../daos/UniteOfMeasureDAO.php';
 
 
-if (!isset($_SESSION['admin']) && $_SESSION['admin'] != 1) {
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     header("location: ../ctrl/routeur.php?route=authentification");
 } else {
 //Connexion 

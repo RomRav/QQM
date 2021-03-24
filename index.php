@@ -9,8 +9,12 @@
         <?php
         session_start();
         $route = "";
-        if (filter_input(INPUT_COOKIE, 'mdp') !== null) {
+        $cookiePseudo = filter_input(INPUT_COOKIE, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
+        $cookieId = filter_input(INPUT_COOKIE, 'idCooker', FILTER_SANITIZE_SPECIAL_CHARS);
+        if ($cookiePseudo !== null && $cookieId !== null) {
             $route = "recipeList";
+            $_SESSION['pseudo'] = $cookiePseudo;
+            $_SESSION['idCooker'] = $cookieId;
         } else {
             $route = "authentification";
         }

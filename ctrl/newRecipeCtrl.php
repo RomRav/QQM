@@ -5,7 +5,7 @@ session_start();
  * newRecipeCtrl.php
  * @authore : Romain Ravault
  * 28/02/2020
- * last update: 22/03/2021
+ * last update: 24/03/2021
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/TypeDAO.php';
@@ -20,7 +20,7 @@ require_once '../ett/NewRecipe.php';
 require_once '../daos/UniteOfMeasureDAO.php';
 
 
-if (!isset($_SESSION['cooker']) && !isset($_COOKIE['mdp'])) {
+if (!isset($_SESSION['pseudo']) && !isset($_COOKIE['pseudo'])) {
     header("location: ../ctrl/routeur.php?route=authentification");
 }
 
