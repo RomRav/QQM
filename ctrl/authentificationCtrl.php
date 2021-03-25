@@ -6,7 +6,7 @@ session_start();
  * @authore : Romain Ravault
  * 01/12/2020
  *
- * last update: 24/03/2021
+ * last update: 25/03/2021
  */
 require_once '../ett/Cooker.php';
 require_once '../daos/cookerDAO.php';
@@ -25,13 +25,15 @@ $typeOfForm = filter_input(INPUT_GET, 'type');
 
 //Verification du choix de formulaire, login ou register
 if ($typeOfForm == 'log') {
-    $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
-    if ($cooker != NULL) {
-        $message = "ok";
-        $_SESSION['pseudo'] = $cooker->getPseudo();
-        $_SESSION['idCooker'] = $cooker->getIdCooker();
-        $_SESSION['admin'] = $cooker->getAdmin();
-        $cible = 'recipeList';
+//    if (CookerDAO::checkPassword($pdo, $pseudo, $mdp)) {
+        $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
+        if ($cooker != NULL) {
+            $message = "ok";
+            $_SESSION['pseudo'] = $cooker->getPseudo();
+            $_SESSION['idCooker'] = $cooker->getIdCooker();
+            $_SESSION['admin'] = $cooker->getAdmin();
+            $cible = 'recipeList';
+//        }
     } else {
         $message = "Le pseudo ou mot de passe n'est pas reconnu!";
     }
@@ -49,10 +51,10 @@ if ($typeOfForm == 'log') {
 //Verification si le mot de passe doit être sauvegarder et crée un COOKIE en fonction
 if ($isMdpSaved == "on") {
     setcookie('pseudo', $pseudo, time() + (3600 * 24 * 365), "/");
-    setcookie('idCooker', $_SESSION['idCooker'], time() + (3600*24*365), "/");
+    setcookie('idCooker', $_SESSION['idCooker'], time() + (3600 * 24 * 365), "/");
 } else {
-    setcookie('pseudo', '',time(), "/");
-    setcookie('idCooker', '',time(),"/");
+    setcookie('pseudo', '', time(), "/");
+    setcookie('idCooker', '', time(), "/");
     unset($_COOKIE['pseudo']);
     unset($_COOKIE['idCooker']);
 }

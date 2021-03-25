@@ -21,14 +21,13 @@ require_once '../ctrl/recipeListCtrl.php';
     <body>
         <?php
         include 'partials/header.php';
+        echo '<h2>Liste des recettes</h2>';
+        echo $message;
+        echo '<div class="recipe_list">';
+        echo $list;
         ?>
-        <h2>Liste des recettes</h2>
-        <div class="recipe_list">
-            <?php
-            echo $list;
-            ?>
-        </div>
-        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-        <script src="../js/jquery.js"></script>
-    </body>
+    </div>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="../js/jquery.js"></script>
+</body>
 </html>

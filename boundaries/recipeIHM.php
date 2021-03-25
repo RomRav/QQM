@@ -21,21 +21,25 @@ require_once '../ctrl/recipeCtrl.php';
         <?php
         include 'partials/header.php';
         ?>
-        <div class="container row">
+
+        <div class="title_content container row">
             <?php echo $title ?>
         </div>
-        <hr>
-        <hr>
-        <div class="container row">
+        
+        <div class="recipe_content container row">
             <div class="container col-7">
                 <h2>Recette:</h2>
                 <?php echo nl2br($recipe) ?>
             </div>
-            <div class="container col-5">
+            <div class="container col-5 ingredient_content">
                 <h2>Ingredients:</h2>
                 <?php echo $ingredientsList; ?>
             </div>
         </div>
+        <button class="recipe_btn deleteBtn">Supprimer</button>
+        <button class="recipe_btn updateBtn">Modifier</button>
+        <script src="../js/jquery.js" ></script>
+        <script src="../js/jq.js"></script>
     </body>
 </html>
 

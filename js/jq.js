@@ -55,5 +55,36 @@ $(document).ready(function () {
             $('button').attr('type', 'button');
         }
     });
+
+
+
+    //Gestion du onClick sur le bouton delete de recipeIHM
+    $('.deleteBtn').click(() => {
+        if (window.confirm("Voulez-vous réelement supprimer la recette?")) {
+            var idRecipe = getParameter('id');
+            window.location.assign('../ctrl/recipeCtrl.php?choix=del&id=' + idRecipe);
+        }
+        ;
+    });
+
+    /**
+     * function getParameter
+     * récupére les paramétre passé en GET dans l'url
+     * @author Romain Ravault
+     * 25/03/2021
+     * 
+     * @param {type} p
+     * @returns {unresolved}
+     */
+    function getParameter(p) {
+        var url = window.location.search.substring(1);
+        var varUrl = url.split('&');
+        for (var i = 0; i < varUrl.length; i++) {
+            var parameter = varUrl[i].split('=');
+            if (parameter[0] == p) {
+                return parameter[1];
+            }
+        }
+    }
 });
 

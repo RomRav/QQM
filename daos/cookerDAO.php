@@ -5,7 +5,7 @@
  * Bibliothéque d'accées au données utilisateur
  * @author Romain
  * 26/02/2020
- * last update: 23/03/2021
+ * last update: 25/03/2021
  *  
  * selectAll($pdo): récupération de la liste de tous les utilisateurs
  * selectOne($pdo, $id): récupération d'un utilisateur
@@ -222,8 +222,6 @@ class CookerDAO {
         }
         $dbMdp = self::getPassword($pdo, $pseudo);
         $verif = password_verify($mdp, $dbMdp);
-        
-        var_dump($verif);
         return $verif;
     }
 

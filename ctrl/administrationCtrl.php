@@ -6,7 +6,7 @@ session_start();
  * @authore : Romain Ravault
  * 30/09/2020
  *
- * last update: 24/03/2021
+ * last update: 25/03/2021
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/CookerDAO.php';
@@ -16,16 +16,12 @@ require_once '../daos/PositionDAO.php';
 require_once '../daos/PaysDAO.php';
 require_once '../daos/IngredientDAO.php';
 require_once '../daos/UniteOfMeasureDAO.php';
-
-
 if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     header("location: ../ctrl/routeur.php?route=authentification");
 } else {
 //Connexion 
     $pdo = Connexion::seConnecter("../daos/bd.ini");
     $pdo->beginTransaction();
-
-
 //Récupération de la saisie des formulaires administrateur
     $inputedPosition = filter_input(INPUT_POST, "position", FILTER_SANITIZE_SPECIAL_CHARS);
     $inputedCooker = filter_input(INPUT_POST, "cooker", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -48,6 +44,63 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
     $selectedAction = filter_input(INPUT_GET, "cat");
     $message = "";
 
+    /**
+     * Methode formBuilder crée le formulaire en fonction de l'action désiré (CUD) sur l'item choisit
+     * @authore : Romain Ravault
+     * 01/10/2020
+     * LAST UPDATE 15/12/2020
+     * @param type $choice
+     * @param type $cat
+     * @param type $select
+     * @return string
+     */
+    function formBuilder($choice, $cat, $select) {
+        $formulaire = "<form action='../ctrl/administrationCtrl.php?choice=$choice&cat=$cat' method='POST'>";
+        $button = "<button type='submit' class='btn-primary'>Valider</button>";
+        $input = "<input type='text' class='form-control' name='$choice'>";
+        $label = "<label><h5>" . $choice . "</h5></label><br>";
+        switch ($cat) {
+            case 'delete':
+                $formulaire .= $label;
+                $formulaire .= $select . '<br><br>';
+                $formulaire .= $button;
+                $formulaire .= "</form><br>";
+                break;
+            case 'update' :
+                $formulaire .= $label;
+                $formulaire .= $select . '<br><br>';
+                $formulaire .= "<label>Nouveau " . $choice . "</label>";
+                $formulaire .= $input;
+                if ($choice == "cooker") {
+                    $formulaire .= "<label>Mot de passe</label>";
+                    $formulaire .= "<input type='password' class='form-control password' name='mdp'>";
+                    $formulaire .= "<label>Vérification du mot de passe</label>";
+                    $formulaire .= "<input type='password' class='form-control pwdCheckInput' name='verifMdp'>";
+                } elseif ($choice == "ingredient") {
+                    $formulaire .= "<label>Calorie</label>";
+                    $formulaire .= "<input type='text' class='form-control' name='calorie'>";
+                }
+                $formulaire .= $button;
+                $formulaire .= "</form><br>";
+                break;
+            case 'add':
+                $formulaire .= $label;
+                $formulaire .= $input;
+                if ($choice == "cooker") {
+                    $formulaire .= "<label>Mot de passe</label>";
+                    $formulaire .= "<input type='password' class='form-control password' name='mdp'>";
+                    $formulaire .= "<label>Vérification du mot de passe</label>";
+                    $formulaire .= "<input type='password' class='form-control pwdCheckInput' name='verifMdp'>";
+                } elseif ($choice == "ingredient") {
+                    $formulaire .= "<label>Calorie</label>";
+                    $formulaire .= "<input type='text' class='form-control' name='calorie'>";
+                }
+                $formulaire .= $button;
+                $formulaire .= "</form><br>";
+                break;
+        }
+        return $formulaire;
+    }
 //Récupération de la liste des cooker
     $selectCooker = "<select name='selectCooker'><option value='' >Selectionner</option>";
     $cookerTable = CookerDAO::selectAll($pdo);
@@ -217,64 +270,6 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         $positionForm = "";
     }
 
-    /**
-     * Methode formBuilder crée le formulaire en fonction de l'action désiré (CUD) sur l'item choisit
-     * @authore : Romain Ravault
-     * 01/10/2020
-     * LAST UPDATE 15/12/2020
-     * @param type $choice
-     * @param type $cat
-     * @param type $select
-     * @return string
-     */
-    function formBuilder($choice, $cat, $select) {
-        $formulaire = "<form action='../ctrl/administrationCtrl.php?choice=$choice&cat=$cat' method='POST'>";
-        $button = "<button type='submit' class='btn-primary'>Valider</button>";
-        $input = "<input type='text' class='form-control' name='$choice'>";
-        $label = "<label><h5>" . $choice . "</h5></label><br>";
-        switch ($cat) {
-            case 'delete':
-                $formulaire .= $label;
-                $formulaire .= $select . '<br><br>';
-                $formulaire .= $button;
-                $formulaire .= "</form><br>";
-                break;
-            case 'update' :
-                $formulaire .= $label;
-                $formulaire .= $select . '<br><br>';
-                $formulaire .= "<label>Nouveau " . $choice . "</label>";
-                $formulaire .= $input;
-                if ($choice == "cooker") {
-                    $formulaire .= "<label>Mot de passe</label>";
-                    $formulaire .= "<input type='password' class='form-control password' name='mdp'>";
-                    $formulaire .= "<label>Vérification du mot de passe</label>";
-                    $formulaire .= "<input type='password' class='form-control pwdCheckInput' name='verifMdp'>";
-                } elseif ($choice == "ingredient") {
-                    $formulaire .= "<label>Calorie</label>";
-                    $formulaire .= "<input type='text' class='form-control' name='calorie'>";
-                }
-                $formulaire .= $button;
-                $formulaire .= "</form><br>";
-                break;
-            case 'add':
-                $formulaire .= $label;
-                $formulaire .= $input;
-                if ($choice == "cooker") {
-                    $formulaire .= "<label>Mot de passe</label>";
-                    $formulaire .= "<input type='password' class='form-control password' name='mdp'>";
-                    $formulaire .= "<label>Vérification du mot de passe</label>";
-                    $formulaire .= "<input type='password' class='form-control pwdCheckInput' name='verifMdp'>";
-                } elseif ($choice == "ingredient") {
-                    $formulaire .= "<label>Calorie</label>";
-                    $formulaire .= "<input type='text' class='form-control' name='calorie'>";
-                }
-                $formulaire .= $button;
-                $formulaire .= "</form><br>";
-                break;
-        }
-        return $formulaire;
-    }
-
     function checkResponseAndMessage($resp, $pdo) {
         $message = "";
         if ($resp == 1) {
@@ -287,9 +282,9 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] != 1) {
         return $message;
     }
 
-    if ($message != "") {
+           
         include '../boundaries/administrationIHM.php';
-    }
+    
 }
 ?>
 

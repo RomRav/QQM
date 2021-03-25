@@ -8,7 +8,7 @@ session_start();
  * Last update 24/03/2021
  */
 
-if (isset($_SESSION['pseudo']) || isset($_COOKIE['pseudo'])) {
+if (isset($_SESSION['pseudo']) || isset($_COOKIE['pseudo'])) {  
     unset($_SESSION);
     setcookie('pseudo', '', time(), "/");
     setcookie('idCooker', '', time(), "/");

@@ -8,7 +8,7 @@ body{
 
 ul{
     list-style: none;
-    
+
 }
 
 .head_background{
@@ -61,7 +61,7 @@ header h3{
 
 .head_a:hover{
     color: rgb(255,255,255);
-   
+
 }
 
 .recipe_list{
@@ -86,7 +86,7 @@ header h3{
     margin: 0.4em;
     transition: transform 300ms , box-shadow 200ms 300ms;
     transition-timing-function: ease-in-out;
-    
+
 }
 
 .card-img{
@@ -114,13 +114,13 @@ img{
     justify-content: center;
     border: 1px gray solid;
     margin: 0px;
-    
+
 }
 
 .list_item:hover{
     transform: scale(1.1);
     box-shadow: 2px 2px 10px -2px rgb(255,190,0);
-    
+
 }
 
 .list_item a::before{
@@ -186,3 +186,46 @@ img{
     text-shadow: 1px 1px 10px black;
 }
 
+.deleteBtn{
+    background-color: red;
+}
+
+.updateBtn{
+    background-color: green;
+}
+
+.recipe_btn{
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 10px 30px;
+    font-size: 16px;
+}
+
+.recipe_content{
+    box-shadow: 2px 2px 10px -2px gray;
+    border: 1px black solid;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.3em;
+    background-color: rgba(255,201,82,.7);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.ingredient_content{
+    
+}
+
+.title_content{
+    background-color: rgba(236,115,87,.7);
+    box-shadow: 2px 2px 10px -2px gray;
+    border: 1px black solid;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 0px;
+    font-size: 1.3em;
+}

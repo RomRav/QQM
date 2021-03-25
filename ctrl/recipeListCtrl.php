@@ -15,10 +15,10 @@ require_once '../daos/RecipeDAO.php';
 //Connexion
 $pdo = Connexion::seConnecter();
 //Récupération de la liste des recettes ou des recettes de l'utilisateur logger
-echo $_SESSION['pseudo'];
 if (!isset($_SESSION['pseudo']) && !isset($_COOKIE['pseudo'])) {
     header("location: ../ctrl/routeur.php?route=authentification");
 }
+$message= filter_input(INPUT_GET, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
 if (isset($_SESSION['idCooker'])) {
     
     $idCooker = $_SESSION['idCooker'];
