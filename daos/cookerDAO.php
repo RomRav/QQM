@@ -66,12 +66,11 @@ class CookerDAO {
      * 26/02/202
      * @return type
      */
-    public static function selectOneByPseudoAndMdp(pdo $pdo, $pseudo, $pwd) {
+    public static function selectOneByPseudo(pdo $pdo, $pseudo) {
         try {
-            $requet = "SELECT * FROM qqm.cooker WHERE pseudo = ? AND pwd=?;";
+            $requet = "SELECT * FROM qqm.cooker WHERE pseudo = ?;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $pseudo);
-            $stmt->bindParam(2, $pwd);
             $stmt->execute();
             $raw = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($raw != false) {
@@ -190,6 +189,7 @@ class CookerDAO {
      */
     public static function getPassword(PDO $pdo, $pseudo) {
         try {
+            var_dump($pseudo);
             $requet = "SELECT pwd FROM qqm.cooker WHERE pseudo = ?;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $pseudo);
@@ -221,6 +221,7 @@ class CookerDAO {
             return false;
         }
         $dbMdp = self::getPassword($pdo, $pseudo);
+        var_dump($dbMdp);
         $verif = password_verify($mdp, $dbMdp);
         return $verif;
     }

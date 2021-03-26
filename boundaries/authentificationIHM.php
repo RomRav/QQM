@@ -16,7 +16,6 @@ Last update: 24/03/2021
     </head>
     <body>
         <?php 
-        
         include 'partials/header.php';
         ?>
         <div class="authForm-content">

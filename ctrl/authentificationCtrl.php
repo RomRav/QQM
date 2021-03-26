@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 /**
  * authentificationCtrl.php
@@ -22,11 +21,10 @@ $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 $passwordCheck = filter_input(INPUT_POST, 'pwdCheckInput', FILTER_SANITIZE_SPECIAL_CHARS);
 $typeOfForm = filter_input(INPUT_GET, 'type');
-
 //Verification du choix de formulaire, login ou register
 if ($typeOfForm == 'log') {
 //    if (CookerDAO::checkPassword($pdo, $pseudo, $mdp)) {
-        $cooker = CookerDAO::selectOneByPseudoAndMdp($pdo, $pseudo, $password);
+        $cooker = CookerDAO::selectOneByPseudo($pdo, $pseudo);
         if ($cooker != NULL) {
             $message = "ok";
             $_SESSION['pseudo'] = $cooker->getPseudo();
@@ -59,5 +57,5 @@ if ($isMdpSaved == "on") {
     unset($_COOKIE['idCooker']);
 }
 if ($message != "") {
-    header("location:../ctrl/routeur.php?route=" . $cible);
+    header("location:../ctrl/routeur.php?route=" . $cible."&message=".$message);
 }

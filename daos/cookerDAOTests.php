@@ -77,12 +77,12 @@ $mdp = '123';
 echo CookerDAO::passwordCrypter($mdp);
 
 echo '<br>Test de la methode getPassword()<br>';
-echo CookerDAO::getPassword($pdo, 'romain');
+echo CookerDAO::getPassword($pdo, 'tata');
 
 echo '<br>Test de la methode checkPassword()<br>';
-$pseudo = "Robin";
-$mdp ='159';
-echo CookerDAO::checkPassword($pdo, $pseudo, $mdp);
+$pseudo = "titi";
+$mdp = '123';
+var_dump(CookerDAO::checkPassword($pdo, $pseudo, $mdp));
 
 //Deconnexion
 Connexion::seDeconnecter($pdo);
