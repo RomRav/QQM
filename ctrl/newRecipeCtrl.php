@@ -41,13 +41,16 @@ $ingredientsToString = "";
 
 //Vérification de la présence de l'id d'une recette à modifier
 if ($recipeToUpdateId) {
+    $choice = "update";
     $recipeToUpdate = RecipeDAO::selectOne($pdo, $recipeToUpdateId);
     //Vérification que l'utilisateur a l'autorisation de modifier la recette
     if ($recipeToUpdate->getIdCooker() == $idLogedCooker) {
-        //Récupération en tableau des ingredients présent dans la recette à modifier.
+        //Récupération de tous les informations de la recette à modifier.
         $ingredientsToUpdate = IngredientDAO::selectOnePlus($pdo, intval($recipeToUpdateId));
         $countryToUpdate = PaysDAO::selectCountryOfARecepie($pdo, $recipeToUpdateId);
         $seasonToUpdate = SeasonDAO::selectSeasonOfARecepie($pdo, $recipeToUpdateId);
+        $positionToUpdate = PositionDAO::selectPositionOfARecepie($pdo, $recipeToUpdateId);
+        $typeToUpdate = TypeDAO::selectTypeOfARecepie($pdo, $recipeToUpdateId);
         //Création d'une String avec le contenu du tableau d'ingredients
         if ($ingredientsToUpdate != NULL) {
             foreach ($ingredientsToUpdate as $ingredient) {
@@ -130,7 +133,11 @@ if ($choice == "save") {
 $selectType = "";
 $typesTable = TypeDAO::selectAll($pdo);
 foreach ($typesTable as $type) {
-    $selectType .= "<option value='" . $type->getIdType() . "'>" . $type->getTypeName() . "</option>";
+    if ($type->getIdType() == $typeToUpdate->getIdType()) {
+        $selectType .= "<option selected='selected' value='" . $type->getIdType() . "'>" . $type->getTypeName() . "</option>";
+    } else {
+        $selectType .= "<option value='" . $type->getIdType() . "'>" . $type->getTypeName() . "</option>";
+    }
 }
 //Récupération de la liste des Saisons
 $selectSeason = "";
@@ -138,14 +145,19 @@ $seasonTable = SeasonDAO::selectAll($pdo);
 foreach ($seasonTable as $season) {
     if ($season == $seasonToUpdate) {
         $selectSeason .= "<option selected='selected' value='" . $season . "'>" . $season . "</option>";
+    } else {
+        $selectSeason .= "<option value='" . $season . "'>" . $season . "</option>";
     }
-    $selectSeason .= "<option value='" . $season . "'>" . $season . "</option>";
 }
 //Récupération de la liste des positions
 $selectPosition = "";
 $positionTable = PositionDAO::selectAll($pdo);
 foreach ($positionTable as $position) {
-    $selectPosition .= "<option value='" . $position . "'>" . $position . "</option>";
+    if ($positionToUpdate == $position) {
+        $selectPosition .= "<option selected='selected' value='" . $position . "'>" . $position . "</option>";
+    } else {
+        $selectPosition .= "<option value='" . $position . "'>" . $position . "</option>";
+    }
 }
 //Récupération de la liste des pays
 $selectCountry = "";

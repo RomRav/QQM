@@ -33,7 +33,15 @@ class SeasonDAO {
     }
     
     
-    
+    /**
+     * selectSeasonOfARecepie()
+     * @author Romain Ravault
+     * 30/03/2021
+     * 
+     * @param PDO $pdo
+     * @param type $idRecipe
+     * @return type
+     */
     public static function selectSeasonOfARecepie(PDO $pdo, $idRecipe) {
         try {
             $requet = "SELECT season_name from qqm.the_recipe_season "

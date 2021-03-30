@@ -5,7 +5,7 @@
  * Bibliothéque d'accées aux données des positions de plat
  * @author Romain
  * 27/02/2020
- * Last update 16/12/2020
+ * Last update 30/03/2021
  * 
  * selectAll($pdo): récupération de la liste de tous les positions
  * insert($pdo): ajout d'une nouvelle position
@@ -94,6 +94,29 @@ class PositionDAO {
             $deleteVerif = -1;
         }
         return $deleteVerif;
+    }
+    
+    /**
+     * selectPositionOfARecepie()
+     * @author Romain Ravault
+     * 30/03/2021
+     * @param PDO $pdo
+     * @param type $idRecipe
+     * @return type
+     */
+    public static function selectPositionOfARecepie(PDO $pdo, $idRecipe) {
+        try {
+            $requet = "SELECT position from qqm.the_recipe_meal_position "
+                    . "WHERE the_recipe_meal_position.id_recipe = ?;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $idRecipe);
+            $stmt->execute();
+            $raw = $stmt->fetch(PDO::FETCH_ASSOC);
+            $position = $raw['position'];
+        } catch (Exception $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $position;
     }
 
 }

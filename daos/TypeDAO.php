@@ -17,6 +17,7 @@ require_once 'Connexion.php';
 require_once '../ett/Type.php';
 
 class TypeDAO {
+
     /**
      * selectAll()
      * @author Romain Ravault
@@ -45,7 +46,7 @@ class TypeDAO {
      * 24/02/202
      * @return type
      */
-    public static function selectOne(pdo $pdo, int $idType) {
+    public static function selectOne(pdo $pdo, $idType) {
         try {
             $requet = "SELECT * FROM type_of_dish WHERE id_type = ? ;";
             $stmt = $pdo->prepare($requet);
@@ -68,7 +69,7 @@ class TypeDAO {
      * @param string $newType
      * @return type
      */
-    public static function insert(pdo $pdo, string $newType) {
+    public static function insert(pdo $pdo, $newType) {
         try {
             $request = "INSERT INTO qqm.type_of_dish(type_name) VALUE(?);";
             $stmt = $pdo->prepare($request);
@@ -91,7 +92,7 @@ class TypeDAO {
      * @param int $idType   
      * @return type
      */
-    public static function delete(pdo $pdo, int $idType) {
+    public static function delete(pdo $pdo, $idType) {
         $liDelete = 0;
         $request = "DELETE FROM qqm.type_of_dish WHERE id_type = ?";
         try {
@@ -116,7 +117,7 @@ class TypeDAO {
      * @param string $newTypeName
      * @return type
      */
-    public static function update(pdo $pdo, int $idType, string $newTypeName) {
+    public static function update(pdo $pdo, $idType, $newTypeName) {
         $request = 'UPDATE qqm.type_of_dish SET type_name = ? WHERE id_type = ?';
         $liUpdated = 0;
         try {
@@ -131,4 +132,21 @@ class TypeDAO {
         }
         return $liUpdated;
     }
+
+    public static function selectTypeOfARecepie(PDO $pdo, $idRecipe) {
+        try {
+            $requet = "SELECT * from qqm.the_recipe_type "
+                    . "INNER Join type_of_dish On the_recipe_type.id_type = type_of_dish.id_type "
+                    . "WHERE the_recipe_type.id_recipe = ?;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $idRecipe);
+            $stmt->execute();
+            $raw = $stmt->fetch(PDO::FETCH_ASSOC);
+            $type = new Type($raw['id_type'], $raw['type_name']);
+        } catch (Exception $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $type;
+    }
+
 }
