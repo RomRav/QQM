@@ -41,7 +41,7 @@ function recipeCardBuilder($recipeTitleList) {
         foreach ($recipeTitleList as $recipe) {
             $list .= "<div class='list_item'>";
             $list .= "<div class='card-img'><img src='../images/recipes_images/" . $recipe->getPhotoFileName() . "'/></div>";
-            $list .= "<div class='card-link'><a href='routeur.php?route=recipe&id=" . $recipe->getIdRecipe() . "'>" . $recipe->getrecipeTitle() . "</a></div>";
+            $list .= "<div class='card-link'><a href='../ctrl/routeur.php?route=recipe&id=" . $recipe->getIdRecipe() . "'>" . $recipe->getrecipeTitle() . "</a></div>";
             $list .= "</div>";
         }
     }

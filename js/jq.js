@@ -2,7 +2,7 @@
  * jq.js
  * @author Romain Ravault
  * 08/12/2020
- * last update: 07/01/2021
+ * last update: 29/03/2021
  */
 $(document).ready(function () {
     $('.same-pwd-checker').css('display', 'none');
@@ -65,6 +65,12 @@ $(document).ready(function () {
             window.location.assign('../ctrl/recipeCtrl.php?choix=del&id=' + idRecipe);
         }
         ;
+    });
+
+    //Gestion du onClick sur le bouton modifier de recipeIHM
+    $(".updateBtn").click(() => {
+        var idRecipe = getParameter('id');
+        window.location.assign('../ctrl/newRecipeCtrl.php?id=' + idRecipe);
     });
 
     /**

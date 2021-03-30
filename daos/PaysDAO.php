@@ -61,6 +61,31 @@ class PaysDAO {
     }
 
     /**
+     * selectCountryOfARecipe()
+     * @author Romain Ravault
+     * 30/03/2021
+     * 
+     * @param PDO $pdo
+     * @param type $idRecipe
+     * @return \Pays
+     */
+    public static function selectCountryOfARecepie(PDO $pdo, $idRecipe) {
+        try {
+            $requet = "SELECT * from qqm.the_recipe_country "
+                    . "INNER Join country On the_recipe_country.id_country = country.id_country "
+                    . "WHERE the_recipe_country.id_recipe = ?;";
+            $stmt = $pdo->prepare($requet);
+            $stmt->bindParam(1, $idRecipe);
+            $stmt->execute();
+            $raw = $stmt->fetch(PDO::FETCH_ASSOC);
+            $country = new Pays($raw['id_country'], $raw['country_name']);
+        } catch (Exception $ex) {
+            echo 'ERREUR:' . $ex->getMessage();
+        }
+        return $country;
+    }
+
+    /**
      * insert()
      * @author Romain Ravault
      * 21/02/2020
@@ -114,7 +139,7 @@ class PaysDAO {
      * @param string $newCountryName
      * @return type
      */
-    public static function update(pdo $pdo, int $idPays, string $newCountryName) {
+    public static function update(pdo $pdo, $idPays, $newCountryName) {
         $request = 'UPDATE qqm.country SET country_name = ? WHERE id_country = ?';
         $liUpdated = 0;
         try {

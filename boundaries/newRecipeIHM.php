@@ -28,7 +28,7 @@ require_once '../ctrl/newRecipeCtrl.php';
         <form action="../ctrl/newRecipeCtrl.php?choice=save" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nom de la recette</label>
-                <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette">
+                <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette" value=<?php echo $recipeToUpdate->getRecipeTitle()?>>
             </div>
             <div class="form-group">
                 <label>Ajoutez une photo</label></br>
@@ -42,16 +42,18 @@ require_once '../ctrl/newRecipeCtrl.php';
                 <div class="col">
                     <label>Ingredient:</label>
                     <p>Saisir un ingredient par ligne suivit de la quantité et de l'unité de mesure le tout séparé par une virgule:</p>
-                    <textarea cols="10" rows="5" name="ingredient" class="form-control" minlength="8" placeholder="ex: 
+                    <textarea value = cols="10" rows="5" name="ingredient" class="form-control" minlength="8" placeholder="ex: 
                               Carottes, 100, g,
-                              Pomme de terre, 3, pcs,"></textarea>
+                              Pomme de terre, 3, pcs,">
+                        <?php echo $ingredientsToString; ?>
+                    </textarea>
                 </div>
             </div>
             <div class="form-row">
 
                 <div class="col">
                     <label>Pays</label>
-                    <select multiple class="form-control" name="country">
+                    <select multiple class="form-control" name="country" >
                         <?php echo $selectCountry; ?>
                     </select>
 

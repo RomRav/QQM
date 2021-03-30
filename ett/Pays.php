@@ -15,11 +15,11 @@ class Pays {
         $this->pays = $pays;
     }
     
-    public function getIdUom() {
+    public function getIdPays() {
         return $this->idPays;
     }
 
-    public function getUom() {
+    public function getPays() {
         return $this->pays;
     }
 

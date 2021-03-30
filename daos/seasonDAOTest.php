@@ -23,3 +23,6 @@ $season;
 foreach ($seasonTable as $season) {
     echo $season. '<br><hr>';
 }
+
+
+echo SeasonDAO::selectSeasonOfARecepie($pdo, 21);

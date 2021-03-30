@@ -40,7 +40,7 @@
             ?>
 
             <li class="head_li">
-                <a class="head_a" href="../ctrl/deconnexion.php"><img src="../images/logout(3).png" /></a>
+                <a class="head_a" href="../ctrl/deconnexion.php"><img src="../images/logout.png" /></a>
             </li>
             &nbsp;&nbsp;
         </ul>

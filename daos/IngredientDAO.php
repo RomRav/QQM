@@ -45,7 +45,7 @@ class IngredientDAO {
      * 25/02/2020
      * @return type
      */
-    public static function selectOne(pdo $pdo, int $idIngredient) {
+    public static function selectOne(pdo $pdo, $idIngredient) {
         try {
             $requet = "SELECT * FROM qqm.ingredient WHERE id_ingredient = ? ;";
             $stmt = $pdo->prepare($requet);
@@ -65,7 +65,7 @@ class IngredientDAO {
      * 22/09/2020
      * @return type
      */
-    public static function selectOneByName(pdo $pdo, string $ingredientName) {
+    public static function selectOneByName(pdo $pdo, $ingredientName) {
         try {
             $requet = "SELECT * FROM qqm.ingredient WHERE ingredient = ? ;";
             $stmt = $pdo->prepare($requet);
@@ -86,13 +86,13 @@ class IngredientDAO {
      * Last update 28/09/2020
      * @return type
      */
-    public static function selectOnePlus(pdo $pdo, int $idRecipe) {
+    public static function selectOnePlus(pdo $pdo, $idRecipe) {
         $listIngredients = [];
         try {
             $requet = "SELECT * FROM qqm.a_recipe 
-INNER JOIN ingredient ON a_recipe.id_ingredient = ingredient.id_ingredient
-INNER JOIN unite_of_measure ON a_recipe.id_UOM = unite_of_measure.id_uom
-WHERE a_recipe.id_recipe = ?;";
+                INNER JOIN ingredient ON a_recipe.id_ingredient = ingredient.id_ingredient
+                INNER JOIN unite_of_measure ON a_recipe.id_UOM = unite_of_measure.id_uom
+                WHERE a_recipe.id_recipe = ?;";
             $stmt = $pdo->prepare($requet);
             $stmt->bindParam(1, $idRecipe);
             $stmt->execute();
