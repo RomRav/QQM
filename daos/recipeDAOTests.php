@@ -17,7 +17,6 @@ $pdo->beginTransaction();
 //Test de la récupération des titres des recettes d'un utilisateur
 //$recipeTitleList = RecipeDAO::selectTitleByIdCooker($pdo, 1);
 //var_dump($recipeTitleList);
-
 //Test de la selection de toutes les recettes
 $recipes = RecipeDAO::selectAll($pdo);
 echo '<hr><br>SELECT ALL<br><hr>';
@@ -77,19 +76,21 @@ foreach ($recipes as $raw) {
 //    echo 'La suppréssion à échoué.';
 //}
 //Test de la modification d'une recette
-//echo '<hr><br>Modifier une recette<br><hr>';
-//$idRecipe = 4;
-//$newRecipeTitle = 'aaaaaaaaaaaaaaaaaaaaaa';
-//$newRecipe = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-//$newRecipeVisibility = 1;
-//$newIdCooker = 1;
-//$updatedRecipe = RecipeDAO::update($pdo, $idRecipe, $newRecipeTitle, $newRecipe, $newRecipeVisibility, $newIdCooker);
-//if ($updatedRecipe == 1) {
-//    $pdo->commit();
-//    echo $updatedRecipe . ' recette modifié.';
-//} else {
-//    $pdo->rollBack();
-//    echo 'Recette non modifié.';
-//}
+echo '<hr><br>Modifier une recette<br><hr>';
+$idRecipe = 21;
+$newRecipeTitle = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+$newRecipe = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+$newRecipeVisibility = 1;
+$newIdCooker = 1;
+$newPhotoFileName = "aaa.jpg";
+$updatedRecipe = RecipeDAO::update($pdo, $idRecipe, $newRecipeTitle, $newRecipe, $newRecipeVisibility, $newIdCooker, $newPhotoFileName);
+if ($updatedRecipe == 1) {
+    $pdo->commit();
+    echo $updatedRecipe . ' recette modifié.';
+} else {
+    
+    $pdo->rollBack();
+    echo 'Recette non modifié.';
+}
 //Deconnexion
 Connexion::seDeconnecter($pdo);

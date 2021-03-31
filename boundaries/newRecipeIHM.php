@@ -23,9 +23,10 @@ require_once '../ctrl/newRecipeCtrl.php';
 
         <?php
         include 'partials/header.php';
+        echo$choice;
         ?>
         <h2>Ajoutez une recette:</h2>
-        <form action="../ctrl/newRecipeCtrl.php?choice=save" method="POST" enctype="multipart/form-data">
+        <form action="../ctrl/newRecipeCtrl.php?choice='<?php echo $choice;?>'" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette" value=<?php echo $recipeToUpdate->getRecipeTitle()?>>
@@ -79,7 +80,7 @@ require_once '../ctrl/newRecipeCtrl.php';
             </div>
             <h4>Votre recette:</h4>
             <div class="form-row">
-                <textarea name="contenuRecette" class="form-control form-control-lg" placeholder="Saisisez ici votre recette" cols="10" rows="10"></textarea>
+                <textarea name="contenuRecette" class="form-control form-control-lg" placeholder="Saisisez ici votre recette" cols="10" rows="10"><?php echo $recipeToUpdate->getRecipe()?></textarea>
             </div>
             <div class="btn btn-primary">
                 <button type="submit" class="btn btn-primary">Enregistrez</button>

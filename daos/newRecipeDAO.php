@@ -16,11 +16,9 @@ class NewRecipeDAO {
      * @param object $newRecipe
      * @return type
      */
-    public static function insertLinksOfNewRecipe(pdo $pdo, int $newRecipeId, object $newRecipe) {
-
+    public static function insertLinksOfNewRecipe(pdo $pdo, $newRecipeId, $newRecipe) {
         //Enregistement dans la BD du lien entre les ingrédients et la recette
         $request = "";
-
         $ingredientsTab = $newRecipe->getIngredient();
         foreach ($ingredientsTab as $ingredient) {
             $ingredientId = $ingredient["id"];
@@ -54,6 +52,51 @@ class NewRecipeDAO {
             echo $ex->getMessage();
         }
         return$numRec;
+    }
+
+    public static function updateLinkOfRecipe(PDO $pdo, $recipeIdToUpdate, $recipeToUpdate) {
+        $request = "";
+        $ingredientsTabUpdate = $recipeToUpdate->getIngredient();
+        foreach ($ingredientsTabUpdate as $ingredientToUpdate) {
+            $ingredientIdToUpdate = $ingredientToUpdate->getIdIngredient();
+            $ingredientQtyToUpdate = $ingredientToUpdate->getqty();
+            $ingredientUomToUpdate = $ingredientToUpdate->getIdUOM();
+            $request .= "UPDATE qqm.a_recipe SET "
+                    . "id_recipe=" . $recipeIdToUpdate . ", "
+                    . "id_ingredient=" . $ingredientIdToUpdate . " , "
+                    . "qty=" . $ingredientQtyToUpdate . ", "
+                    . "id_UOM=" . $ingredientUomToUpdate . " "
+                    . "WHERE id_recipe = " . $recipeIdToUpdate . " AND "
+                    . "id_ingredient=" . $ingredientIdToUpdate . " ;";
+        }
+        $request .= "UPDATE the_recipe_country SET id_country= ? WHERE id_recipe= ?;";
+        $request .= "UPDATE the_recipe_meal_position SET position= ? WHERE id_recipe= ?;";
+        $request .= "UPDATE the_recipe_season SET season_name= ? WHERE id_recipe= ?;";
+        $request .= "UPDATE the_recipe_type SET id_type= ? WHERE id_recipe= ?;";
+        $numRec;
+        try {
+            $updateRecipeIngredient = $recipeToUpdate->getIngredient();
+            $updateRecipeCountry = $recipeToUpdate->getCountry();
+            $updateRecipePosition = $recipeToUpdate->getPosition();
+            $updateRecipeContent = $recipeToUpdate->getContent();
+            $updateRecipeSeason = $recipeToUpdate->getSeason();
+            $updateRecipeContent = $recipeToUpdate->getContent();
+            $stmt = $pdo->prepare($request);
+            $stmt->bindParam(1, $updateRecipeCountry, PDO::PARAM_INT);
+            $stmt->bindParam(2, $recipeIdToUpdate, PDO::PARAM_INT);
+            $stmt->bindParam(3, $updateRecipePosition, PDO::PARAM_STR);
+            $stmt->bindParam(4, $recipeIdToUpdate, PDO::PARAM_INT);
+            $stmt->bindParam(5, $updateRecipeSeason, PDO::PARAM_STR);
+            $stmt->bindParam(6, $recipeIdToUpdate, PDO::PARAM_INT);
+            $stmt->bindParam(7, $updateRecipeContent, PDO::PARAM_INT);
+            $stmt->bindParam(8, $recipeIdToUpdate, PDO::PARAM_INT);
+            $stmt->execute();
+            var_dump($stmt);
+            $numRec = $stmt->rowCount();
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+        return $numRec;
     }
 
 }

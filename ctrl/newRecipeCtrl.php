@@ -5,7 +5,7 @@ session_start();
  * newRecipeCtrl.php
  * @authore : Romain Ravault
  * 28/02/2020
- * last update: 29/03/2021
+ * last update: 31/03/2021
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/TypeDAO.php';
@@ -38,7 +38,11 @@ $idLogedCooker = $_SESSION["idCooker"];
 $recipeToUpdateId = filter_input(INPUT_GET, "id", FILTER_SANITIZE_SPECIAL_CHARS);
 $message = "";
 $ingredientsToString = "";
-
+$typeToUpdate = new Type(null, null);
+$seasonToUpdate = null;
+$positionToUpdate = null;
+$countryToUpdate = new Pays(null, null);
+$recipeToUpdate = new Recipe(null, null, null, null, null, null);
 //Vérification de la présence de l'id d'une recette à modifier
 if ($recipeToUpdateId) {
     $choice = "update";
@@ -65,7 +69,7 @@ if ($recipeToUpdateId) {
         header("location: ../boundaries/recipeListIHM.php?message=" . $message);
     }
 }
-if ($choice == "save") {
+if ($choice == "save" || $choice == 'update') {
     //Liste des ingredients en tableau de la classe Ingredient
     $ingredientTable = explode(',', $ingredient);
     $itemId = 0;
@@ -111,11 +115,14 @@ if ($choice == "save") {
             $photoFileName = basename($_FILES['imgFile']['name']);
             $photoFileError = $_FILES['imgFile']['error'];
             $isPhotoSave = move_uploaded_file($nomFichier, "../images/recipes_images/$photoFileName");
-            echo 'aaaAAA' . $photoFileError;
             if ($isPhotoSave) {
                 $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
 //                echo '//' . $titre . '//' . $contenuRecette . ' // ' . $idLogedCooker . ' // ' . $photoFileName;
-                $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
+                if ($choice == 'save') {
+                    $recRecipe = RecipeDAO::insert($pdo, $recipeToUpdateId, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
+                } else {
+                    $recRecipe = RecipeDAO::update($pdo, $i, $ingredientsToString, $message, $choice, $itemId, $photoFileName);
+                }
                 if ($recRecipe == 1) {
                     $newRecipeId = $pdo->lastInsertId();
                     $newRecipeLink = NewRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);

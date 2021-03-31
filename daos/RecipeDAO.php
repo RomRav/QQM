@@ -179,15 +179,18 @@ class RecipeDAO {
         $liUpdated = 0;
         try {
             $stmt = $pdo->prepare($request);
-            $stmt->bindParam(1, $newRecipeTitle);
-            $stmt->bindParam(2, $newRecipe);
-            $stmt->bindParam(3, $newRecipeVisibility);
-            $stmt->bindParam(4, $newIdCooker);
-            $stmt->bindParam(5, $idRecipe);
-            $stmt->bindParam(6, $photoFileName);
+            $stmt->bindParam(1, $newRecipeTitle, PDO::PARAM_STR);
+            $stmt->bindParam(2, $newRecipe, PDO::PARAM_STR);
+            $stmt->bindParam(3, $newRecipeVisibility, PDO::PARAM_INT);
+            $stmt->bindParam(4, $newIdCooker, PDO::PARAM_INT);
+            $stmt->bindParam(6, $idRecipe, PDO::PARAM_INT);
+            $stmt->bindParam(5, $photoFileName, PDO::PARAM_STR);
             $stmt->execute();
-            $liUpdated = $stmt->rowCount();
+            $liUpdated = $stmt->rowCount();         
         } catch (PDOException $ex) {
+            printf("Code erreur: %s\n", $stmt->errorCode());
+            list($code, $driverCode, $driverMessage) = $stmt->errorInfo();
+            printf("Information : %s - %s - %s\n", $code, $driverCode, $driverMessage);
             echo $ex->getMessage();
             $liUpdated = -1;
         }
