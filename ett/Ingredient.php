@@ -31,7 +31,7 @@ class Ingredient {
     }
 
     public function getIngredientCalorie() {
-        return $this->ingredientCalori;
+        return $this->ingredientCalorie;
     }
 
     public function getqty() {

@@ -26,8 +26,8 @@ foreach ($ingredients as $raw) {
 
 //Test de la selection d'un ingredient
 echo '<hr><br>SELECT UN INGREDIENT PAR SON ID<br><hr>';
-$idIngredient = 1;
-$ingredient = IngredientDAO::selectOne($pdo, $idIngredient);
+$idIngredient = 'pomme';
+$ingredient = IngredientDAO::selectOneByName($pdo, $idIngredient);
 echo 'id ingredient: ' . $ingredient->getIdIngredient() . '  //***\\ nom de l\'ingredient: ' . $ingredient->getIngredientName() . ':' . $ingredient->getIngredientCalorie() . ' calorie.<br>';
 
 //Test de la selection d'une recette

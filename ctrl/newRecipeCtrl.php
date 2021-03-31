@@ -69,7 +69,7 @@ if ($recipeToUpdateId) {
         header("location: ../boundaries/recipeListIHM.php?message=" . $message);
     }
 }
-if ($choice == "save" || $choice == 'update') {
+if ($choice == "save" || $choice == 'update') {  
     //Liste des ingredients en tableau de la classe Ingredient
     $ingredientTable = explode(',', $ingredient);
     $itemId = 0;
@@ -172,8 +172,10 @@ $countryTable = PaysDAO::selectAll($pdo);
 foreach ($countryTable as $country) {
     if ($country->getIdPays() == $countryToUpdate->getIdPays()) {
         $selectCountry .= "<option selected='selected' value='" . $country->getIdPays() . "'>" . $country->getPays() . "</option>";
+        $choice = 'update';
     } else {
         $selectCountry .= "<option value='" . $country->getIdPays() . "'>" . $country->getPays() . "</option>";
+        $choice = "save";
     }
 }
 //Récupération de la liste des ingredients
