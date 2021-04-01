@@ -1,4 +1,5 @@
 <?php
+
 /*
  * router.php
  * 
@@ -26,6 +27,9 @@ switch ($route) {
         break;
     case "administration":
         $route = '../boundaries/administrationIHM.php';
+        break;
+    case "accountManager":
+        $route = "../boundaries/accountManagerIHM.php";
         break;
     default :
         $route = '../boundaries/pageInconnu.php';

@@ -2,7 +2,7 @@
  * jq.js
  * @author Romain Ravault
  * 08/12/2020
- * last update: 29/03/2021
+ * last update: 01/04/2021
  */
 $(document).ready(function () {
     $('.same-pwd-checker').css('display', 'none');
@@ -92,5 +92,29 @@ $(document).ready(function () {
             }
         }
     }
+
+
+    $(".btn-pseudo-update").click(() => {
+        var attr = $('.pseudo-update-container').attr('hidden');
+        if (typeof attr !== 'undefined' && attr !== false)
+        {
+            $('.pseudo-update-container').removeAttr('hidden');
+        } else {
+            $('.pseudo-update-container').attr("hidden", "");
+        }
+
+    });
+
+    $(".btn-mdp-update").click(() => {
+        var attr = $('.mdp-update-container').attr('hidden');
+        if (typeof attr !== 'undefined' && attr !== false)
+        {
+            $('.mdp-update-container').removeAttr('hidden');
+        } else {
+            $('.mdp-update-container').attr("hidden", "");
+        }
+
+    });
+
 });
 

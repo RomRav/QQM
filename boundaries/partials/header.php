@@ -25,6 +25,12 @@
 
             </li>
             &nbsp;&nbsp;';
+                echo '<li class="head_li">
+                    
+                <a class="head_a"  href="../ctrl/routeur.php?route=accountManager">Mon compte</a>
+               
+            </li>
+            &nbsp;&nbsp;';
                 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     echo '<li class="head_li">
             <a class="head_a" href = "../ctrl/routeur.php?route=administration">Administration</a>
@@ -34,14 +40,17 @@
             } else {
                 echo '<li class="head_li">
                 <a class="head_a" href="../ctrl/routeur.php?route=authentification">Authentification</a>
-            </li>
-            &nbsp;&nbsp;';
-            }
-            ?>
-
-            <li class="head_li">
+            </li>            <li class="head_li">
                 <a class="head_a" href="../ctrl/deconnexion.php"><img src="../images/logout.png" /></a>
             </li>
+
+            &nbsp;&nbsp;';
+            }
+            ?>            <li class="head_li">
+                <a class="head_a" href="../ctrl/deconnexion.php"><img src="../images/logout.png" /></a>
+            </li>
+
+
             &nbsp;&nbsp;
         </ul>
     </nav>
