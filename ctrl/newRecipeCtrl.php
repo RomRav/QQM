@@ -31,7 +31,7 @@ $season = filter_input(INPUT_POST, "season");
 $position = filter_input(INPUT_POST, "position");
 $contenue = filter_input(INPUT_POST, "contenue", FILTER_SANITIZE_SPECIAL_CHARS);
 $contenuRecette = filter_input(INPUT_POST, "contenuRecette");
-$ingredient = filter_input(INPUT_POST, "ingredient");
+$ingredient = trim(filter_input(INPUT_POST, "ingredient"));
 $country = filter_input(INPUT_POST, "country");
 $choice = filter_input(INPUT_GET, "choice");
 $idLogedCooker = $_SESSION["idCooker"];
@@ -60,7 +60,7 @@ if ($recipeToUpdateId) {
             foreach ($ingredientsToUpdate as $ingredient) {
                 $ingredientsToString .= $ingredient->getIngredientName() . ",";
                 $ingredientsToString .= $ingredient->getqty() . ",";
-                $ingredientsToString .= $ingredient->getIdUOM() . ",";
+                $ingredientsToString .= $ingredient->getIdUOM() . "";
             }
         }
         $message = "Vous pouvez modifier la recette.";
@@ -69,7 +69,7 @@ if ($recipeToUpdateId) {
         header("location: ../boundaries/recipeListIHM.php?message=" . $message);
     }
 }
-if ($choice == "save" || $choice == 'update') {  
+if ($choice == "save" || $choice == 'update') {
     //Liste des ingredients en tableau de la classe Ingredient
     $ingredientTable = explode(',', $ingredient);
     $itemId = 0;
@@ -98,7 +98,7 @@ if ($choice == "save" || $choice == 'update') {
                 $message = "L'unité de mesure $ingredientTable[$i] n'existe pas dans la base de données. Merci de contacter l'administrateur pour l'ajouter";
                 $ingredientInputChecked = false;
             } else {
-                $ingredientObj["uom"] = $existUomInDb->getIdUom();
+                $ingredientObj["uom"] = trim($existUomInDb->getIdUom());
             }
             $itemId = 0;
             $ingredientObjTable[] = $ingredientObj;
@@ -109,19 +109,19 @@ if ($choice == "save" || $choice == 'update') {
         if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
             $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
         } else {
-            $file = $_FILES['imgFile']['error'];
+            $fileError = $_FILES['imgFile']['error'];
             $_FILES['imgFile']['name'] = $idLogedCooker . '-' . $titre . '.jpg';
             $nomFichier = $_FILES['imgFile']['tmp_name'];
-            $photoFileName = basename($_FILES['imgFile']['name']);
+            $photoFileName = $fileError != 4 ? basename($_FILES['imgFile']['name']) : 'default.jpg';
             $photoFileError = $_FILES['imgFile']['error'];
             $isPhotoSave = move_uploaded_file($nomFichier, "../images/recipes_images/$photoFileName");
-            if ($isPhotoSave) {
+            if ($isPhotoSave || $fileError == 4) {
                 $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
 //                echo '//' . $titre . '//' . $contenuRecette . ' // ' . $idLogedCooker . ' // ' . $photoFileName;
                 if ($choice == 'save') {
-                    $recRecipe = RecipeDAO::insert($pdo, $recipeToUpdateId, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
+                    $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
                 } else {
-                    $recRecipe = RecipeDAO::update($pdo, $i, $ingredientsToString, $message, $choice, $itemId, $photoFileName);
+                    $recRecipe = RecipeDAO::update($pdo, $recipeToUpdateId, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
                 }
                 if ($recRecipe == 1) {
                     $newRecipeId = $pdo->lastInsertId();
