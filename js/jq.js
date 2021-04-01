@@ -93,7 +93,7 @@ $(document).ready(function () {
         }
     }
 
-
+// Gestion du click sur le bouton d'affichage du formulaire de modification du pseudo
     $(".btn-pseudo-update").click(() => {
         var attr = $('.pseudo-update-container').attr('hidden');
         if (typeof attr !== 'undefined' && attr !== false)
@@ -105,6 +105,7 @@ $(document).ready(function () {
 
     });
 
+// Gestion du click sur le bouton d'affichage du formulaire de modification du mot de passe
     $(".btn-mdp-update").click(() => {
         var attr = $('.mdp-update-container').attr('hidden');
         if (typeof attr !== 'undefined' && attr !== false)
@@ -113,7 +114,13 @@ $(document).ready(function () {
         } else {
             $('.mdp-update-container').attr("hidden", "");
         }
+    });
 
+    // Gestion du click sur le bouton de suppression du compte
+    $(".btn-account-delete").click(() => {
+        if (window.confirm("Voulez-vous supprimez ce compte? Tous les recettes liée au compte seront supprimé.")) {
+
+        }
     });
 
 });

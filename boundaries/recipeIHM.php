@@ -36,8 +36,8 @@ require_once '../ctrl/recipeCtrl.php';
                 <?php echo $ingredientsList; ?>
             </div>
         </div>
-        <button class="recipe_btn deleteBtn">Supprimer</button>
-        <button class="recipe_btn updateBtn">Modifier</button>
+        <button class="btn up-btn deleteBtn">Supprimer</button>
+        <button class="btn del-btn updateBtn">Modifier</button>
         <script src="../js/jquery.js" ></script>
         <script src="../js/jq.js"></script>
     </body>

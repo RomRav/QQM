@@ -186,20 +186,12 @@ img{
     text-shadow: 1px 1px 10px black;
 }
 
-.deleteBtn{
+.del-btn{
     background-color: red;
 }
 
-.updateBtn{
+.up-btn{
     background-color: green;
-}
-
-.recipe_btn{
-    border: none;
-    color: white;
-    text-align: center;
-    padding: 10px 30px;
-    font-size: 16px;
 }
 
 .recipe_content{
@@ -216,8 +208,12 @@ img{
     width: 100%;
 }
 
-.ingredient_content{
-    
+.btn{
+    border: none;
+    color: white;
+    text-align: center;
+    padding: 10px 30px;
+    font-size: 16px;
 }
 
 .title_content{
@@ -228,4 +224,8 @@ img{
     margin: 5px;
     padding: 0px;
     font-size: 1.3em;
+}
+
+.pseudo-update-container{
+    display: flex;
 }
