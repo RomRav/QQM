@@ -24,7 +24,7 @@ require_once '../ctrl/newRecipeCtrl.php';
         include 'partials/header.php';
         ?>
         <h2>Ajoutez une recette:</h2>
-        <form action="../ctrl/newRecipeCtrl.php?choice=<?php echo $choice; ?>" method="POST" enctype="multipart/form-data">
+        <form action="../ctrl/newRecipeCtrl.php?choice=<?php echo $choice."&id=". $recipeToUpdateId; ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nom de la recette</label>
                 <input type="text" name="titre" class="form-control col-lg-4" placeholder="Nom de ma recette" value=<?php echo $recipeToUpdate->getRecipeTitle() ?>>

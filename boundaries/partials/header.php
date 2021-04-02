@@ -40,10 +40,7 @@
             } else {
                 echo '<li class="head_li">
                 <a class="head_a" href="../ctrl/routeur.php?route=authentification">Authentification</a>
-            </li>            <li class="head_li">
-                <a class="head_a" href="../ctrl/deconnexion.php"><img src="../images/logout.png" /></a>
             </li>
-
             &nbsp;&nbsp;';
             }
             ?>            <li class="head_li">

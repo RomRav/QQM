@@ -214,6 +214,7 @@ img{
     text-align: center;
     padding: 10px 30px;
     font-size: 16px;
+
 }
 
 .title_content{
@@ -227,5 +228,18 @@ img{
 }
 
 .pseudo-update-container{
+    margin: 1em;
+}
+
+.mdp-update-container{
+    margin: 1em;
+}
+
+.btns-container{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1em;
+    width: 80%;
+    border-radius: 5%;
 }

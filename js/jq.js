@@ -119,9 +119,11 @@ $(document).ready(function () {
     // Gestion du click sur le bouton de suppression du compte
     $(".btn-account-delete").click(() => {
         if (window.confirm("Voulez-vous supprimez ce compte? Tous les recettes liée au compte seront supprimé.")) {
-
         }
     });
+    
+
+    
 
 });
 

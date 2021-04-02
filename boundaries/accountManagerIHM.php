@@ -19,19 +19,25 @@ Last update: 01/04/2021
         include 'partials/header.php';
         ?>
         <div class="authForm-content">
-            <div class="form">
+            <div class="form"">
                 <h3>Mon Compte</h3>
                 <h4><?php echo $_SESSION['pseudo'] ?></h4>
                 <div class="pseudo-update-container" hidden>
+                    <form method="POST" action="../ctrl/accountManagerCtrl.php">
                     <label>Entrez le nouvel identifiant</label>
-                    <input type="text">
-                    <button class="btn up-btn">Validez la modification</button>
+                    <input name="newPseudoInput" type="text">
+                    <button type="submit" class="btn up-btn pseudoUp">Validez la modification</button>
+                    </form>
                 </div>
                 <div class="mdp-update-container" hidden>
-                    <label>Entrez l'ancien mot de passe</label>
-                    <input type="text">
-                    <label>Entrez le nouveau mot de passe</label>
-                    <input type="text">
+                    <div>
+                        <label>Entrez l'ancien mot de passe</label>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <label>Entrez le nouveau mot de passe</label>
+                        <input type="text">
+                    </div>
                     <button class="btn up-btn">Validez la modification</button>
                 </div>
                 <div class="btns-container">

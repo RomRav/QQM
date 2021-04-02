@@ -5,7 +5,7 @@ session_start();
  * newRecipeCtrl.php
  * @authore : Romain Ravault
  * 28/02/2020
- * last update: 31/03/2021
+ * last update: 02/04/2021
  */
 require_once '../daos/Connexion.php';
 require_once '../daos/TypeDAO.php';
@@ -31,7 +31,7 @@ $season = filter_input(INPUT_POST, "season");
 $position = filter_input(INPUT_POST, "position");
 $contenue = filter_input(INPUT_POST, "contenue", FILTER_SANITIZE_SPECIAL_CHARS);
 $contenuRecette = filter_input(INPUT_POST, "contenuRecette");
-$ingredient = trim(filter_input(INPUT_POST, "ingredient"));
+$ingredients = trim(filter_input(INPUT_POST, "ingredient"));
 $country = filter_input(INPUT_POST, "country");
 $choice = filter_input(INPUT_GET, "choice");
 $idLogedCooker = $_SESSION["idCooker"];
@@ -68,10 +68,12 @@ if ($recipeToUpdateId) {
         $message = "Vous n'avez pas le droit de modifier cette recette.";
         header("location: ../boundaries/recipeListIHM.php?message=" . $message);
     }
+} else {
+    $choice = "save";
 }
 if ($choice == "save" || $choice == 'update') {
     //Liste des ingredients en tableau de la classe Ingredient
-    $ingredientTable = explode(',', $ingredient);
+    $ingredientTable = explode(',', $ingredients);
     $itemId = 0;
     $ingredientObj = [];
     $ingredientObjTable = [];
@@ -106,7 +108,7 @@ if ($choice == "save" || $choice == 'update') {
     }
 //Contrôle et enregistrement du contenu saisie dans le formulaire d'ajout d'une recette
     if ($ingredientInputChecked == true) {
-        if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredient, $country)) {
+        if (!isset($titre, $season, $position, $position, $contenuRecette, $ingredients, $country)) {
             $message = "L'un des champs n'a pas été rempli ou une caractéristique n'a pas été sélectionner.";
         } else {
             $fileError = $_FILES['imgFile']['error'];
@@ -118,10 +120,29 @@ if ($choice == "save" || $choice == 'update') {
             if ($isPhotoSave || $fileError == 4) {
                 $newRecipe = new NewRecipe($titre, $season, $position, $contenue, $contenuRecette, $ingredientObjTable, $country, "");
 //                echo '//' . $titre . '//' . $contenuRecette . ' // ' . $idLogedCooker . ' // ' . $photoFileName;
+                echo $choice;
                 if ($choice == 'save') {
                     $recRecipe = RecipeDAO::insert($pdo, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
+                    if ($recRecipe == 1) {
+                        $newRecipeId = $pdo->lastInsertId();
+                        $newRecipeLink = NewRecipeDAO::insertLinksOfNewRecipe($pdo, $newRecipeId, $newRecipe);
+                        $pdo->commit();
+                        $message .= $recRecipe . " recette bien enregistré";
+                    } else {
+                        $pdo->rollBack();
+                        $message = "L'enregistrement de la recette à échoué.";
+                    }
                 } else {
                     $recRecipe = RecipeDAO::update($pdo, $recipeToUpdateId, $titre, $contenuRecette, '1', $idLogedCooker, $photoFileName);
+                    if ($recRecipe == 1) {
+                        $newRecipeId = $recipeToUpdateId;
+                        $newRecipeLink = NewRecipeDAO::updateLinkOfRecipe($pdo, $newRecipeId, $newRecipe);
+                        $pdo->commit();
+                        $message .= $recRecipe . " recette bien enregistré";
+                    } else {
+                        $pdo->rollBack();
+                        $message = "L'enregistrement de la recette à échoué.";
+                    }
                 }
                 if ($recRecipe == 1) {
                     $newRecipeId = $pdo->lastInsertId();
@@ -172,10 +193,8 @@ $countryTable = PaysDAO::selectAll($pdo);
 foreach ($countryTable as $country) {
     if ($country->getIdPays() == $countryToUpdate->getIdPays()) {
         $selectCountry .= "<option selected='selected' value='" . $country->getIdPays() . "'>" . $country->getPays() . "</option>";
-        $choice = 'update';
     } else {
         $selectCountry .= "<option value='" . $country->getIdPays() . "'>" . $country->getPays() . "</option>";
-        $choice = "save";
     }
 }
 //Récupération de la liste des ingredients

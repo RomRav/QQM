@@ -164,6 +164,33 @@ class CookerDAO {
         return $liUpdated;
     }
 
+    
+    /**
+     * updatePseudo()
+     * @author Romain Ravault
+     * create 02/04/2021
+     * 
+     * @param PDO $pdo
+     * @param type $idCooker
+     * @param type $newPseudo
+     * @return type
+     */
+    public static function updatePseudo(PDO $pdo, $idCooker, $newPseudo) {
+        $request = "UPDATE cooker SET pseudo=? WHERE id_cooker=?;";
+        $liUpdate = 0;
+        try {
+            $stmt = $pdo->prepare($request);
+            $stmt->bindParam(1, $newPseudo);
+            $stmt->bindParam(2, $idCooker);
+            $stmt->execute();
+            $liUpdate = $stmt->rowCount();
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+            $liUpdate = -1;
+        }
+        return $liUpdate;
+    }
+
     /**
      * passwordHash()
      * @author Romain Ravault

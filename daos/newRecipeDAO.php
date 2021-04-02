@@ -58,6 +58,7 @@ class NewRecipeDAO {
         $request = "";
         $ingredientsTabUpdate = $recipeToUpdate->getIngredient();
         foreach ($ingredientsTabUpdate as $ingredientToUpdate) {
+            echo $recipeIdToUpdate . " " . $ingredientIdToUpdate;
             $ingredientIdToUpdate = $ingredientToUpdate->getIdIngredient();
             $ingredientQtyToUpdate = $ingredientToUpdate->getqty();
             $ingredientUomToUpdate = $ingredientToUpdate->getIdUOM();
@@ -94,7 +95,7 @@ class NewRecipeDAO {
             var_dump($stmt);
             $numRec = $stmt->rowCount();
         } catch (PDOException $ex) {
-            echo $ex->getMessage();
+            echo 'Erreur newRecipeDAO updateLinkOfRecipe '.$ex->getMessage();
         }
         return $numRec;
     }
